@@ -1,19 +1,22 @@
 package group1.commons;
 
 import group1.menu.Menu;
+import group1.reservation.Reservation;
 import group1.restaurant.Staff;
 import group1.restaurant.Table;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by low on 4/11/16 8:44 PM.
  */
-class Cache implements Serializable{
+public class Cache implements Serializable{
 
 	private ArrayList<Table> tables;
 	private ArrayList<Staff> staffs;
+	private ArrayList<ArrayList<Reservation>> reservations;
 	private Menu menu;
 	private int numEmptyTables;
 

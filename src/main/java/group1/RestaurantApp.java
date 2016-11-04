@@ -1,12 +1,12 @@
+/**
+ * Created by low on 4/11/16 12:08 PM.
+ */
+
 package group1;
 import java.util.Scanner;
 import group1.menu.Menu;
 
-import java.util.Scanner;
 
-/**
- * Created by low on 4/11/16 12:08 PM.
- */
 public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
 	static void print() {System.out.println();}

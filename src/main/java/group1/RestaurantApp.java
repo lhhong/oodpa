@@ -44,8 +44,8 @@ public class RestaurantApp {
 					print("(1) Create Menu item");
 					print("(2) Update Menu item");
 					print("(3) Remove Menu item");
-					int input = userinput.nextInt();
-					switch(input){
+					int inputItem = userinput.nextInt();
+					switch(inputItem){
 						case 1:
 							menu.addItem();
 							break;
@@ -55,12 +55,27 @@ public class RestaurantApp {
 						case 3:
 							menu.removeItem();
 							break;
-
+						default: print("Please input a valid choice");
 					}
-
 					break;
 				case 2:
-					//remove promotion
+					print("Please select one of the following options:");
+					print("(1) Create a promotion");
+					print("(2) Update a promotion");
+					print("(3) Remove a promotion");
+					int inputPromo = userinput.nextInt();
+					switch(inputPromo){
+						case 1:
+							menu.addItem();
+							break;
+						case 2:
+							menu.updateItem();
+							break;
+						case 3:
+							menu.removeItem();
+							break;
+						default: print("Please input a valid choice");
+					}
 					break;
 				case 3:
 					//create new order

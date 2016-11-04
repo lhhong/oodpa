@@ -30,4 +30,7 @@ public class Money {
 		}
 		return priceInt;
 	}
+	public static int parseFloat(float price) {
+		return Math.round(price * 100);
+	}
 }

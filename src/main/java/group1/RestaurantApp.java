@@ -22,6 +22,8 @@ public class RestaurantApp {
 		Scanner userinput = new Scanner(System.in);
 
 		do {
+			print();
+			menu.printMenu();
 			print("\nPlease select one of the following options:");
 			print("\n(1) Create/Update/Remove menu item");
 			print("(2) Create/Update/Remove promotion");

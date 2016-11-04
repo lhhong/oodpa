@@ -3,7 +3,7 @@ package group1;
 /**
  * Created by low on 4/11/16 12:08 PM.
  */
-public class ResaurantApp {
+public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
 	static void print() {System.out.println();}
 	static void print(Object obj) {System.out.println(obj);}

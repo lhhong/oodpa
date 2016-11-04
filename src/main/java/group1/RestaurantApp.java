@@ -6,6 +6,8 @@ package group1;
 // Hello this is Ang Yang
 public class RestaurantApp {
 	public static void main(String[] args) {
+		System.out.println("HI");
+		// HI ANGYANG
 
 	}
 }

@@ -11,7 +11,7 @@ public class Restaurant {
     private int numEmptyTables;
 
     Restaurant(){
-        print("Creating Restaurant...");
+        System.out.println("Creating Restaurant...");
         int tableNumber = 0;
         int tablesize = 0;
 
@@ -35,7 +35,7 @@ public class Restaurant {
     public void printTables(){
         int i = 1;
         for (Table t:tables){
-            print("Table " + i + ", size = "+ t.getCapacity());
+            System.out.println("Table " + i + ", size = "+ t.getCapacity());
             i++;
         }
     }
@@ -46,23 +46,23 @@ public class Restaurant {
             if (t.getCapacity() >= pax && t.getCapacity() <= pax+3 && t.getStatus() == 0){
                 t.setStatus(type);
                 numEmptyTables --;
-                print("Table " + i + " was assigned, size = "+ t.getCapacity());
+                System.out.println("Table " + i + " was assigned, size = "+ t.getCapacity());
                 return i;
             }
             i++;
         }
-        print("No suitable table is available. Sorry!");
+        System.out.println("No suitable table is available. Sorry!");
         return 0;
     }
     public void printAvailableTables(){
         int i = 1;
         for (Table t:tables){
             if (t.getStatus() == 0){
-                print("Table " + i + ", size = "+ t.getCapacity());
+                System.out.println("Table " + i + ", size = "+ t.getCapacity());
             }
             i++;
         }
-        print("Number of available tables = "+numEmptyTables);
+        System.out.println("Number of available tables = "+numEmptyTables);
     }
 
     public static void main(String[] args){

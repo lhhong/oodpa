@@ -5,9 +5,10 @@ package group1.restaurant;
  */
 import group1.menu.FoodItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
     private Staff staff;
     private ArrayList<FoodItem> food_order;
     private int tablenumber;

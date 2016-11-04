@@ -1,5 +1,6 @@
 package group1.commons;
 
+import group1.menu.FoodItem;
 import group1.menu.Menu;
 
 import java.io.*;
@@ -14,12 +15,17 @@ public class Database {
 	public static void save() {
 		URL  url = null;
 		try {
-			url = new URL("ftp://b8_19113227:oodpcz2002@ftp.bytehost8.com/myFile.txt;type=i");
+			url = new URL("ftp://b8_19113227:oodpcz2002@ftp.byethost8.com/myFile.txt;type=i");
 		URLConnection urlc = url.openConnection();
 		OutputStream os = urlc.getOutputStream(); // To upload
 		OutputStream buffer = new BufferedOutputStream(os);
 		ObjectOutput output = new ObjectOutputStream(buffer);
-		output.writeObject(new Menu());
+		output.writeObject(new FoodItem("name", "desc", 148) {
+			@Override
+			public void getDetails() {
+
+			}
+		});
 		buffer.close();
 		os.close();
 		output.close();

@@ -1,15 +1,27 @@
 package group1.restaurant;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
 public class Table {
     private int status;
+
+
+
+    private Date reservationDate;
     private int capacity; // 0=empty, 1=occupied, 2= reserved
 
     Table(int c){
         setCapacity(c);
         setStatus(0);
+    }
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     public int getStatus() {

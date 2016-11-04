@@ -3,14 +3,15 @@ package group1.menu;
 /**
  * Created by low on 4/11/16 12:35 PM.
  */
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Menu {
-    protected ArrayList<FoodItem> mains = new ArrayList<>();
-    protected ArrayList<FoodItem> drinks = new ArrayList<>();
-    protected ArrayList<FoodItem> desserts = new ArrayList<>();
-    protected ArrayList<FoodItem> packages = new ArrayList<>();
+public class Menu implements Serializable{
+    protected ArrayList<FoodItem> mains = new ArrayList<>();;
+    protected ArrayList<FoodItem> drinks = new ArrayList<>();;
+    protected ArrayList<FoodItem> desserts = new ArrayList<>();;
+    protected ArrayList<FoodItem> packages = new ArrayList<>();;
 
     //constructor for empty menu
     public Menu (){
@@ -53,10 +54,8 @@ public class Menu {
 
     public void addItem(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Would you like to add a \n(1) Main\n(2) Dessert\n(3) Drink\n(4) Package Set");
-        //sc.nextLine();
+        System.out.println("Would you like to add a \n(1) Main\n(2) Dessert\n(3) Drink");
         int input = sc.nextInt(); //userinput
-        AlaCarte[] temp = new AlaCarte[3];
         char type= '\u0000';
         String cases = null;
 
@@ -73,19 +72,8 @@ public class Menu {
                 type = 'R';
                 cases = "Drink";
                 break;
-            case 4:
-                cases = "Package";
-                //AlaCarte[] temp = new AlaCarte[3];
-                for (int i=1;i<4;i++){
-                    printMenu();
-                    System.out.println("Choose an AlaCarte number " + i +" for the package");
-                    int j = sc.nextInt();
-                    AlaCarte a =(AlaCarte) returnItem(j);
-                    temp[i-1] = a;
-                }
-                break;
             default:
-                //throw new ArrayIndexOutOfBoundsException();
+                System.out.println("Invalid Input");
         }
         sc.nextLine();//clear buffer
         System.out.println("What is the name of the new " + cases + "?");
@@ -93,12 +81,31 @@ public class Menu {
         System.out.println("What is the description of the new " + cases + "?");
         String description = sc.nextLine();
         System.out.println("What is the price of the new " + cases + "?");
-        float price = sc.nextFloat();
-        if (input == 4)
-            createItem(new PackageSet(name,temp,description,price));
-        else
-            createItem(new AlaCarte(name,type,description,price));
+        int price = sc.nextInt();
+        createItem(new AlaCarte(name,type,description,price));
         //sc.close();
+    }
+
+    public void addPromotion(){
+        Scanner sc = new Scanner(System.in);
+
+        AlaCarte[] temp = new AlaCarte[3];
+
+        for (int i=1;i<4;i++) {
+            printMenu();
+            System.out.println("Choose an AlaCarte number " + i + " for the package");
+            int j = sc.nextInt();
+            AlaCarte a = (AlaCarte) returnItem(j);
+            temp[i - 1] = a;
+        }
+        sc.nextLine();//clear buffer
+        System.out.println("What is the name of the new promotion?");
+        String name = sc.nextLine();
+        System.out.println("What is the description of the new promotion?");
+        String description = sc.nextLine();
+        System.out.println("What is the price of the new promotion?");
+        int price = sc.nextInt();
+        createItem(new PackageSet(name,temp,description,price));
     }
 
     public void addItem(FoodItem i){
@@ -122,6 +129,25 @@ public class Menu {
     }
 
     public void updateItem(){
+        printMenu();
+        System.out.println("Select which item you would like to update");
+        Scanner sc = new Scanner(System.in);
+        int input = sc.nextInt();
+        AlaCarte temp = (AlaCarte)returnItem(input);
+        returnArray(temp).remove(temp);
+
+        char type = temp.getType();
+        sc.nextLine();//clear buffer
+        System.out.println("What is the name of the updated item?");
+        String name = sc.nextLine();
+        System.out.println("What is the description of the new item?");
+        String description = sc.nextLine();
+        System.out.println("What is the price of the new item?");
+        int price = sc.nextInt();
+        createItem(new AlaCarte(name,type,description,price));
+    }
+
+    public void updatePromotion(){
         printMenu();
         System.out.println("Select which item you would like to update");
         Scanner sc = new Scanner(System.in);
@@ -165,7 +191,7 @@ public class Menu {
         System.out.println("What is the description of the new " + cases + "?");
         String description = sc.nextLine();
         System.out.println("What is the price of the new " + cases + "?");
-        float price = sc.nextFloat();
+        int price = sc.nextInt();
         if (input == 4)
             createItem(new PackageSet(name,temps,description,price));
         else

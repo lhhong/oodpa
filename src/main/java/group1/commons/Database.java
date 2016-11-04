@@ -20,7 +20,7 @@ public class Database {
 		OutputStream os = urlc.getOutputStream(); // To upload
 		OutputStream buffer = new BufferedOutputStream(os);
 		ObjectOutput output = new ObjectOutputStream(buffer);
-		output.writeObject(new FoodItem("name", "desc", (float) 1.48) {
+		output.writeObject(new FoodItem("name", "desc", 148) {
 			@Override
 			public void getDetails() {
 

@@ -1,6 +1,6 @@
 package group1;
 import java.util.Scanner;
-
+import group1.menu.Menu;
 
 import java.util.Scanner;
 
@@ -12,6 +12,8 @@ public class RestaurantApp {
 	static void print() {System.out.println();}
 	static void print(Object obj) {System.out.println(obj);}
 	static void printnb(Object obj) {System.out.print(obj);}
+
+	private static Menu menu = new Menu();
 
 
 	public static void main(String[] args){
@@ -36,7 +38,7 @@ public class RestaurantApp {
 			choice = userinput.nextInt();
 			switch(choice){
 				case 1:
-					//menu.updateMenu();
+					menu.addItem();
 					break;
 				case 2:
 					//remove promotion

@@ -1,13 +1,15 @@
 package group1.menu;
 
+import java.io.Serializable;
+
 /**
  * Created by tzeyangng on 4/11/16.
  */
 
-public class AlaCarte extends FoodItem{
+public class AlaCarte extends FoodItem implements Serializable {
     protected char type;
 
-    public AlaCarte(String name, char type, String description, float price){
+    public AlaCarte(String name, char type, String description, int price){
         super(name,description,price);
         this.type = type;
     }

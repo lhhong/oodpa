@@ -21,7 +21,7 @@ public class RestaurantApp {
 			print("\nPlease select one of the following options:");
 			print("\n(1) Create/Update/Remove menu item");
 			print("(2) Create/Update/Remove promotion");
-			print("(3) Create order");
+			print("(3) Create new order");
 			print("(4) View order");
 			print("(5) Edit order");
 			print("(6) Create reservation booking");
@@ -37,8 +37,32 @@ public class RestaurantApp {
 					//menu.updateMenu();
 					break;
 				case 2:
-
-
+					//remove promotion
+					break;
+				case 3:
+					//create new order
+					break;
+				case 4:
+					//view order
+					break;
+				case 5:
+					//edit order
+					break;
+				case 6:
+					//create reserve booking
+					break;
+				case 7:
+					//edit reservation booking
+					break;
+				case 8:
+					//table availability
+					break;
+				case 9:
+					//print order invoice
+					break;
+				case 10:
+					//print sales revenue report
+					break;
 				default: print("Program exited.");
 			}
 

@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    protected ArrayList<FoodItem> mains = new ArrayList<>();;
-    protected ArrayList<FoodItem> drinks = new ArrayList<>();;
-    protected ArrayList<FoodItem> desserts = new ArrayList<>();;
-    protected ArrayList<FoodItem> packages = new ArrayList<>();;
+    protected ArrayList<FoodItem> mains = new ArrayList<>();
+    protected ArrayList<FoodItem> drinks = new ArrayList<>();
+    protected ArrayList<FoodItem> desserts = new ArrayList<>();
+    protected ArrayList<FoodItem> packages = new ArrayList<>();
 
     //constructor for empty menu
     public Menu (){

@@ -42,7 +42,7 @@ public class Restaurant {
             i++;
         }
     }
-    public int assignTable(int pax, int type){
+    public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
         for (Table t:tables){
@@ -68,30 +68,7 @@ public class Restaurant {
         System.out.println("Number of available tables = "+numEmptyTables);
     }
 
-    public void reserveTable(){
-        String inputDate;
-        int day,month;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Reservation Date (dd.MM.yyyy)");
 
-        inputDate = sc.next();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-        Date specifiedDate = null;
-        try {
-            specifiedDate = dateFormatter.parse(inputDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Reservation Date:" + dateFormatter.format(specifiedDate));
-        dateFormatter = new SimpleDateFormat("MM");
-        month = Integer.parseInt(dateFormatter.format(specifiedDate));
-        System.out.println("month:" + month);
-        dateFormatter = new SimpleDateFormat("dd");
-        day = Integer.parseInt(dateFormatter.format(specifiedDate));
-        System.out.println("day:" + day);
-
-
-    }
     public static void main(String[] args){
         Restaurant r = new Restaurant();
         r.assignTable(5,2);

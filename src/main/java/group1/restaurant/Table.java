@@ -9,19 +9,12 @@ public class Table {
 
 
 
-    private Date reservationDate;
+
     private int capacity; // 0=empty, 1=occupied, 2= reserved
 
     Table(int c){
         setCapacity(c);
         setStatus(0);
-    }
-    public Date getReservationDate() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
     }
 
     public int getStatus() {
@@ -36,7 +29,7 @@ public class Table {
         return capacity;
     }
 
-    public void setCapacity(int capcity) {
-        this.capacity = capcity;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

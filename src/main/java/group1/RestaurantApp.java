@@ -1,5 +1,7 @@
 package group1;
 
+import java.util.Scanner;
+
 /**
  * Created by low on 4/11/16 12:08 PM.
  */

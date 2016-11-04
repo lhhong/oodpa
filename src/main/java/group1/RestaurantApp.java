@@ -5,6 +5,6 @@ package group1;
  */
 public class RestaurantApp {
 	public static void main(String[] args) {
-
+		System.out.println("HI");
 	}
 }

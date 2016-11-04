@@ -45,20 +45,18 @@ public class RestaurantApp {
 					print("(2) Update Menu item");
 					print("(3) Remove Menu item");
 					int input = userinput.nextInt();
-					do {
-						switch(input){
-							case 1:
-								menu.addItem();
-								break;
-							case 2:
-								menu.updateItem();
-								break;
-							case 3:
-								menu.removeItem();
-								break;
+					switch(input){
+						case 1:
+							menu.addItem();
+							break;
+						case 2:
+							menu.updateItem();
+							break;
+						case 3:
+							menu.removeItem();
+							break;
 
-						}
-					} while(input<4);
+					}
 
 					break;
 				case 2:

@@ -6,9 +6,9 @@ package group1.menu;
 public abstract class FoodItem {
     protected String name;
     protected String description;
-    protected float price;
+    protected int price;
 
-    public FoodItem(String name, String description, float price){
+    public FoodItem(String name, String description, int price){
         this.name = name;
         this.description = description;
         this.price = price;

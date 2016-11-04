@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 /**
  * Created by low on 4/11/16 12:55 PM.
  */
-public class DatabaseTest {
+public class MenuTest {
     @Ignore
     @Test
     public void upload() {

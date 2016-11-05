@@ -5,12 +5,17 @@ package group1.menu;
  */
 import group1.commons.Money;
 import group1.commons.MoneyFormatException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu implements Serializable{
+
+    private static final Logger logger = LoggerFactory.getLogger(Menu.class);
+
     protected ArrayList<FoodItem> mains = new ArrayList<>();;
     protected ArrayList<FoodItem> drinks = new ArrayList<>();;
     protected ArrayList<FoodItem> desserts = new ArrayList<>();;
@@ -21,9 +26,11 @@ public class Menu implements Serializable{
     }
 
     //constructor for a pre-saved menu loaded from file
+    //TODO change FoodItem[] to use arraylist instead cause savedMenu.length wouldn't work with arrays initialized to be longer than the content
     public Menu(FoodItem[] savedMenu){
-        for (int i = 0; i<savedMenu.length; i++)
+        for (int i = 0; i<savedMenu.length; i++) {
             createItem(savedMenu[i]);
+        }
     }
 
     //prints out the menu

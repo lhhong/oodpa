@@ -1,14 +1,17 @@
 package group1.reservation;
 
+import group1.storage.CacheService;
 import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 
 import static group1.reservation.AMPM.AMSLOT;
 import static group1.reservation.AMPM.PMSLOT;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Created by jorda on 4/11/2016.
@@ -80,6 +83,22 @@ public class ReservationFactory extends Exception{
 
     }
 
+    public static int getIndex(Reservation reservation) {
+        LocalDate currentDate = CacheService.getCache().getCurrentDay();
+        LocalDate reservationDate = reservation.getDate().toLocalDate();
+        int dayDifference = (int) DAYS.between(currentDate, reservationDate);
+        if (dayDifference < 0 || dayDifference > 30) {
+            return -1;
+        }
+
+        switch (reservation.getTimeslot()) {
+            case AMSLOT:
+                return dayDifference*2;
+            case PMSLOT:
+                return dayDifference*2 +1;
+        }
+        return -1;
+    }
 
     public static void getTable(Date date, int pax){
 

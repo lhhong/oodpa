@@ -29,6 +29,9 @@ public class TableList implements Serializable{
             }
         }
         numEmptyTables = 0;
+	}
 
+	public ArrayList<Table> getTables() {
+		return tables;
 	}
 }

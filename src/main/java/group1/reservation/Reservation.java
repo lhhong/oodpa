@@ -2,6 +2,7 @@ package group1.reservation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -10,12 +11,12 @@ import java.util.Scanner;
  */
 public class Reservation {
 
-    Date date;
+    LocalDateTime date;
     AMPM timeslot;
     String name;
     String contact;
     int pax;
-    public Reservation(Date date, AMPM timeslot, String name, String contact,int pax) {
+    public Reservation(LocalDateTime date, AMPM timeslot, String name, String contact,int pax) {
         this.date = date;
         this.timeslot = timeslot;
         this.name = name;
@@ -23,11 +24,11 @@ public class Reservation {
         this.pax = pax;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

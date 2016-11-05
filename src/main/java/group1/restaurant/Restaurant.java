@@ -45,15 +45,24 @@ public class Restaurant {
     public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
-        for (Table t:tables){
-            if (t.getCapacity() >= pax && t.getCapacity() <= pax+3 && t.getStatus() == 0){
-                t.setStatus(type);
-                numEmptyTables --;
-                System.out.println("Table " + i + " was assigned, size = "+ t.getCapacity());
-                return i;
+        //update reservations
+
+        if(type == 1 || type ==0) {
+            for (Table t : tables) {
+                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
+                    t.setStatus(type);
+                    numEmptyTables--;
+                    System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
+                    return i;
+                }
+                i++;
             }
-            i++;
+        }else if(type ==2){
+
+
         }
+
+
         System.out.println("No suitable table is available. Sorry!");
         return 0;
     }

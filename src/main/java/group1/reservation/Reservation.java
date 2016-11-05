@@ -1,9 +1,14 @@
 package group1.reservation;
 
+import group1.restaurant.Table;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
+import static group1.reservation.ReservationFactory.getTable;
+import static group1.reservation.ReservationFactory.getTimeSlot;
 
 /**
  * Created by low on 4/11/16 12:35 PM.
@@ -15,13 +20,19 @@ public class Reservation {
     String name;
     String contact;
     int pax;
-    public Reservation(Date date, AMPM timeslot, String name, String contact,int pax) {
+    int tableIndex;
+    public Reservation(Date date, String name, String contact,int pax) {
         this.date = date;
-        this.timeslot = timeslot;
         this.name = name;
         this.contact = contact;
         this.pax = pax;
+        this.timeslot = getTimeSlot(date);
+        this.tableIndex = getTable(date, pax);
+
+
+
     }
+
 
     public Date getDate() {
         return date;

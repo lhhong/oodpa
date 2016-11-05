@@ -1,5 +1,6 @@
 package group1.reservation;
 
+import group1.commons.CacheService;
 import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 import java.text.ParseException;
@@ -15,7 +16,7 @@ import static group1.reservation.AMPM.PMSLOT;
  */
 public class ReservationFactory extends Exception{
     /* main could use this
-
+String inputDate;
            Scanner sc = new Scanner(System.in);
         System.out.println("Enter Reservation Date (dd.MM.yyyy.h.m)");
         inputDate = sc.next();
@@ -32,8 +33,8 @@ public class ReservationFactory extends Exception{
     public static AMPM getTimeSlot(Date date){
 
         Date now = new Date();//current date
-        String inputDate;
-        int day, month, curMonth, curDay, session,hour;
+
+        int day, month, curMonth, curDay, hour;
 
         Scanner sc = new Scanner(System.in);
        Date specifiedDate = date;
@@ -55,34 +56,48 @@ public class ReservationFactory extends Exception{
             nextMonth = curMonth + 1;
         }
 
-
+try{
         if (!((month == curMonth && day >= curDay) || (month == nextMonth && day <= curDay))) {
 
         } else {
-       // throw new NotInMonthException();
+       throw new NotInMonthException();
 
-        }
+        }}
+catch(NotInMonthException e){
+    System.out.println(e.getMessage());
+}
 
 
         dateFormatter = new SimpleDateFormat("h");
         hour = Integer.parseInt(dateFormatter.format(specifiedDate));
+        try{
         if(hour<9){
-          //  throw new NotInOperationException()
+            throw new NotInOperationException();
         }else if(hour>17){
-            //  throw new otInOperationException()
-        }else if(hour<12){
+            throw new NotInOperationException();
+        }}
+        catch(NotInOperationException e){
+            System.out.println(e.getMessage());
+
+        }
+
+        if(hour<12){
             return AMSLOT;
         }else{
             return PMSLOT;
         }
 
-        return AMSLOT;//need remove
+
 
     }
 
 
-    public static void getTable(Date date, int pax){
+    public static int getTable(Date date, int pax){
+//check if there is space for reservation
 
+//CacheService.getCache().
 
+//add reservation to cache
+return 0;
     }
 }

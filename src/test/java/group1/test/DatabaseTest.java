@@ -1,5 +1,7 @@
 package group1.test;
 
+import group1.commons.Cache;
+import group1.commons.CacheService;
 import group1.commons.Database;
 import group1.menu.FoodItem;
 import jdk.nashorn.internal.ir.annotations.Ignore;
@@ -15,12 +17,7 @@ public class DatabaseTest {
 	@Ignore
 	@Test
 	public void upload() {
-		FoodItem item = new FoodItem("names", "desc", 148) {
-			@Override
-			public void getDetails() {
-
-			}
-		};
+		Object item = null;
 		Database.save(item);
 	}
 
@@ -29,7 +26,10 @@ public class DatabaseTest {
 	public void read() {
 		Object o = Database.read();
 		Assert.assertNull(o);
+
 	}
+
+
 
 
 }

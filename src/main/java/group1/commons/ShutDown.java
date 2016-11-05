@@ -17,6 +17,6 @@ public class ShutDown extends Thread{
 	public void run() {
 		logger.info("running shutdown hook");
 
-		//Database.save(CacheService.getCache());
+		//Database.flush();
 	}
 }

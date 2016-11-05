@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class ReservationList implements Serializable{
 	private LinkedList<ArrayList<Reservation>> reservations;
-	private final Object reservationsChangeLock = new Object();
+	private final SynchroLock reservationsChangeLock = new SynchroLock();
 
 	public ReservationList() {
 		reservations = new LinkedList<>();

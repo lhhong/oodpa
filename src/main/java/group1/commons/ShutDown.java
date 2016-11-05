@@ -15,8 +15,8 @@ public class ShutDown extends Thread{
 
 	@Override
 	public void run() {
-		logger.info("running shutdown hook");
+		logger.info("flushing cache to server database");
 
-		//Database.flush();
+		Database.flush();
 	}
 }

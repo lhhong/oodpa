@@ -2,6 +2,7 @@ package group1.reservation;
 
 import group1.storage.CacheService;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import static group1.reservation.ReservationFactory.getTable;
 /**
  * Created by low on 4/11/16 12:35 PM.
  */
-public class Reservation {
+public class Reservation implements Serializable{
 
     LocalDateTime date;
     AMPM timeslot;

@@ -19,7 +19,7 @@ public class CacheService {
 	public static Cache getCache() {
 		if (cache == null) {
 			logger.info("initializing cache. This may take some time, please wait a moment...");
-			cache = Database.read();
+			//cache = Database.read();
 			if (cache == null) {
 				cache = new Cache();
 				logger.info("Cache initialized from Mock Data");

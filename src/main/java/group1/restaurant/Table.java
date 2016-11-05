@@ -1,10 +1,11 @@
 package group1.restaurant;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
-public class Table {
+public class Table implements Serializable{
     private int status;
 
 

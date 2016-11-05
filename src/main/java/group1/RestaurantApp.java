@@ -1,6 +1,8 @@
 package group1;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import group1.commons.ShutDown;
 import group1.menu.Menu;
 import group1.reservation.Reservation;
 import group1.storage.CacheService;
@@ -16,6 +18,9 @@ public class RestaurantApp {
 
 
 	public static void main(String[] args){
+
+		Runtime.getRuntime().addShutdownHook(new ShutDown());
+
 		print("Welcome to the OOP Restaurant");
 		int choice;
 		Scanner userinput = new Scanner(System.in);

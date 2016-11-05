@@ -95,6 +95,12 @@ public class Restaurant {
         System.out.println("Number of available tables = "+numEmptyTables);
     }
 
+    public void printInvoice(){
+        System.out.println("\t\tNTU OOP Restaurant");
+        String serverName = "Deb";
+        System.out.printf("Server: %-10s \tDate: 12/06/2011", serverName);
+    }
+
 
     public static void main(String[] args){
         Restaurant r = new Restaurant();
@@ -107,5 +113,6 @@ public class Restaurant {
         r.assignTable(8,1);
 
         r.printAvailableTables();
+        r.printInvoice();
     }
 }

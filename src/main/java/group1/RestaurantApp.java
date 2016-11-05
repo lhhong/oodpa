@@ -6,6 +6,7 @@ import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
 import group1.menu.Menu;
 import group1.reservation.Reservation;
+import group1.restaurant.Order;
 import group1.storage.CacheService;
 
 import static group1.reservation.ReservationFactory.printIndexReservation;
@@ -146,7 +147,7 @@ public class RestaurantApp {
 					//table availability
 					break;
 				case 9:
-					//print order invoice
+					//print invoice
 					break;
 				case 10:
 					//print sales revenue report

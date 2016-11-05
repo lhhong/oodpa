@@ -23,7 +23,8 @@ public class RestaurantApp {
 	public static void main(String[] args){
 
 		Runtime.getRuntime().addShutdownHook(new ShutDown());
-		new Thread(new ReservationUpdateWorker()).start();
+		Thread t = new Thread(new ReservationUpdateWorker());
+		t.start();
 
 		print("Welcome to the OOP Restaurant");
 		int choice;
@@ -155,6 +156,7 @@ public class RestaurantApp {
 			}
 
 		} while (choice < 11);
+		t.interrupt();
 	}
 }
 

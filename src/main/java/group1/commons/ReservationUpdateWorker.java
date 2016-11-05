@@ -38,7 +38,8 @@ public class ReservationUpdateWorker implements Runnable {
 			try {
 				Thread.sleep(100000L);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				logger.info("service interrupted, ending it now");
+				break;
 			}
 		}
 	}

@@ -11,6 +11,6 @@ public class MenuTest {
     @Ignore
     @Test
     public void upload() {
-        Database.save(null);
+        Database.flush();
     }
 }

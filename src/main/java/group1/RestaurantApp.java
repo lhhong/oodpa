@@ -1,10 +1,15 @@
 package group1;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import group1.commons.ReservationUpdateWorker;
+import group1.commons.ShutDown;
 import group1.menu.Menu;
 import group1.reservation.Reservation;
 import group1.storage.CacheService;
 
+import static group1.reservation.ReservationFactory.printIndexReservation;
+import static group1.reservation.ReservationFactory.removeIndexReservation;
 
 public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
@@ -16,6 +21,10 @@ public class RestaurantApp {
 
 
 	public static void main(String[] args){
+
+		Runtime.getRuntime().addShutdownHook(new ShutDown());
+		new Thread(new ReservationUpdateWorker()).start();
+
 		print("Welcome to the OOP Restaurant");
 		int choice;
 		Scanner userinput = new Scanner(System.in);
@@ -87,7 +96,7 @@ public class RestaurantApp {
 					break;
 				case 6:
 					int year,month,day,hour,minute,contact,pax;
-					print("Input Year Month Day Hour(0-24) Minute");
+					print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
 					year = userinput.nextInt();
 					month = userinput.nextInt();
 					day = userinput.nextInt();
@@ -107,15 +116,27 @@ public class RestaurantApp {
 					break;
 				case 7:
 					print("Please select one of the following options:");
-					print("(1) Check a Reservation Booking");
+					print("(1) Check a Reservation Booking for a date");
 					print("(2) Remove a Reservation Booking");
 					int reserveBook = userinput.nextInt();
 					switch(reserveBook) {
 						case 1:
-							//check booking
+							print("Input Year Month Day e.g. 2016 11 19 ");
+							year = userinput.nextInt();
+							month = userinput.nextInt();
+							day = userinput.nextInt();
+							specificDate = LocalDateTime.of(year,month,day,0,0);
+							printIndexReservation(specificDate);
 							break;
 						case 2:
-							//remove booking
+							print("Input Year Month Day e.g. 2016 11 19 ");
+							year = userinput.nextInt();
+							month = userinput.nextInt();
+							day = userinput.nextInt();
+							specificDate = LocalDateTime.of(year,month,day,0,0);
+							print("Input name");
+							name = userinput.next();
+							removeIndexReservation(specificDate,name);//NOT WORKING TTTTTTTTT
 							break;
 						default:
 							print("Please input a valid choice");

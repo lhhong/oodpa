@@ -13,6 +13,7 @@ import java.util.LinkedList;
  */
 public class ReservationList implements Serializable{
 	private LinkedList<ArrayList<Reservation>> reservations;
+	private final Object reservationsChangeLock = new Object();
 
 	public ReservationList() {
 		reservations = new LinkedList<>();
@@ -23,12 +24,16 @@ public class ReservationList implements Serializable{
 
 	public void addReservation(Reservation reservation) {
 		int index = ReservationFactory.getIndex(reservation);
-		reservations.get(index).add(reservation);
+		synchronized (reservationsChangeLock) {
+			reservations.get(index).add(reservation);
+		}
 	}
 
 	public void oneDayPassed() {
-		reservations.removeFirst();
-		reservations.addLast(new ArrayList<Reservation>());
+		synchronized (reservationsChangeLock) {
+			reservations.removeFirst();
+			reservations.addLast(new ArrayList<Reservation>());
+		}
 	}
 
 	public ArrayList<Reservation> indexReservation(int index){

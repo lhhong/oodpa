@@ -1,7 +1,3 @@
-/**
- * Created by low on 4/11/16 12:08 PM.
- */
-
 package group1;
 import java.util.Scanner;
 import group1.menu.Menu;
@@ -90,7 +86,20 @@ public class RestaurantApp {
 					//create reserve booking
 					break;
 				case 7:
-					//edit reservation booking
+					print("Please select one of the following options:");
+					print("(1) Check a Reservation Booking");
+					print("(2) Remove a Reservation Booking");
+					int reserveBook = userinput.nextInt();
+					switch(reserveBook) {
+						case 1:
+							//check booking
+							break;
+						case 2:
+							//remove booking
+							break;
+						default:
+							print("Please input a valid choice");
+					}
 					break;
 				case 8:
 					//table availability

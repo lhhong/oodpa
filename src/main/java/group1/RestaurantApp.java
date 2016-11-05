@@ -87,7 +87,7 @@ public class RestaurantApp {
 					break;
 				case 6:
 					int year,month,day,hour,minute,contact,pax;
-					print("Input Year Month Day Hour(0-24) Minute");
+					print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
 					year = userinput.nextInt();
 					month = userinput.nextInt();
 					day = userinput.nextInt();

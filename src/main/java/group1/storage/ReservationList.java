@@ -32,6 +32,12 @@ public class ReservationList implements Serializable{
 	}
 
 	public ArrayList<Reservation> indexReservation(int index){
+		try{
+		if(reservations.get(index)==null){
+
+		}}catch(NullPointerException e){
+			return null;
+			}
 		return reservations.get(index);
 	}
 

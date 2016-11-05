@@ -12,7 +12,7 @@ public class Table {
 
     private int capacity; // 0=empty, 1=occupied, 2= reserved
 
-    Table(int c){
+    public Table(int c){
         setCapacity(c);
         setStatus(0);
     }

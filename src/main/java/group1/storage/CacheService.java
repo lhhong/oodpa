@@ -1,4 +1,4 @@
-package group1.commons;
+package group1.storage;
 
 /**
  * Created by low on 4/11/16 9:56 PM.

@@ -48,6 +48,7 @@ public class Database {
 			try {
 				is = urlc.getInputStream();
 			} catch (FileNotFoundException e) {
+				logger.info("file not found in ftp");
 				return null;
 			}
 			InputStream buffer = new BufferedInputStream(is);

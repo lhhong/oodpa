@@ -1,15 +1,17 @@
 package group1.restaurant;
 
+import java.io.Serializable;
+
 /**
  * Created by signapoop on 4/11/16.
  */
-public class Staff {
+public class Staff implements Serializable{
     private String name;
-    private char gender;
+    private Gender gender;
     private int employeeID;
     private String jobTitle;
 
-    Staff(String n, char g, int e, String j){
+    public Staff(String n, Gender g, int e, String j){
         setName(n);
         setGender(g);
         setEmployeeID(e);
@@ -27,11 +29,11 @@ public class Staff {
         this.name = name;
     }
 
-    public char getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

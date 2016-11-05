@@ -1,7 +1,3 @@
-/**
- * Created by low on 4/11/16 12:08 PM.
- */
-
 package group1;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -25,6 +21,8 @@ public class RestaurantApp {
 		Scanner userinput = new Scanner(System.in);
 
 		do {
+			print();
+			menu.printMenu();
 			print("\nPlease select one of the following options:");
 			print("\n(1) Create/Update/Remove menu item");
 			print("(2) Create/Update/Remove promotion");
@@ -41,10 +39,42 @@ public class RestaurantApp {
 			choice = userinput.nextInt();
 			switch(choice){
 				case 1:
-					menu.addItem();
+					print("Please select one of the following options:");
+					print("(1) Create Menu item");
+					print("(2) Update Menu item");
+					print("(3) Remove Menu item");
+					int inputItem = userinput.nextInt();
+					switch(inputItem){
+						case 1:
+							menu.addItem();
+							break;
+						case 2:
+							menu.updateItem();
+							break;
+						case 3:
+							menu.removeItem();
+							break;
+						default: print("Please input a valid choice");
+					}
 					break;
 				case 2:
-					//remove promotion
+					print("Please select one of the following options:");
+					print("(1) Create a promotion");
+					print("(2) Update a promotion");
+					print("(3) Remove a promotion");
+					int inputPromo = userinput.nextInt();
+					switch(inputPromo){
+						case 1:
+							menu.addItem();
+							break;
+						case 2:
+							menu.updateItem();
+							break;
+						case 3:
+							menu.removeItem();
+							break;
+						default: print("Please input a valid choice");
+					}
 					break;
 				case 3:
 					//create new order
@@ -76,7 +106,20 @@ public class RestaurantApp {
 
 					break;
 				case 7:
-					//edit reservation booking
+					print("Please select one of the following options:");
+					print("(1) Check a Reservation Booking");
+					print("(2) Remove a Reservation Booking");
+					int reserveBook = userinput.nextInt();
+					switch(reserveBook) {
+						case 1:
+							//check booking
+							break;
+						case 2:
+							//remove booking
+							break;
+						default:
+							print("Please input a valid choice");
+					}
 					break;
 				case 8:
 					//table availability

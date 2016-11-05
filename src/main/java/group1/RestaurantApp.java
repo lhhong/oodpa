@@ -90,7 +90,7 @@ public class RestaurantApp {
 					print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
 					year = userinput.nextInt();
 					month = userinput.nextInt();
-					day = userinput.nextInt(); 
+					day = userinput.nextInt();
 					hour = userinput.nextInt();
 					minute = userinput.nextInt();
 					print("Input Name");

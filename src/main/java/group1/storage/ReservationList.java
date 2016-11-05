@@ -18,13 +18,19 @@ public class ReservationList implements Serializable{
 		return 0;
 	}
 
-	public void addReservation(Reservation reservation) {
+	public void addReservation(Reservation reservation,int index) {
 
-
+reservations.get(index).add(reservation);
 
 	}
 
 	public ArrayList<Reservation> indexReservation(int index){
+		try{
+		if(reservations.get(index)==null){
+
+		}}catch(NullPointerException e){
+			return null;
+			}
 		return reservations.get(index);
 	}
 

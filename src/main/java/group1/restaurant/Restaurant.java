@@ -1,5 +1,10 @@
 package group1.restaurant;
+import group1.reservation.Reservation;
+import group1.storage.CacheService;
+
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,9 +51,22 @@ public class Restaurant {
         // returns table number assign, returns 0 if no available table
         int i = 1;
         //update reservations everytime called upon ##################
+        ArrayList<Reservation> indexReservation;
+        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+
+        ArrayList<Integer> ReservedTables = new ArrayList<>();
+        Iterator<Reservation> iter = indexReservation.iterator();
+        while(iter.hasNext())
+        {
+            Reservation current = iter.next();
+            ReservedTables.add(current.getTableIndex());
+        }
 
         if(type == 1 || type ==0) {
             for (Table t : tables) {
+                if(ReservedTables.contains(i)){
+                    t.setStatus(2);
+                }
                 if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
                     t.setStatus(type);
                     numEmptyTables--;

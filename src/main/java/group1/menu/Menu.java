@@ -3,6 +3,9 @@ package group1.menu;
 /**
  * Created by low on 4/11/16 12:35 PM.
  */
+import group1.commons.Money;
+import group1.commons.MoneyFormatException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -81,7 +84,12 @@ public class Menu implements Serializable{
         System.out.println("What is the description of the new " + cases + "?");
         String description = sc.nextLine();
         System.out.println("What is the price of the new " + cases + "?");
-        int price = sc.nextInt();
+        int price = -1;
+        try {
+            price = Money.parseString(sc.next());
+        } catch (MoneyFormatException e) {
+            e.getMessage();
+        }
         createItem(new AlaCarte(name,type,description,price));
         //sc.close();
     }
@@ -104,7 +112,12 @@ public class Menu implements Serializable{
         System.out.println("What is the description of the new promotion?");
         String description = sc.nextLine();
         System.out.println("What is the price of the new promotion?");
-        int price = sc.nextInt();
+        int price = -1;
+        try {
+            price = Money.parseString(sc.next());
+        } catch (MoneyFormatException e) {
+            e.getMessage();
+        }
         createItem(new PackageSet(name,temp,description,price));
     }
 
@@ -143,7 +156,12 @@ public class Menu implements Serializable{
         System.out.println("What is the description of the new item?");
         String description = sc.nextLine();
         System.out.println("What is the price of the new item?");
-        int price = sc.nextInt();
+        int price = -1;
+        try {
+            price = Money.parseString(sc.next());
+        } catch (MoneyFormatException e) {
+            e.getMessage();
+        }
         createItem(new AlaCarte(name,type,description,price));
     }
 
@@ -153,49 +171,31 @@ public class Menu implements Serializable{
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         FoodItem temp = returnItem(input);
-        input = returnTypeint(temp);
         returnArray(temp).remove(temp);
 
         AlaCarte[] temps = new AlaCarte[3];
-        String cases = null;
-        char type =' ';
-        switch(input){
-            case 1:
-                type = 'M';
-                cases = "Main Course";
-                break;
-            case 2:
-                type = 'D';
-                cases = "Dessert";
-                break;
-            case 3:
-                type = 'R';
-                cases = "Drink";
-                break;
-            case 4:
-                cases = "Package";
-                for (int i=1;i<4;i++){
-                    printMenu();
-                    System.out.println("Choose an AlaCarte number " + i +" for the package");
-                    int j = sc.nextInt();
-                    AlaCarte a =(AlaCarte) returnItem(j);
-                    temps[i-1] = a;
-                }
-                break;
-            default:
-                //throw new ArrayIndexOutOfBoundsException();
+        for (int i=1;i<4;i++){
+            printMenu();
+            System.out.println("Choose an AlaCarte number " + i +" for the package");
+            int j = sc.nextInt();
+            AlaCarte a =(AlaCarte) returnItem(j);
+            temps[i-1] = a;
         }
+
         sc.nextLine();//clear buffer
-        System.out.println("What is the name of the updated " + cases + "?");
+        System.out.println("What is the name of the updated promotion?");
         String name = sc.nextLine();
-        System.out.println("What is the description of the new " + cases + "?");
+        System.out.println("What is the description of the new promotion?");
         String description = sc.nextLine();
-        System.out.println("What is the price of the new " + cases + "?");
-        int price = sc.nextInt();
-        if (input == 4)
-            createItem(new PackageSet(name,temps,description,price));
-        else
-            createItem(new AlaCarte(name,type,description,price));
+        System.out.println("What is the price of the new promotion?");
+        int price = -1;
+        try {
+            price = Money.parseString(sc.next());
+        } catch (MoneyFormatException e) {
+            e.getMessage();
+        }
+        createItem(new PackageSet(name,temps,description,price));
+
     }
 
     //usually preceded by printMenu(). input index on menu, return FoodItem;
@@ -227,18 +227,5 @@ public class Menu implements Serializable{
             return null;
     }
 
-    //What does this do?
-    private int returnTypeint(FoodItem i){
-        if (i instanceof PackageSet)
-            return 4;
-        else if (((AlaCarte) i).getType() == 'M')
-            return 1;
-        else if (((AlaCarte) i).getType() == 'R')
-            return 3;
-        else if (((AlaCarte) i).getType() == 'D')
-            return 2;
-        else
-            return 0;
-    }
 
 }

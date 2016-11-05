@@ -24,8 +24,8 @@ public class MockData {
 	}
 
 	static FoodItem[] getFoodItems() {
-		FoodItem[] items = new FoodItem[100];
-		items[1] = new AlaCarte("name", 'a', "so nice", 300);
+		FoodItem[] items = new FoodItem[1];
+		items[0] = new AlaCarte("name", 'M', "so nice", 300);
 
 		return items;
 	}

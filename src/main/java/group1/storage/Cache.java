@@ -30,7 +30,6 @@ public class Cache implements Serializable{
 		this.currentDay = currentDay;
 	}
 
-	//TODO: remove uneccessary setters
 	public Menu getMenu() {
 		return menu;
 	}
@@ -41,5 +40,9 @@ public class Cache implements Serializable{
 
 	public TableList getTables() {
 		return tables;
+	}
+
+	public StaffList getStaffs() {
+		return staffs;
 	}
 }

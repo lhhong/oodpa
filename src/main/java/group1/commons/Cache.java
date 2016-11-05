@@ -74,4 +74,6 @@ public class Cache implements Serializable{
 	public void setNumEmptyTables(int numEmptyTables) {
 		this.numEmptyTables = numEmptyTables;
 	}
+
+
 }

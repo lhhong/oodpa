@@ -79,6 +79,19 @@ try{
         return -1;
     }
 
+    public static int getIndex(LocalDateTime date) {
+        LocalDate currentDate = getCache().getCurrentDay();
+        LocalDate reservationDate = date.toLocalDate();
+        int dayDifference = (int) DAYS.between(currentDate, reservationDate);
+        if (dayDifference < 0 || dayDifference > 30) {
+            return -1;
+        }
+        return dayDifference*2;
+
+
+
+    }
+
     public static int getTable(int index, int pax){
 
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
@@ -86,27 +99,53 @@ try{
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
-        ArrayList<Integer> ReservedTables = new ArrayList<>();
-        Iterator<Reservation> iter = indexReservation.iterator();
-        while(iter.hasNext())
-        {
-            Reservation current = iter.next();
-            ReservedTables.add(current.getTableIndex());
-        }
-        int i = 1;
-        for (Table t : tables) {
-            if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
-                if(ReservedTables.contains( i)){
-                    continue;
-                }
-
-System.out.println("TABLE Reserved (delete this print later): " + i);
+    ArrayList<Integer> ReservedTables = new ArrayList<>();
+    Iterator<Reservation> iter = indexReservation.iterator();
+    while (iter.hasNext()) {
+        Reservation current = iter.next();
+        ReservedTables.add(current.getTableIndex());
+    }
+    int i = 1;
+    for (Table t : tables) {
+        if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
+            if (!(ReservedTables.contains(i))) {
+                System.out.println("TABLE alloc (delete this print later): " + i);
                 return i;
             }
-            i++;
+
+            
         }
-
-
+        i++;
+    }
+        System.out.println("ERRORRRRRR  nothing reserved ast i:"+ i);
 return -1;
+    }
+
+
+    public static void printIndexReservation(LocalDateTime date){
+        ArrayList<Reservation> indexReservationAM, indexReservationPM;
+        indexReservationAM = CacheService.getCache().getReservations().indexReservation(getIndex(date));
+
+        ArrayList<String> ReservedTables = new ArrayList<>();
+        Iterator<Reservation> iter = indexReservationAM.iterator();
+        while (iter.hasNext()) {
+            Reservation current = iter.next();
+            ReservedTables.add(current.getName());
+        }
+        System.out.println("AM slot");
+       System.out.println(ReservedTables);
+
+        indexReservationPM = CacheService.getCache().getReservations().indexReservation(getIndex(date)+1);
+
+        ReservedTables.clear();
+        iter = indexReservationPM.iterator();
+        while (iter.hasNext()) {
+            Reservation current = iter.next();
+            ReservedTables.add(current.getName());
+        }
+        System.out.println("PM slot");
+        System.out.println(ReservedTables);
+
+
     }
 }

@@ -8,6 +8,8 @@ import group1.menu.Menu;
 import group1.reservation.Reservation;
 import group1.storage.CacheService;
 
+import static group1.reservation.ReservationFactory.printIndexReservation;
+
 
 public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
@@ -114,12 +116,17 @@ public class RestaurantApp {
 					break;
 				case 7:
 					print("Please select one of the following options:");
-					print("(1) Check a Reservation Booking");
+					print("(1) Check a Reservation Booking for a date");
 					print("(2) Remove a Reservation Booking");
 					int reserveBook = userinput.nextInt();
 					switch(reserveBook) {
 						case 1:
-							//check booking
+							print("Input Year Month Day e.g. 2016 11 19 ");
+							year = userinput.nextInt();
+							month = userinput.nextInt();
+							day = userinput.nextInt();
+							specificDate = LocalDateTime.of(year,month,day,0,0);
+							printIndexReservation(specificDate);
 							break;
 						case 2:
 							//remove booking

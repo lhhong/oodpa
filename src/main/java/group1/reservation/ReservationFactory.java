@@ -113,7 +113,7 @@ try{
                 return i;
             }
 
-            
+
         }
         i++;
     }
@@ -125,7 +125,7 @@ return -1;
     public static void printIndexReservation(LocalDateTime date){
         ArrayList<Reservation> indexReservationAM, indexReservationPM;
         indexReservationAM = CacheService.getCache().getReservations().indexReservation(getIndex(date));
-
+        System.out.println("looking at i:" + getIndex(date));
         ArrayList<String> ReservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservationAM.iterator();
         while (iter.hasNext()) {
@@ -148,4 +148,27 @@ return -1;
 
 
     }
+
+   public static void removeIndexReservation(LocalDateTime specificDate,String name){
+       int index = getIndex(specificDate);
+       int i;
+       for(i = index; i <= index+1;i++){
+           ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
+           Iterator<Reservation> iter = indexReservation.iterator();
+           int pos=0;
+           System.out.println("looking at i:" + i);
+           while (iter.hasNext()) {
+               Reservation current = iter.next();
+              if(current.getName()==name){
+                  CacheService.getCache().getReservations().indexReservation(i).remove(pos);
+                  System.out.println("removing reservation at pos:" + pos);
+
+              };
+              pos++;
+           }
+
+       }
+       System.out.println("Could not find reservation");
+    }
+
 }

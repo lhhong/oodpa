@@ -9,7 +9,7 @@ import group1.reservation.Reservation;
 import group1.storage.CacheService;
 
 import static group1.reservation.ReservationFactory.printIndexReservation;
-
+import static group1.reservation.ReservationFactory.removeIndexReservation;
 
 public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
@@ -129,7 +129,14 @@ public class RestaurantApp {
 							printIndexReservation(specificDate);
 							break;
 						case 2:
-							//remove booking
+							print("Input Year Month Day e.g. 2016 11 19 ");
+							year = userinput.nextInt();
+							month = userinput.nextInt();
+							day = userinput.nextInt();
+							specificDate = LocalDateTime.of(year,month,day,0,0);
+							print("Input name");
+							name = userinput.next();
+							removeIndexReservation(specificDate,name);//NOT WORKING TTTTTTTTT
 							break;
 						default:
 							print("Please input a valid choice");

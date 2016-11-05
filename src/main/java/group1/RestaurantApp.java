@@ -3,8 +3,11 @@
  */
 
 package group1;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import group1.menu.Menu;
+import group1.reservation.Reservation;
+import group1.storage.CacheService;
 
 
 public class RestaurantApp {
@@ -53,7 +56,24 @@ public class RestaurantApp {
 					//edit order
 					break;
 				case 6:
-					//create reserve booking
+					int year,month,day,hour,minute,contact,pax;
+					print("Input Year Month Day Hour(0-24) Minute");
+					year = userinput.nextInt();
+					month = userinput.nextInt();
+					day = userinput.nextInt();
+					hour = userinput.nextInt();
+					minute = userinput.nextInt();
+					print("Input Name");
+					String name = userinput.next();
+					print("Input Contact number");
+					contact = userinput.nextInt();
+					print("Input Pax");
+					pax = userinput.nextInt();
+					LocalDateTime specificDate = LocalDateTime.of(year,month,day,hour,minute);
+
+					Reservation reservation = new Reservation(specificDate, name, contact, pax);
+
+
 					break;
 				case 7:
 					//edit reservation booking

@@ -95,5 +95,7 @@ public class Cache implements Serializable{
 		return reservations;
 	}
 
-
+	public TableList getTables() {
+		return tables;
+	}
 }

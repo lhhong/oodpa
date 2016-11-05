@@ -1,5 +1,7 @@
 package group1.reservation;
 
+import group1.storage.CacheService;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -18,10 +20,11 @@ public class Reservation {
     LocalDateTime date;
     AMPM timeslot;
     String name;
-    String contact;
+    int contact;
     int pax;
     int tableIndex;
-    public Reservation(LocalDateTime date, String name, String contact,int pax) {
+
+    public Reservation(LocalDateTime date, String name, int contact,int pax) {
         this.date = date;
 
         this.name = name;
@@ -30,6 +33,7 @@ public class Reservation {
 
         this.timeslot = getTimeSlot(date);
         this.tableIndex = getTable(getIndex(this), pax);
+        CacheService.getCache().getReservations().addReservation(this);
 
     }
 
@@ -57,11 +61,11 @@ public class Reservation {
         this.name = name;
     }
 
-    public String getContact() {
+    public int getContact() {
         return contact;
     }
 
-    public void setContact(String contact) {
+    public void setContact(int contact) {
         this.contact = contact;
     }
 
@@ -71,5 +75,13 @@ public class Reservation {
 
     public void setPax(int pax) {
         this.pax = pax;
+    }
+
+    public int getTableIndex() {
+        return tableIndex;
+    }
+
+    public void setTableIndex(int tableIndex) {
+        this.tableIndex = tableIndex;
     }
 }

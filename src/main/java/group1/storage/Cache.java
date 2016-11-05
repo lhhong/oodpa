@@ -29,6 +29,7 @@ public class Cache implements Serializable{
 	Cache() {
 		currentDay = LocalDate.now();
 		reservations = new ReservationList();
+		tables = new TableList();
 		menu = new Menu();
 		numEmptyTables = 0;
 	}

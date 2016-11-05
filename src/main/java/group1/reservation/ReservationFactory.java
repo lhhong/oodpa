@@ -1,90 +1,65 @@
 package group1.reservation;
 
 import group1.storage.CacheService;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
+import java.time.LocalDateTime;
 import static group1.reservation.AMPM.AMSLOT;
 import static group1.reservation.AMPM.PMSLOT;
+import static group1.storage.CacheService.getCache;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Created by jorda on 4/11/2016.
  */
 public class ReservationFactory extends Exception{
-    /* main could use this
 
-           Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Reservation Date (dd.MM.yyyy.h.m)");
-        inputDate = sc.next();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy.h.m");
-        Date specifiedDate = null;
+
+
+    public static AMPM getTimeSlot(LocalDateTime date){
+
+        LocalDate currentDate = getCache().getCurrentDay();
+
+
+       LocalDate specifiedDate = date.toLocalDate();
+
+        int dayDifference = (int) DAYS.between(currentDate, specifiedDate);
+
+        //check if reservation is within 1 month
+try{
+        if (dayDifference < 0 || dayDifference > 30) {
+       throw new NotInMonthException();
+        }}catch(NotInMonthException e){
+    System.out.println(e.getMessage());
+
+        }
+
+//check if reservation between 9.00 - 17.00
         try {
-            specifiedDate = dateFormatter.parse(inputDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-     */
-
-
-    public static AMPM getTimeSlot(Date date){
-
-        Date now = new Date();//current date
-        String inputDate;
-        int day, month, curMonth, curDay, session,hour;
-
-        Scanner sc = new Scanner(System.in);
-       Date specifiedDate = date;
-
-        //check that reservation is within a month
-       SimpleDateFormat dateFormatter = new SimpleDateFormat("MM");
-        month = Integer.parseInt(dateFormatter.format(specifiedDate));
-        curMonth = Integer.parseInt(dateFormatter.format(now));
-
-        dateFormatter = new SimpleDateFormat("dd");
-        day = Integer.parseInt(dateFormatter.format(specifiedDate));
-        curDay = Integer.parseInt(dateFormatter.format(now));
-
-
-        int nextMonth;
-        if (curMonth == 12) {
-            nextMonth = 1;
-        } else {
-            nextMonth = curMonth + 1;
+            if (date.toLocalTime().compareTo(LocalTime.of(17,0))== 1) {
+                throw new NotInOperationException();
+            } else if (date.toLocalTime().compareTo(LocalTime.of(9,0))== -1) {
+                throw new NotInOperationException();
+            }
+        }catch(NotInOperationException e){
+            System.out.println(e.getMessage());
         }
 
-
-        if (!((month == curMonth && day >= curDay) || (month == nextMonth && day <= curDay))) {
-
-        } else {
-       // throw new NotInMonthException();
-
-        }
-
-
-        dateFormatter = new SimpleDateFormat("h");
-        hour = Integer.parseInt(dateFormatter.format(specifiedDate));
-        if(hour<9){
-          //  throw new NotInOperationException()
-        }else if(hour>17){
-            //  throw new otInOperationException()
-        }else if(hour<12){
+        //return AM or PM
+        if(date.toLocalTime().compareTo(LocalTime.NOON)==-1){
             return AMSLOT;
         }else{
             return PMSLOT;
         }
 
-        return AMSLOT;//need remove
-
     }
 
     public static int getIndex(Reservation reservation) {
-        LocalDate currentDate = CacheService.getCache().getCurrentDay();
+        LocalDate currentDate = getCache().getCurrentDay();
         LocalDate reservationDate = reservation.getDate().toLocalDate();
         int dayDifference = (int) DAYS.between(currentDate, reservationDate);
         if (dayDifference < 0 || dayDifference > 30) {
@@ -100,8 +75,12 @@ public class ReservationFactory extends Exception{
         return -1;
     }
 
-    public static void getTable(Date date, int pax){
+    public static int getTable(int index, int pax){
+        ArrayList<Reservation> indexReservation;
+        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
 
+
+return -1;
     }
 }

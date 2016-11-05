@@ -45,7 +45,7 @@ public class Restaurant {
     public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
-        //update reservations
+        //update reservations everytime called upon ##################
 
         if(type == 1 || type ==0) {
             for (Table t : tables) {

@@ -11,6 +11,8 @@ public class Cache implements Serializable{
 
 	private StaffList staffs;
 	private TableList tables;
+
+
 	private ReservationList reservations;
 	private Menu menu;
 	private int numEmptyTables;
@@ -87,4 +89,11 @@ public class Cache implements Serializable{
 	public void setNumEmptyTables(int numEmptyTables) {
 		this.numEmptyTables = numEmptyTables;
 	}
+
+
+	public ReservationList getReservations() {
+		return reservations;
+	}
+
+
 }

@@ -20,5 +20,15 @@ public class ReservationList implements Serializable{
 
 	public void addReservation(Reservation reservation) {
 
+
+
 	}
+
+	public ArrayList<Reservation> indexReservation(int index){
+		return reservations.get(index);
+	}
+
+
+
+
 }

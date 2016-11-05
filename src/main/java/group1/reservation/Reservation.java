@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
+import static group1.reservation.ReservationFactory.getIndex;
+import static group1.reservation.ReservationFactory.getTimeSlot;
+import static group1.reservation.ReservationFactory.getTable;
+
 /**
  * Created by low on 4/11/16 12:35 PM.
  */
@@ -16,12 +20,17 @@ public class Reservation {
     String name;
     String contact;
     int pax;
-    public Reservation(LocalDateTime date, AMPM timeslot, String name, String contact,int pax) {
+    int tableIndex;
+    public Reservation(LocalDateTime date, String name, String contact,int pax) {
         this.date = date;
-        this.timeslot = timeslot;
+
         this.name = name;
         this.contact = contact;
         this.pax = pax;
+
+        this.timeslot = getTimeSlot(date);
+        this.tableIndex = getTable(getIndex(this), pax);
+
     }
 
     public LocalDateTime getDate() {

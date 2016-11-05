@@ -1,7 +1,8 @@
 package group1.test;
 
-import group1.commons.Database;
+import group1.storage.Database;
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -11,6 +12,19 @@ public class DatabaseTest {
 	@Ignore
 	@Test
 	public void upload() {
-		Database.save();
+		Object item = null;
+		Database.save(item);
 	}
+
+	@Ignore
+	@Test
+	public void read() {
+		Object o = Database.read();
+		Assert.assertNull(o);
+
+	}
+
+
+
+
 }

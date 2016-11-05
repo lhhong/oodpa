@@ -1,14 +1,10 @@
-package group1.commons;
+package group1.storage;
 
-import group1.menu.FoodItem;
 import group1.menu.Menu;
-import group1.reservation.Reservation;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 
 /**
  * Created by low on 4/11/16 12:34 PM.

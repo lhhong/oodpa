@@ -1,10 +1,9 @@
-package group1.commons;
+package group1.storage;
 
 import group1.reservation.Reservation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

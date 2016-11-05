@@ -1,6 +1,6 @@
 package group1.test;
 
-import group1.commons.Database;
+import group1.storage.Database;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.testng.annotations.Test;
 

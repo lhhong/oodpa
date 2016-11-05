@@ -1,4 +1,4 @@
-package group1.commons;
+package group1.storage;
 
 import group1.restaurant.Table;
 

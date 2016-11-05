@@ -1,4 +1,4 @@
-package group1.commons;
+package group1.storage;
 
 import group1.menu.Menu;
 
@@ -17,6 +17,12 @@ public class Cache implements Serializable{
 
 	private boolean menuHasChanges = false;
 	private final Object menuChangeLock = new Object();
+
+	private boolean tablesHasChanges = false;
+	private final Object tablesChangeLock = new Object();
+
+	private boolean reservationsHasChanges = false;
+	private final Object reservationsChangeLock = new Object();
 
 	Cache() {
 		currentDay = LocalDate.now();
@@ -45,13 +51,33 @@ public class Cache implements Serializable{
 		}
 	}
 
+	boolean tablesNeedsFlush() {
+		synchronized (tablesChangeLock) {
+			if (tablesHasChanges) {
+				tablesHasChanges = false;
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+
+	boolean reservationsNeedsFlush() {
+		synchronized (reservationsChangeLock) {
+			if (reservationsHasChanges) {
+				reservationsHasChanges = false;
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+
 	//TODO: remove uneccessary setters
 	public Menu getMenu() {
 		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
 	}
 
 	public int getNumEmptyTables() {

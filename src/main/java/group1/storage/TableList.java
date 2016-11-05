@@ -1,4 +1,4 @@
-package group1.commons;
+package group1.storage;
 
 import group1.restaurant.Staff;
 import group1.restaurant.Table;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class TableList implements Serializable{
 	private ArrayList<Table> tables;
+	int numEmptyTables;
 
 	TableList() {
         int tablesize = 0;
@@ -27,6 +28,7 @@ public class TableList implements Serializable{
                 tables.add(new Table(tablesize));
             }
         }
+        numEmptyTables = 0;
 
 	}
 }

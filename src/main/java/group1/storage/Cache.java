@@ -15,7 +15,6 @@ public class Cache implements Serializable{
 
 	private ReservationList reservations;
 	private Menu menu;
-	private int numEmptyTables;
 
 	private boolean menuHasChanges = false;
 	private final Object menuChangeLock = new Object();
@@ -31,7 +30,6 @@ public class Cache implements Serializable{
 		reservations = new ReservationList();
 		tables = new TableList();
 		menu = new Menu();
-		numEmptyTables = 0;
 	}
 
 	public LocalDate getCurrentDay() {
@@ -82,15 +80,6 @@ public class Cache implements Serializable{
 	public Menu getMenu() {
 		return menu;
 	}
-
-	public int getNumEmptyTables() {
-		return numEmptyTables;
-	}
-
-	public void setNumEmptyTables(int numEmptyTables) {
-		this.numEmptyTables = numEmptyTables;
-	}
-
 
 	public ReservationList getReservations() {
 		return reservations;

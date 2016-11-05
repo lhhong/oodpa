@@ -3,7 +3,10 @@ package group1.test;
 import group1.commons.Database;
 import group1.menu.FoodItem;
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.LinkedList;
 
 /**
  * Created by low on 4/11/16 12:55 PM.
@@ -24,8 +27,9 @@ public class DatabaseTest {
 	@Ignore
 	@Test
 	public void read() {
-		FoodItem food = (FoodItem) Database.read();
-		assert food != null;
-		System.out.println(food.toString());
+		Object o = Database.read();
+		Assert.assertNull(o);
 	}
+
+
 }

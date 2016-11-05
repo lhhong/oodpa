@@ -8,7 +8,7 @@ public class FileWorker implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			if (CacheService.getCache().needsFlush()) {
+			if (CacheService.getCache().menuNeedsFlush()) {
 				Database.save(CacheService.getCache());
 			}
 			try {

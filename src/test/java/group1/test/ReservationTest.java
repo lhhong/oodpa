@@ -10,5 +10,5 @@ import org.testng.annotations.Test;
 public class ReservationTest {
     @Ignore
     @Test
-    public void upload() {Restaurant.reserveTable();}
+    public void upload() {}
 }

@@ -5,4 +5,7 @@ package group1.commons;
  */
 public class MoneyFormatException extends Exception{
 
+	public MoneyFormatException() {
+			super("string not in proper format to convert to money");
+	}
 }

@@ -2,11 +2,13 @@ package group1.commons;
 
 import group1.menu.FoodItem;
 import group1.menu.Menu;
+import group1.reservation.Reservation;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 /**
  * Created by low on 4/11/16 12:34 PM.
@@ -17,8 +19,15 @@ public class Database {
 
 	public static void save(Object o) {
 		URL  url = null;
+		String fileName = null;
+		if (o instanceof Menu) {
+			fileName = "menu";
+		}
+		if (o instanceof ReservationList) {
+			fileName = "Reservation";
+		}
 		try {
-			url = new URL("ftp://b8_19113227:oodpcz2002@ftp.byethost8.com/htdocs/myFile2.txt;type=i");
+			url = new URL(server + fileName + suffix);
 			URLConnection urlc = url.openConnection();
 			OutputStream os = urlc.getOutputStream(); // To upload
 			OutputStream buffer = new BufferedOutputStream(os);
@@ -36,13 +45,18 @@ public class Database {
 		URL url = null;
 		Object o = null;
 		try {
-			url = new URL(server + "myFile2.txt" + suffix);
+			url = new URL(server + "myFile3.txt" + suffix);
 			URLConnection urlc = url.openConnection();
-			InputStream is = urlc.getInputStream();
+			InputStream is;
+			try {
+				is = urlc.getInputStream();
+			} catch (FileNotFoundException e) {
+				return null;
+			}
 			InputStream buffer = new BufferedInputStream(is);
 			ObjectInput input = new ObjectInputStream(buffer);
 			o = input.readObject();
-		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			return null;
 		}

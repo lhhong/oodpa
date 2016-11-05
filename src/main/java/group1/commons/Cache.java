@@ -1,39 +1,42 @@
 package group1.commons;
 
 import group1.menu.Menu;
-import group1.reservation.Reservation;
-import group1.restaurant.Staff;
-import group1.restaurant.Table;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.time.LocalDate;
 
-/**
- * Created by low on 4/11/16 8:44 PM.
- */
 public class Cache implements Serializable{
 
-	private ArrayList<Table> tables;
-	private ArrayList<Staff> staffs;
-	private ArrayList<ArrayList<Reservation>> reservations;
+	private LocalDate currentDay;
+
+	private StaffList staffs;
+	private TableList tables;
+	private ReservationList reservations;
 	private Menu menu;
 	private int numEmptyTables;
 
-	private boolean hasChanges = false;
-	private final Object changeLock = new Object();
+	private boolean menuHasChanges = false;
+	private final Object menuChangeLock = new Object();
 
 	Cache() {
-		tables = MockData.getTables();
-		staffs = new ArrayList<>();
+		currentDay = LocalDate.now();
+		reservations = new ReservationList();
 		menu = new Menu();
 		numEmptyTables = 0;
 	}
 
-	boolean needsFlush() {
-		synchronized (changeLock) {
-			if (hasChanges) {
-				hasChanges = false;
+	public LocalDate getCurrentDay() {
+		return currentDay;
+	}
+
+	public void setCurrentDay(LocalDate currentDay) {
+		this.currentDay = currentDay;
+	}
+
+	boolean menuNeedsFlush() {
+		synchronized (menuChangeLock) {
+			if (menuHasChanges) {
+				menuHasChanges = false;
 				return true;
 			}
 			else {
@@ -43,22 +46,6 @@ public class Cache implements Serializable{
 	}
 
 	//TODO: remove uneccessary setters
-	public ArrayList<Table> getTables() {
-		return tables;
-	}
-
-	public void setTables(ArrayList<Table> tables) {
-		this.tables = tables;
-	}
-
-	public ArrayList<Staff> getStaffs() {
-		return staffs;
-	}
-
-	public void setStaffs(ArrayList<Staff> staffs) {
-		this.staffs = staffs;
-	}
-
 	public Menu getMenu() {
 		return menu;
 	}

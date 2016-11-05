@@ -1,7 +1,7 @@
 package group1.storage;
 
+import group1.restaurant.Gender;
 import group1.restaurant.Staff;
-import group1.restaurant.Table;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 public class MockData {
 	static ArrayList<Staff> getStaffs() {
-		return new ArrayList<Staff>();
+		ArrayList<Staff> staffs = new ArrayList<>();
+		staffs.add(new Staff("Robert", Gender.Male, 1, "waiter"));
+
+		return staffs;
 	}
 }

@@ -43,7 +43,6 @@ public class Database {
 	}
 
 	public static Object read() {
-		logger.info("reading");
 		URL url = null;
 		Object o = null;
 		try {

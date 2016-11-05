@@ -28,10 +28,11 @@ public class TableList implements Serializable{
                 tables.add(new Table(tablesize));
             }
         }
-        numEmptyTables = 0;
+        numEmptyTables = 30;
 	}
 
 	public ArrayList<Table> getTables() {
 		return tables;
 	}
+
 }

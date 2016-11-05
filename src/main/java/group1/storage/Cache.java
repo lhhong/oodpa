@@ -16,9 +16,10 @@ public class Cache implements Serializable{
 
 	Cache() {
 		currentDay = LocalDate.now();
+		staffs = new StaffList();
 		reservations = new ReservationList();
 		tables = new TableList();
-		menu = new Menu();
+		menu = new Menu(MockData.getFoodItems());
 	}
 
 	public LocalDate getCurrentDay() {

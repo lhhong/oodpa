@@ -1,12 +1,10 @@
-package group1.storage;
+package group1.reservation;
 
-import group1.reservation.Reservation;
-import group1.reservation.ReservationFactory;
+import group1.storage.SynchroLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

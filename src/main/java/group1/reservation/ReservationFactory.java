@@ -89,7 +89,7 @@ public class ReservationFactory extends Exception {
 
     public static int getTable(int index, int pax) {
 
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        ArrayList<Table> tables = CacheService.getCache().getTables();
 
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);

@@ -3,14 +3,10 @@ package group1.reservation;
 import group1.restaurant.Table;
 import group1.storage.CacheService;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Scanner;
 import java.time.LocalDateTime;
 import static group1.reservation.AMPM.AMSLOT;
 import static group1.reservation.AMPM.PMSLOT;
@@ -99,16 +95,16 @@ try{
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
-    ArrayList<Integer> ReservedTables = new ArrayList<>();
+    ArrayList<Integer> reservedTables = new ArrayList<>();
     Iterator<Reservation> iter = indexReservation.iterator();
     while (iter.hasNext()) {
         Reservation current = iter.next();
-        ReservedTables.add(current.getTableIndex());
+        reservedTables.add(current.getTableIndex());
     }
     int i = 1;
     for (Table t : tables) {
-        if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
-            if (!(ReservedTables.contains(i))) {
+        if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && !t.isOccupied()) {
+            if (!(reservedTables.contains(i))) {
                 System.out.println("TABLE alloc (delete this print later): " + i);
                 return i;
             }

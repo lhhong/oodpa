@@ -104,7 +104,7 @@ public class ReservationFactory extends Exception {
         for (Table t : tables) {
             if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && !t.isOccupied()) {
                 if (!(reservedTables.contains(i))) {
-                    System.out.println("TABLE alloc (delete this print later): " + i);
+                    System.out.println("Reservation Success");
                     return i;
                 }
 
@@ -112,7 +112,7 @@ public class ReservationFactory extends Exception {
             }
             i++;
         }
-        System.out.println("ERRORRRRRR  nothing reserved ast i:" + i);
+        System.out.println("No free tables for pax: " + pax);
         return -1;
     }
 
@@ -121,38 +121,57 @@ public class ReservationFactory extends Exception {
         ArrayList<Reservation> indexReservationAM, indexReservationPM;
         indexReservationAM = CacheService.getCache().getReservations().indexReservation(getIndex(date));
 
-        ArrayList<String> ReservedTables = new ArrayList<>();
-        ArrayList<Integer> ReservedNumbers = new ArrayList<>();
         Iterator<Reservation> iter = indexReservationAM.iterator();
+        int count = 1;
+        boolean hasReservation = false;
+        System.out.println("AM slot");
         while (iter.hasNext()) {
             Reservation current = iter.next();
-            ReservedTables.add(current.getName());
-            ReservedNumbers.add(current.getContact());
+
+            System.out.println("Reservation number: " + count);
+            System.out.println("Name: " + current.getName());
+            System.out.println("Contact: " + current.getContact());
+            System.out.println("Time: " + current.getDate().toLocalTime());
+            System.out.println("Table: " + current.getTableIndex());
+            System.out.println("Pax: " + current.getPax());
+            System.out.println("" );
+            hasReservation = true;
+            count ++;
+
         }
 
-        System.out.println("AM slot");
-        System.out.print("Names: ");
-        System.out.println(ReservedTables);
-        System.out.print("Contact: ");
-        System.out.println(ReservedNumbers);
+        if(!hasReservation){
+            System.out.println("No Reservations found");
+            System.out.println("");
+        }
+
 
         indexReservationPM = CacheService.getCache().getReservations().indexReservation(getIndex(date) + 1);
 
-        ReservedTables.clear();
-        ReservedNumbers.clear();
+        count = 1;
+        hasReservation = false;
 
         iter = indexReservationPM.iterator();
+
+        System.out.println("PM slot");
         while (iter.hasNext()) {
             Reservation current = iter.next();
-            ReservedTables.add(current.getName());
-            ReservedNumbers.add(current.getContact());
-        }
-        System.out.println("PM slot");
-        System.out.print("Names: ");
-        System.out.println(ReservedTables);
-        System.out.print("Contact: ");
-        System.out.println(ReservedNumbers);
 
+            System.out.println("Reservation number: " + count);
+            System.out.println("Name: " + current.getName());
+            System.out.println("Contact: " + current.getContact());
+            System.out.println("Time: " + current.getDate().toLocalTime());
+            System.out.println("Table: " + current.getTableIndex());
+            System.out.println("Pax: " + current.getPax());
+            System.out.println("" );
+            hasReservation = true;
+            count ++;
+        }
+
+        if(!hasReservation){
+            System.out.println("No Reservations found");
+            System.out.println("");
+        }
 
     }
 

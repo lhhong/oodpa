@@ -3,6 +3,7 @@ import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -64,25 +65,22 @@ public class Restaurant {
         }
 
         //TODO make this work with only boolean isOccupied
-        /*
-        if(type == 1 || type ==0) {
+
+        if(type == 1) {
             for (Table t : tables) {
                 if(reservedTables.contains(i)){
-                    t.setOccupied(2);
+                    t.occupy();
                 }
-                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getOccupied() == 0) {
-                    t.setOccupied(type);
+                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
+                    t.occupy();
                     numEmptyTables--;
                     System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
                     return i;
                 }
                 i++;
             }
-        }else if(type ==2){
-
-
         }
-        */
+
 
 
         System.out.println("No suitable table is available. Sorry!");
@@ -102,7 +100,7 @@ public class Restaurant {
 
     public static void main(String[] args){
         Restaurant r = new Restaurant();
-        r.assignTable(5,2);
+
         r.assignTable(7,1);
         r.assignTable(8,1);
         r.assignTable(7,1);

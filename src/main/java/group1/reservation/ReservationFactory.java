@@ -174,15 +174,19 @@ public class ReservationFactory {
         int index = getIndex(specificDate);
         int i;
         boolean removed = false;
+
         for (i = index; i <= index + 1; i++) {
             ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
             Iterator<Reservation> iter = indexReservation.iterator();
             int pos = 0;
 
+
             while (iter.hasNext()) {
                 Reservation current = iter.next();
                 if (current.getContact() == contact) {
+
                     CacheService.getCache().getReservations().indexReservation(i).remove(pos);
+
                     removed = true;
                     System.out.println("Reservation with contact " + contact + " has been removed.");
                     break;
@@ -195,6 +199,8 @@ public class ReservationFactory {
         if (removed == false) {
             System.out.println("Could not find reservation");
         }
+
+
     }
 
 

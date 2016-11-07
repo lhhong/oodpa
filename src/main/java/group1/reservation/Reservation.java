@@ -23,7 +23,7 @@ public class Reservation implements Serializable{
     int pax;
     int tableIndex;
 
-    public Reservation(LocalDateTime date, String name, int contact,int pax) {
+    public Reservation(LocalDateTime date, String name, int contact,int pax) throws NotInMonthException, NotInOperationException {
         this.date = date;
 
         this.name = name;
@@ -31,7 +31,13 @@ public class Reservation implements Serializable{
         this.pax = pax;
 
         this.timeslot = ReservationFactory.getTimeSlot(date);
-        this.tableIndex = ReservationFactory.getTable(ReservationFactory.getIndex(this), pax);
+
+        int index = ReservationFactory.getIndex(this);
+
+        if(index == -1){
+            throw new NotInMonthException();
+        }
+        this.tableIndex = ReservationFactory.getTable(index, pax);
         CacheService.getCache().getReservations().addReservation(this);
 
     }

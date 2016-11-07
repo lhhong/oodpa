@@ -1,5 +1,6 @@
 package group1.restaurant;
 import group1.reservation.Reservation;
+import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Restaurant {
 
     Restaurant(){
         System.out.println("Creating Restaurant...");
+        ReservationFactory.updateReservation();
         int tableNumber = 0;
         int tablesize = 0;
 
@@ -48,7 +50,8 @@ public class Restaurant {
     public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
-        //update reservations everytime called upon ##################
+
+        ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(0);
 

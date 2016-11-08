@@ -3,8 +3,12 @@ package group1.restaurant;
 import java.io.Serializable;
 
 /**
- * Created by low on 5/11/16 3:25 PM.
+ * Gender of the staff, categories the gender belongs to: male/female
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public enum Gender implements Serializable{
 	Male,
 	Female

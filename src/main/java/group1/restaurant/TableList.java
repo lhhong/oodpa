@@ -4,10 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by low on 8/11/16 5:08 PM.
+ * Creates a list of tables
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class TableList implements Serializable {
+	/**
+	 * Creates an Array list of tables
+	 */
 	private ArrayList<Table> tables;
+	/**
+	 * Number of Empty tables
+	 */
 	private int numEmptyTables;
 
 	public TableList() {

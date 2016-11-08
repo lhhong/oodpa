@@ -9,11 +9,13 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
-
-
 /**
- * Created by low on 4/11/16 12:35 PM.
+ * The reservation entity that holds the customer name, contact and reservation details with the assigned table
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class Reservation implements Serializable{
 
     LocalDateTime date;

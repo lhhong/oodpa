@@ -34,14 +34,11 @@ public class Menu implements Serializable{
     public Menu (){
     }
 
-
     /**
      * Construtor for pre-saved menu loaded from file
      * loaded from database
      * @param savedMenu loaded from file
      */
-
-    //TODO change FoodItem[] to use arraylist instead cause savedMenu.length wouldn't work with arrays initialized to be longer than the content
     public Menu(ArrayList<FoodItem> savedMenu){
         for (int i = 0; i<savedMenu.size(); i++) {
             createItem(savedMenu.get(i));
@@ -256,6 +253,13 @@ public class Menu implements Serializable{
     }
 
     /**
+     * returns the number of food items in menu
+     */
+    public int size(){
+        return (mains.size()+drinks.size()+desserts.size()+packages.size());
+    }
+
+    /**
      * Input food item i, returns the Array List which is located in
      * @param i index of food item
      * @return the Array List food item is located in
@@ -272,6 +276,4 @@ public class Menu implements Serializable{
         else
             return null;
     }
-
-
 }

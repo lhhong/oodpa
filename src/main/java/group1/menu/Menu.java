@@ -1,8 +1,5 @@
 package group1.menu;
 
-/**
- * Created by low on 4/11/16 12:35 PM.
- */
 import group1.commons.Money;
 import group1.commons.MoneyFormatException;
 import org.slf4j.Logger;
@@ -12,21 +9,38 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Restaurant Menu containing Food Items
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
+ */
+
 public class Menu implements Serializable{
 
     private static final Logger logger = LoggerFactory.getLogger(Menu.class);
 
+    /**
+     * Creates the Food Item Array lists for different types
+     */
     protected ArrayList<FoodItem> mains = new ArrayList<>();;
     protected ArrayList<FoodItem> drinks = new ArrayList<>();;
     protected ArrayList<FoodItem> desserts = new ArrayList<>();;
     protected ArrayList<FoodItem> packages = new ArrayList<>();;
 
-    //constructor for empty menu
+    /**
+     * Constructor for empty menu
+     */
     public Menu (){
     }
 
-    //constructor for a pre-saved menu loaded from file
-    //database load
+
+    /**
+     * Construtor for pre-saved menu loaded from file
+     * loaded from database
+     * @param savedMenu loaded from file
+     */
+
     //TODO change FoodItem[] to use arraylist instead cause savedMenu.length wouldn't work with arrays initialized to be longer than the content
     public Menu(ArrayList<FoodItem> savedMenu){
         for (int i = 0; i<savedMenu.size(); i++) {
@@ -34,7 +48,9 @@ public class Menu implements Serializable{
         }
     }
 
-    //prints out the menu
+    /**
+     * Prints out the menu
+     */
     public void printMenu(){
         int count = 1;
         System.out.println("========================   MAINS   ========================");
@@ -63,6 +79,9 @@ public class Menu implements Serializable{
         }
     }
 
+    /**
+     * Adds new items to the menu
+     */
     public void addItem(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Would you like to add a \n(1) Main\n(2) Dessert\n(3) Drink");
@@ -102,6 +121,9 @@ public class Menu implements Serializable{
         //sc.close();
     }
 
+    /**
+     * Adds new promotions to the menu
+     */
     public void addPromotion() {
         Scanner sc = new Scanner(System.in);
 
@@ -129,10 +151,17 @@ public class Menu implements Serializable{
         createItem(new PackageSet(name, temp, description, price));
     }
 
+    /**
+     * Creates food items
+     * @param i
+     */
     public void createItem(FoodItem i){
         returnArray(i).add(i);
     }
 
+    /**
+     * Removes items from the menu
+     */
     public void removeItem(){
         printMenu();
         System.out.println("Which item would you like to remove?");
@@ -142,6 +171,9 @@ public class Menu implements Serializable{
         returnArray(temp).remove(temp);
     }
 
+    /**
+     * Updates menu items from the menu
+     */
     public void updateItem(){
         printMenu();
         System.out.println("Select which item you would like to update");
@@ -166,6 +198,9 @@ public class Menu implements Serializable{
         createItem(new AlaCarte(name,type,description,price));
     }
 
+    /**
+     * Update Promotions from the menu
+     */
     public void updatePromotion(){
         printMenu();
         System.out.println("Select which item you would like to update");
@@ -200,6 +235,12 @@ public class Menu implements Serializable{
     }
 
     //usually preceded by printMenu(). input index on menu, return FoodItem;
+
+    /**
+     * Takes in an integer and locates the index that corresponds to the location of the Food Item
+     * @param i of the food item
+     * @return food item
+     */
     public FoodItem returnItem(int i){
         i -= 1;
         if (i<mains.size())
@@ -214,7 +255,11 @@ public class Menu implements Serializable{
         return packages.get(i);
     }
 
-    //input FoodItem i, returns the ArrayList it is in
+    /**
+     * Input food item i, returns the Array List which is located in
+     * @param i index of food item
+     * @return the Array List food item is located in
+     */
     private ArrayList<FoodItem> returnArray(FoodItem i){
         if (i instanceof PackageSet)
             return packages;

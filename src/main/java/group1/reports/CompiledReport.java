@@ -7,11 +7,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Contains compiled reports
+ * Contains compiled reports for a day or a month
  * @author OOP Group 1
  * @version 1.0
  * @since 2016-11-8
- * Created by low on 8/11/16 5:38 PM.
  */
 public class CompiledReport implements Serializable {
 	/**
@@ -48,15 +47,27 @@ public class CompiledReport implements Serializable {
 		}
 	}
 
+	/**
+	 * get Map of item quantities
+	 * @return food - quantity map
+	 */
 	public HashMap<FoodItem, FoodReport> getItemQuantities() {
 		return itemQuantities;
 	}
 
-	public int getTotalSales() {
+	/**
+	 * get total sales
+	 * @return total sales
+	 */
+	int getTotalSales() {
 		return totalSales;
 	}
 
-	public void collapse(CompiledReport compiledReport) {
+	/**
+	 * combines 2 reports together
+	 * @param compiledReport report to be combined
+	 */
+	void collapse(CompiledReport compiledReport) {
 		this.totalSales += compiledReport.getTotalSales();
 		for (FoodItem i : compiledReport.getItemQuantities().keySet()) {
 			if (itemQuantities.keySet().contains(i)) {
@@ -70,8 +81,8 @@ public class CompiledReport implements Serializable {
 
 	/**
 	 * constructor solely for MockData generation
-	 * @param itemQuantities
-	 * @param totalSales
+	 * @param itemQuantities quantity
+	 * @param totalSales sales revenue
 	 */
 	public CompiledReport(HashMap<FoodItem, FoodReport> itemQuantities, int totalSales) {
 		this.itemQuantities = itemQuantities;

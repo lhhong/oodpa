@@ -11,22 +11,26 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Created by low on 8/11/16 5:37 PM.
+ * Main class concerning revenue report
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class Reports implements Serializable {
 	private HashMap<LocalDate, CompiledReport> dailyReports;
 
-	public Reports() {
-	}
-
 	/**
 	 * Constructor solely for MockData generation
-	 * @param dailyReports
+	 * @param dailyReports hash map of data
 	 */
 	public Reports(HashMap<LocalDate, CompiledReport> dailyReports) {
 		this.dailyReports = dailyReports;
 	}
 
+	/**
+	 * adds the invoice to reports
+	 * @param invoice invoice generated
+	 */
 	public void addInvoice(Invoice invoice) {
 		LocalDate invoiceDate = invoice.getDateTime().toLocalDate();
 		Set<LocalDate> dateSet = dailyReports.keySet();
@@ -41,6 +45,12 @@ public class Reports implements Serializable {
 		dailyReports.put(invoiceDate, newReport);
 	}
 
+	/**
+	 * generates monthly report
+	 * @param year year of report
+	 * @param month month of report
+	 * @return monthly report
+	 */
 	private CompiledReport generateMonthlyReport(int year, int month) {
 		YearMonth ym = YearMonth.of(year, month);
 		CompiledReport report = new CompiledReport();
@@ -53,10 +63,10 @@ public class Reports implements Serializable {
 
 	}
 
-	public String reportPrintString(int year, int month) {
+	public void printReport(int year, int month) {
 		String s = "Report for " + YearMonth.of(year, month).toString();
 		s += reportPrintString(generateMonthlyReport(year, month));
-		return s;
+		System.out.println(s);
 	}
 
 	private String reportPrintString(CompiledReport compiledReport) {
@@ -73,14 +83,14 @@ public class Reports implements Serializable {
 		return s;
 	}
 
-	public String reportPrintString(LocalDate date) {
+	public void printReport(LocalDate date) {
 		String s  = "Report for the day " + date.format(DateTimeFormatter.ISO_DATE);
 		for (LocalDate savedDate : dailyReports.keySet()) {
 			if (savedDate.isEqual(date)) {
 				s += reportPrintString(dailyReports.get(savedDate));
-				return s;
+				System.out.println(s);
 			}
 		}
-		return null;
+		System.out.println("No report available on this day");
 	}
 }

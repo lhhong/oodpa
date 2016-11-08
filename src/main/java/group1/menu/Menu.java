@@ -26,6 +26,7 @@ public class Menu implements Serializable{
     }
 
     //constructor for a pre-saved menu loaded from file
+    //database load
     //TODO change FoodItem[] to use arraylist instead cause savedMenu.length wouldn't work with arrays initialized to be longer than the content
     public Menu(FoodItem[] savedMenu){
         for (int i = 0; i<savedMenu.length; i++) {
@@ -101,12 +102,12 @@ public class Menu implements Serializable{
         //sc.close();
     }
 
-    public void addPromotion(){
+    public void addPromotion() {
         Scanner sc = new Scanner(System.in);
 
         AlaCarte[] temp = new AlaCarte[3];
 
-        for (int i=1;i<4;i++) {
+        for (int i = 1; i < 4; i++) {
             printMenu();
             System.out.println("Choose an AlaCarte number " + i + " for the package");
             int j = sc.nextInt();
@@ -125,14 +126,7 @@ public class Menu implements Serializable{
         } catch (MoneyFormatException e) {
             e.getMessage();
         }
-        createItem(new PackageSet(name,temp,description,price));
-    }
-
-    public void addItem(FoodItem i){
-        if (i instanceof AlaCarte)
-            returnArray(i).add(i);
-        else
-            packages.add(i);
+        createItem(new PackageSet(name, temp, description, price));
     }
 
     public void createItem(FoodItem i){

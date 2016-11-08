@@ -86,10 +86,10 @@ public class RestaurantApp {
                     int inputPromo = userinput.nextInt();
                     switch (inputPromo) {
                         case 1:
-                            menu.addItem();
+                            menu.addPromotion();
                             break;
                         case 2:
-                            menu.updateItem();
+                            menu.updatePromotion();
                             break;
                         case 3:
                             menu.removeItem();

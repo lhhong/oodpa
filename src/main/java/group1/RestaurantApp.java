@@ -1,6 +1,7 @@
 package group1;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import group1.commons.ReservationUpdateWorker;
@@ -10,9 +11,12 @@ import group1.reservation.NotInMonthException;
 import group1.reservation.NotInOperationException;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
+import group1.restaurant.Staff;
+import group1.restaurant.Table;
 import group1.restaurant.TableFactory;
-
-import group1.restaurant.TableFactory;
+import group1.restaurant.Order;
+import group1.restaurant.Staff;
+import group1.storage.CacheService;
 
 /**
  * Main class that incorporates all functions of the Restaurant RRPSS
@@ -154,15 +158,26 @@ public class RestaurantApp {
             pax = userinput.nextInt();
         }
         //if pax=-1: break
-        TableFactory.assignTable(pax);
-
-        //Order neworder = new Order(fooditem array);
-        //while something, neworder.additem()
-        //table.newOrder(neworder);
-        //
-
-        //create new order
+        Table assigned = TableFactory.assignTable(pax);
+        ArrayList<Staff> staffs = CacheService.getCache().getStaffs();
+        int j = 1;
+        for (Staff s : staffs){
+            print(j+") "+s.toString());
+            j++;
+        }
+        print("Enter staff number: ");
+        int staffno = userinput.nextInt();
+        Order neworder = new Order(staffs.get(staffno-1));
+        assigned.newOrder(neworder);
     }
+    private static void viewOrder(){
+        print("Please enter your table number: ");
+        int tableno = userinput.nextInt();
+        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        Table t = tables.get(tableno-1);
+        t.getOrder().printOrder();
+    }
+
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());
@@ -175,7 +190,7 @@ public class RestaurantApp {
 
         do {
             print();
-            menu.printMenu();
+            //menu.printMenu();
             print("\nPlease select one of the following options:");
             print("\n(1) Create/Update/Remove menu item");
             print("(2) Create/Update/Remove promotion");

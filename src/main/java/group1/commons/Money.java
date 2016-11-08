@@ -4,10 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by low on 4/11/16 1:38 PM.
+ * A class for the manipulation of money in our code
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class Money {
 	private static final Logger logger = LoggerFactory.getLogger(Money.class);
+
+	/**
+	 * converts a price in int to String
+	 * @param price of the food item
+	 * @return String of price in format $xx.xx
+	 */
 	public static String toString(int price) {
 		return "$" + price/100 + "." + price%100;
 	}

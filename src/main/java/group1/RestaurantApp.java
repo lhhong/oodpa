@@ -99,6 +99,11 @@ public class RestaurantApp {
                     }
                     break;
                 case 3:
+                    //assigntable ->return a table
+                    //get order details which is a FoodItem array;
+                    //Order neworder = new Order(fooditem array);
+                    //table.newOrder(neworder);
+                    //
 
                     //create new order
                     break;

@@ -16,12 +16,12 @@ public class Cache implements Serializable{
 
 	private TableList tables;
 	//private ArrayList<Table> tables;
-	int numEmptyTables;
 	private ArrayList<Staff> staffs;
 	private ReservationList reservations;
 	private Menu menu;
 
 	Cache() {
+		tables = new TableList();
 		currentDay = LocalDate.now();
 		staffs = MockData.getStaffs();
 		reservations = new ReservationList();
@@ -44,11 +44,11 @@ public class Cache implements Serializable{
 		return reservations;
 	}
 
-/*	public ArrayList<Table> getTables() {
+	public TableList getTables() {
 		return tables;
 	}
 
 	public ArrayList<Staff> getStaffs() {
 		return staffs;
-	}*/
+	}
 }

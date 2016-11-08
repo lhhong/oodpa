@@ -15,7 +15,6 @@ import group1.restaurant.Staff;
 import group1.restaurant.Table;
 import group1.restaurant.TableFactory;
 import group1.restaurant.Order;
-import group1.restaurant.Staff;
 import group1.storage.CacheService;
 
 /**
@@ -171,11 +170,34 @@ public class RestaurantApp {
         assigned.newOrder(neworder);
     }
     private static void viewOrder(){
+        Order o = getOrder();
+        o.printOrder();
+    }
+    private static void editOrder(){
+        Order o = getOrder();
+        o.printOrder();
+        int choice;
+        do {
+            print("Would you like to add(1) or remove(2) items");
+            choice = userinput.nextInt();
+            switch (choice){
+                case 1:
+                    menu.printMenu();
+                    break;
+                case 2:
+                    break;
+                default:
+                    print("Order confirmed");
+            }
+        }while(choice<=3);
+
+    }
+    private static Order getOrder(){
         print("Please enter your table number: ");
         int tableno = userinput.nextInt();
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
-        t.getOrder().printOrder();
+        return t.getOrder();
     }
     public static void main(String[] args) {
 
@@ -215,10 +237,10 @@ public class RestaurantApp {
                     createOrder();
                     break;
                 case 4:
-                    //view order
+                    viewOrder();
                     break;
                 case 5:
-                    //edit order
+                    editOrder();
                     break;
                 case 6:
                     createReservation();
@@ -230,7 +252,7 @@ public class RestaurantApp {
                     TableFactory.printAvailableTables();
                     break;
                 case 9:
-                    //print order invoice
+                    //print invoice
                     break;
                 case 10:
                     //print sales revenue report

@@ -27,7 +27,7 @@ public class Invoice implements Serializable {
 	}
 
 	public String toString() {
-		//TODO calc GST
+		//TODO convert into string of full invoice
 		return "toString";
 	}
 }

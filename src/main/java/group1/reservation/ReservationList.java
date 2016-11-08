@@ -21,6 +21,9 @@ public class ReservationList implements Serializable{
 	private LinkedList<ArrayList<Reservation>> reservations;
 	private final SynchroLock reservationsChangeLock = new SynchroLock();
 
+	/**
+	 * Creates a new reservation list
+	 */
 	public ReservationList() {
 		reservations = new LinkedList<>();
 		for (int i=0; i<31; i++) {

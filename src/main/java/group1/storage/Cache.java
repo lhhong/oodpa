@@ -1,6 +1,7 @@
 package group1.storage;
 
 import group1.menu.Menu;
+import group1.reports.Reports;
 import group1.reservation.ReservationList;
 import group1.restaurant.Staff;
 import group1.restaurant.Table;
@@ -19,8 +20,10 @@ public class Cache implements Serializable{
 	private ArrayList<Staff> staffs;
 	private ReservationList reservations;
 	private Menu menu;
+	private Reports reports;
 
 	Cache() {
+		reports = new Reports(/*TODO MockData.getReportList()*/);
 		tables = new TableList();
 		currentDay = LocalDate.now();
 		staffs = MockData.getStaffs();
@@ -50,5 +53,9 @@ public class Cache implements Serializable{
 
 	public ArrayList<Staff> getStaffs() {
 		return staffs;
+	}
+
+	public Reports getReports() {
+		return reports;
 	}
 }

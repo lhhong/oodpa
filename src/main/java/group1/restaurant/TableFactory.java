@@ -13,8 +13,12 @@ import static group1.reservation.AMPM.AMSLOT;
 import static group1.reservation.AMPM.PMSLOT;
 
 /**
- * Created by low on 4/11/16 12:50 PM.
+ *
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class TableFactory {
 
 

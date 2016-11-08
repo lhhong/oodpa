@@ -7,17 +7,34 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
+ * Contains compiled reports
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  * Created by low on 8/11/16 5:38 PM.
  */
 public class CompiledReport implements Serializable {
+	/**
+	 * HashMap containing a map of food items and their quantities and sales
+	 */
 	private HashMap<FoodItem, FoodReport> itemQuantities;
+	/**
+	 * total sales of this collection
+	 */
 	private int totalSales;
 
+	/**
+	 * initialize the compilation
+	 */
 	public CompiledReport() {
 		totalSales = 0;
 		itemQuantities = new HashMap<>();
 	}
 
+	/**
+	 * adds and order to the collection, incrementing quantity if the FoodItem exist
+	 * @param order order containing items to add
+	 */
 	public void addOrder(Order order) {
 		HashMap<FoodItem, Integer> orderItems = order.getFood_order();
 		for(FoodItem i : orderItems.keySet()) {

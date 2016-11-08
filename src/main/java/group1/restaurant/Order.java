@@ -3,6 +3,7 @@ package group1.restaurant;
 import group1.menu.FoodItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,7 +22,6 @@ public class Order implements Serializable {
      * Hashmap that contains the food items within an order
      */
     private HashMap<FoodItem, Integer> food_order;
-
 
     /**
      * Creates a new order with the staff details and table number
@@ -95,7 +95,14 @@ public class Order implements Serializable {
      * @param choice choice of food item
      */
     public void removeItem(int choice){
-        //TODO recode this part
+        int i = 1;
+        for (FoodItem f : food_order.keySet()) {
+            if (i == choice) {
+                food_order.remove(f);
+                break;
+            }
+            i++;
+        }
     }
 
 

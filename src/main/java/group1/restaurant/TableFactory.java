@@ -1,25 +1,24 @@
 package group1.restaurant;
 import group1.reservation.Reservation;
+import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
-public class Restaurant {
+public class TableFactory {
     private static Table tables[];
     private int tableSizes[] = {2,4,8,10};
     private int tableDistribution[] = {10,10,5,5};
     private int numTables = 0;
     private int numEmptyTables;
 
-    Restaurant(){
+    TableFactory(){
         System.out.println("Creating Restaurant...");
+        ReservationFactory.updateReservation();
         int tableNumber = 0;
         int tablesize = 0;
 
@@ -31,11 +30,12 @@ public class Restaurant {
         tables = new Table[numTables];
 
         // create correct number of tables
+	    int id = 0;
         for (int i = 0; i < tableDistribution.length; i++){
             tablesize = tableSizes[i];
 
             for (int j = 0; j < tableDistribution[i]; j++){
-                tables[tableNumber] = new Table(tablesize);
+                tables[tableNumber] = new Table(tablesize, id++);
                 tableNumber++;
             }
         }
@@ -50,55 +50,78 @@ public class Restaurant {
     public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
-        //update reservations everytime called upon ##################
+
+        ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(0);
 
-        ArrayList<Integer> ReservedTables = new ArrayList<>();
+        ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();
         while(iter.hasNext())
         {
             Reservation current = iter.next();
-            ReservedTables.add(current.getTableIndex());
+            reservedTables.add(current.getTableIndex());
         }
 
-        if(type == 1 || type ==0) {
+
+
+        if(type == 1) {
             for (Table t : tables) {
-                if(ReservedTables.contains(i)){
-                    t.setStatus(2);
+                if(reservedTables.contains(i)){
+                    t.occupy();
                 }
-                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
-                    t.setStatus(type);
+                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
+                    t.occupy();
                     numEmptyTables--;
                     System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
                     return i;
                 }
                 i++;
             }
-        }else if(type ==2){
-
-
         }
 
+        //TODO deassign table ?
+        //TODO when someone with reservation comes just removereservation and assigntable consecutively
 
         System.out.println("No suitable table is available. Sorry!");
         return 0;
     }
     public void printAvailableTables(){
+        ReservationFactory.updateReservation();
+        ArrayList<Reservation> indexReservation;
+        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+
+        ArrayList<Integer> reservedTables = new ArrayList<>();
+        Iterator<Reservation> iter = indexReservation.iterator();
+        while(iter.hasNext())
+        {
+            Reservation current = iter.next();
+            reservedTables.add(current.getTableIndex());
+        }
+
         int i = 1;
+        int emptyTables = 0;
         for (Table t:tables){
-            if (t.getStatus() == 0){
-                System.out.println("Table " + i + ", size = "+ t.getCapacity());
+            if (!t.isOccupied()){
+                if(reservedTables.contains(i)){
+                System.out.println("Table " + i + ", size = "+ t.getCapacity() + ", status = Reserved" );
+                }else{
+                    System.out.println("Table " + i + ", size = "+ t.getCapacity() + ", status = Available" );
+                    emptyTables++;
+                }
             }
             i++;
         }
-        System.out.println("Number of available tables = "+numEmptyTables);
+        System.out.println("Number of available tables = " + emptyTables);
+
+
+
     }
 
 
     public static void main(String[] args){
-        Restaurant r = new Restaurant();
-        r.assignTable(5,2);
+        TableFactory r = new TableFactory();
+
         r.assignTable(7,1);
         r.assignTable(8,1);
         r.assignTable(7,1);

@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
-import static group1.reservation.ReservationFactory.getIndex;
-import static group1.reservation.ReservationFactory.getTimeSlot;
-import static group1.reservation.ReservationFactory.getTable;
+
 
 /**
  * Created by low on 4/11/16 12:35 PM.
@@ -25,15 +23,21 @@ public class Reservation implements Serializable{
     int pax;
     int tableIndex;
 
-    public Reservation(LocalDateTime date, String name, int contact,int pax) {
+    public Reservation(LocalDateTime date, String name, int contact,int pax) throws NotInMonthException, NotInOperationException {
         this.date = date;
 
         this.name = name;
         this.contact = contact;
         this.pax = pax;
 
-        this.timeslot = getTimeSlot(date);
-        this.tableIndex = getTable(getIndex(this), pax);
+        this.timeslot = ReservationFactory.getTimeSlot(date);
+
+        int index = ReservationFactory.getIndex(this);
+
+        if(index == -1){
+            throw new NotInMonthException();
+        }
+        this.tableIndex = ReservationFactory.getTable(index, pax);
         CacheService.getCache().getReservations().addReservation(this);
 
     }

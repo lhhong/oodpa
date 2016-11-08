@@ -37,7 +37,13 @@ public class TableFactory {
 
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
-        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+        int index;
+        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
+            index = 0;
+        } else {
+            index = 1;
+        }
+        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();

@@ -15,21 +15,131 @@ import group1.reservation.ReservationFactory;
 public class RestaurantApp {
     static Scanner userinput = new Scanner(System.in);
 
+    // Printing Functions
     static void print() {
         System.out.println();
     }
-
     static void print(Object obj) {
         System.out.println(obj);
     }
-
     static void printnb(Object obj) {
         System.out.print(obj);
     }
 
     private static Menu menu = new Menu();
 
+    private static void changeMenu(){
+        print("Please select one of the following options:");
+        print("(1) Create Menu item");
+        print("(2) Update Menu item");
+        print("(3) Remove Menu item");
+        int inputItem = userinput.nextInt();
+        switch (inputItem) {
+            case 1:
+                menu.addItem();
+                break;
+            case 2:
+                menu.updateItem();
+                break;
+            case 3:
+                menu.removeItem();
+                break;
+            default:
+                print("Please input a valid choice");
+        }
+    }
+    private static void changePromotion(){
+        print("Please select one of the following options:");
+        print("(1) Create a promotion");
+        print("(2) Update a promotion");
+        print("(3) Remove a promotion");
+        int inputPromo = userinput.nextInt();
+        switch (inputPromo) {
+            case 1:
+                menu.addPromotion();
+                break;
+            case 2:
+                menu.updatePromotion();
+                break;
+            case 3:
+                menu.removeItem();
+                break;
+            default:
+                print("Please input a valid choice");
+        }
 
+    }
+    private static void createReservation(){
+        int year, month, day, hour, minute, contact, pax;
+        print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
+        year = userinput.nextInt();
+        month = userinput.nextInt();
+        day = userinput.nextInt();
+        hour = userinput.nextInt();
+        minute = userinput.nextInt();
+        print("Input Name");
+        String name = userinput.next();
+        print("Input Contact number");
+        contact = userinput.nextInt();
+        print("Input Pax");
+        pax = userinput.nextInt();
+        LocalDateTime specificDate = LocalDateTime.of(year, month, day, hour, minute);
+        try {
+            Reservation reservation = new Reservation(specificDate, name, contact, pax);
+        } catch (NotInMonthException e) {
+            System.out.println(e.getMessage());
+
+        } catch(NotInOperationException e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    private static void updateReservation(){
+        print("Please select one of the following options:");
+        print("(1) Check a next reservation");
+        print("(2) Check a Reservation Booking for a date");
+        print("(3) Remove a Reservation Booking");
+        int reserveBook = userinput.nextInt();
+        switch (reserveBook) {
+            case 1:
+                LocalDateTime specificDate = LocalDateTime.now();
+                ReservationFactory.printIndexReservation(specificDate);
+                break;
+            case 2:
+                print("Input Year Month Day e.g. 2016 11 19 ");
+                int year = userinput.nextInt();
+                int month = userinput.nextInt();
+                int day = userinput.nextInt();
+                specificDate = LocalDateTime.of(year, month, day, 0, 0);
+                ReservationFactory.printIndexReservation(specificDate);
+                break;
+
+            case 3:
+                print("Input Year Month Day e.g. 2016 11 19 ");
+                year = userinput.nextInt();
+                month = userinput.nextInt();
+                day = userinput.nextInt();
+                specificDate = LocalDateTime.of(year, month, day, 0, 0);
+                print("Current reservation for: " + specificDate);
+                ReservationFactory.printIndexReservation(specificDate);
+                print("Input contact number to remove reservation");
+                int contact = userinput.nextInt();
+                ReservationFactory.removeIndexReservation(specificDate, contact);
+                break;
+            default:
+                print("Please input a valid choice");
+        }
+    }
+    private static void createOrder(){
+        //get number of pax
+        //assigntable ->return a table, set table to occupied
+        //Order neworder = new Order(fooditem array);
+        //while something, neworder.additem()
+        //table.newOrder(neworder);
+        //
+
+        //create new order
+    }
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());
@@ -59,53 +169,13 @@ public class RestaurantApp {
             choice = userinput.nextInt();
             switch (choice) {
                 case 1:
-                    print("Please select one of the following options:");
-                    print("(1) Create Menu item");
-                    print("(2) Update Menu item");
-                    print("(3) Remove Menu item");
-                    int inputItem = userinput.nextInt();
-                    switch (inputItem) {
-                        case 1:
-                            menu.addItem();
-                            break;
-                        case 2:
-                            menu.updateItem();
-                            break;
-                        case 3:
-                            menu.removeItem();
-                            break;
-                        default:
-                            print("Please input a valid choice");
-                    }
+                    changeMenu();
                     break;
                 case 2:
-                    print("Please select one of the following options:");
-                    print("(1) Create a promotion");
-                    print("(2) Update a promotion");
-                    print("(3) Remove a promotion");
-                    int inputPromo = userinput.nextInt();
-                    switch (inputPromo) {
-                        case 1:
-                            menu.addPromotion();
-                            break;
-                        case 2:
-                            menu.updatePromotion();
-                            break;
-                        case 3:
-                            menu.removeItem();
-                            break;
-                        default:
-                            print("Please input a valid choice");
-                    }
+                    changePromotion();
                     break;
                 case 3:
-                    //assigntable ->return a table
-                    //get order details which is a FoodItem array;
-                    //Order neworder = new Order(fooditem array);
-                    //table.newOrder(neworder);
-                    //
-
-                    //create new order
+                    createOrder();
                     break;
                 case 4:
                     //view order
@@ -114,66 +184,10 @@ public class RestaurantApp {
                     //edit order
                     break;
                 case 6:
-                    int year, month, day, hour, minute, contact, pax;
-                    print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
-                    year = userinput.nextInt();
-                    month = userinput.nextInt();
-                    day = userinput.nextInt();
-                    hour = userinput.nextInt();
-                    minute = userinput.nextInt();
-                    print("Input Name");
-                    String name = userinput.next();
-                    print("Input Contact number");
-                    contact = userinput.nextInt();
-                    print("Input Pax");
-                    pax = userinput.nextInt();
-                    LocalDateTime specificDate = LocalDateTime.of(year, month, day, hour, minute);
-                    try {
-                        Reservation reservation = new Reservation(specificDate, name, contact, pax);
-                    } catch (NotInMonthException e) {
-                        System.out.println(e.getMessage());
-
-                    } catch(NotInOperationException e){
-                        System.out.println(e.getMessage());
-
-                    }
-
+                    createReservation();
                     break;
                 case 7:
-                    print("Please select one of the following options:");
-                    print("(1) Check a next reservation");
-                    print("(2) Check a Reservation Booking for a date");
-                    print("(3) Remove a Reservation Booking");
-                    int reserveBook = userinput.nextInt();
-                    switch (reserveBook) {
-                        case 1:
-                            specificDate = LocalDateTime.now();
-                            ReservationFactory.printIndexReservation(specificDate);
-                            break;
-                        case 2:
-                            print("Input Year Month Day e.g. 2016 11 19 ");
-                            year = userinput.nextInt();
-                            month = userinput.nextInt();
-                            day = userinput.nextInt();
-                            specificDate = LocalDateTime.of(year, month, day, 0, 0);
-                            ReservationFactory.printIndexReservation(specificDate);
-                            break;
-
-                        case 3:
-                            print("Input Year Month Day e.g. 2016 11 19 ");
-                            year = userinput.nextInt();
-                            month = userinput.nextInt();
-                            day = userinput.nextInt();
-                            specificDate = LocalDateTime.of(year, month, day, 0, 0);
-                            print("Current reservation for: " + specificDate);
-                            ReservationFactory.printIndexReservation(specificDate);
-                            print("Input contact number to remove reservation");
-                            contact = userinput.nextInt();
-                            ReservationFactory.removeIndexReservation(specificDate, contact);
-                            break;
-                        default:
-                            print("Please input a valid choice");
-                    }
+                    updateReservation();
                     break;
                 case 8:
                     //table availability
@@ -191,5 +205,6 @@ public class RestaurantApp {
         } while (choice < 11);
         t.interrupt();
     }
+
 }
 

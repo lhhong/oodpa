@@ -49,4 +49,12 @@ public class Invoice implements Serializable {
 				"Total: " + (subtotal+calcGst());
 		return stringOutput;
 	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
 }

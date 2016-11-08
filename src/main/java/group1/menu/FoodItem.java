@@ -17,4 +17,9 @@ public abstract class FoodItem implements Serializable{
     }
 
     public abstract void getDetails();
+
+    public String getName(){return this.name;}
+    public String getDescription(){return this.description;}
+    public int getPrice(){return this.price;}
+
 }

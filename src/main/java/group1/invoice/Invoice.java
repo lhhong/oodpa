@@ -35,16 +35,17 @@ public class Invoice implements Serializable {
 		//TODO convert into string of full invoice
 		String stringOutput = "The OODA Restaurant\n" +
 				"=====================\n" +
-				"Block 50A, Tanjong Hall, #04-120" +
-				"Nanyang Technological University" +
-				"Tel: +65 9876 5432" +
-				"Date: " + dateTime +
-				"Server: " + order.getStaff().getName() +
-				"Table: " + tableNumber +
+				"Block 50A, Tanjong Hall, #04-120 \n" +
+				"Nanyang Technological University \n" +
+				"Tel: +65 9876 5432 \n" +
+				"Date: " + dateTime + "\n"+
+				"Server: " + order.getStaff().getName() + "\n"+
+				"Table: " + tableNumber + "\n" +
 				"\n====================\n" +
 				"";
 		for (FoodItem i:order.getFood_order().keySet()) {
-			stringOutput += order.getFood_order().get(i) + " " + (order.getFood_order().get(i)*i.getPrice()) + "\n";
+			stringOutput += order.getFood_order().get(i) + " " + i.getName() +
+					"\t" + Money.toString(order.getFood_order().get(i)*i.getPrice()) + "\n";
 		}
 		stringOutput += "\n Subtotal:" + subtotal +
 				"GST: " + calcGst() +

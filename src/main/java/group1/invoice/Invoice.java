@@ -48,8 +48,8 @@ public class Invoice implements Serializable {
 					"\t" + Money.toString(order.getFood_order().get(i)*i.getPrice()) + "\n";
 		}
 		stringOutput += "\n Subtotal:" + subtotal +
-				"GST: " + calcGst() +
-				"Total: " + (subtotal+calcGst());
+				"GST: " + Money.toString(calcGst()) + "\n" +
+				"Total: " + Money.toString(subtotal+calcGst());
 		return stringOutput;
 	}
 

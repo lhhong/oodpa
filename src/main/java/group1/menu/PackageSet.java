@@ -5,19 +5,35 @@ import group1.commons.Money;
 import java.io.Serializable;
 
 /**
- * Created by tzeyangng on 4/11/16.
+ * An Ala Carte item that people will consume in their meal.
+ * Ala Carte items are contained in Menu
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 
 public class PackageSet extends FoodItem implements Serializable {
+    /**
+     * Stores an array of AlaCarte objects
+     */
     protected AlaCarte[] set;
 
+    /**
+     * Creates an PackageSet item and initializes its name, set, description and price
+     * @param name of PackageSet item
+     * @param set of PackageSet item
+     * @param description of PackageSet item
+     * @param price of PackageSet item
+     */
     public PackageSet(String name, AlaCarte[] set, String description, int price){
         super(name,description,price);
         this.set = set;
     }
 
-    @Override
-    public void getDetails() {
+    /**
+     * Prints the details of the Food item
+     */
+    public void printDetails() {
         // TODO Auto-generated method stub
         System.out.println(this.name + this.description);
         for(AlaCarte item:set){

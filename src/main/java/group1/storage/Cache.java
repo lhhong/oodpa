@@ -22,13 +22,19 @@ public class Cache implements Serializable{
 	private Menu menu;
 	private Reports reports;
 
+	/**
+	 * constructor to initialize Cache with MockData
+	 */
 	Cache() {
-		reports = new Reports(/*TODO MockData.getReportList()*/);
 		tables = new TableList();
 		currentDay = LocalDate.now();
 		staffs = MockData.getStaffs();
 		reservations = new ReservationList();
 		menu = new Menu(MockData.getFoodItems());
+	}
+
+	public void setMockReports() {
+		reports = new Reports(MockData.getReportList(this));
 	}
 
 	public LocalDate getCurrentDay() {

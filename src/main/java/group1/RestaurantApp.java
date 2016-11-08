@@ -246,6 +246,9 @@ public class RestaurantApp {
         Thread t = new Thread(new ReservationUpdateWorker());
         t.start();
 
+        //Set Mock reports
+        CacheService.getCache().setMockReports();
+
         print("Welcome to the OOP Restaurant");
         int choice;
         Scanner userinput = new Scanner(System.in);
@@ -295,7 +298,7 @@ public class RestaurantApp {
                     printInvoice();
                     break;
                 case 10:
-                    //print sales revenue report
+                    printReport();
                     break;
                 default:
                     print("Program exited.");

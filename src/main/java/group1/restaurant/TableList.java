@@ -29,6 +29,10 @@ public class TableList implements Serializable {
         numEmptyTables = 30;
 	}
 
+	public ArrayList<Table> getTables() {
+		return tables;
+	}
+
 	public void assignTable(/*some arguements*/) {
 		//tables.get(TableFactory.assignTable(tables, //other arguements needed)).occupy;
 		//numEmptyTables++;

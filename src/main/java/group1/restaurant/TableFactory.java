@@ -22,20 +22,29 @@ import static group1.reservation.AMPM.PMSLOT;
 public class TableFactory {
 
 
-
-
-    public static Table assignTable(int pax){//1=walk in, 2= reserved
+    /**
+     * Returns an empty, non reserved table according to pax size, returns null if no table available
+     * @param pax
+     * @return Table object
+     */
+    public static Table assignTable(int pax){
         // returns table assign, returns null if no available table
         int i = 1;
 
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
         int index;
+        /**
+         * Determine if it is AM or PM and set index to 0 or 1 respectively
+         */
         if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
             index = 0;
         } else {
             index = 1;
         }
+        /**
+         * Obtains the AM/PM reservation for the day
+         */
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
@@ -46,8 +55,11 @@ public class TableFactory {
             reservedTables.add(current.getTableIndex());
         }
 
-
+/**
+ * Gets the list of tables
+ */
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+
         for (Table t : tables) {
             if (reservedTables.contains(i)) {
                 t.occupy();

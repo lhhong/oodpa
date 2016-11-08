@@ -1,5 +1,6 @@
 package group1;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -211,9 +212,7 @@ public class RestaurantApp {
                 print("Please input a valid choice");
         }
     }
-    private static void printReport(){
-        CacheService.getCache().getReports().reportPrintString();
-    }
+
 
     private static void printInvoice(){
         print("Please enter your table number: ");
@@ -222,8 +221,25 @@ public class RestaurantApp {
         Table t = tables.get(tableno-1);
         Invoice i = new Invoice(t);
         print(i.toString());
+        CacheService.getCache().getReports().addInvoice(i);
 
     }
+    private static void printReport(){
+
+        print("Would you like a daily(1) or monthly(2) report?:");
+        int choice = userinput.nextInt();
+        if (choice==1){
+            CacheService.getCache().getReports().printReport(LocalDate.now());
+        }
+        else {
+            print("Input Year in YYYY format:");
+            int year = userinput.nextInt();
+            print("Input Month in mm format:");
+            int month =userinput.nextInt();
+            CacheService.getCache().getReports().printReport(year,month);
+        }
+    }
+
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());

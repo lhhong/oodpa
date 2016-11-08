@@ -19,13 +19,20 @@ public class MockData {
 	static ArrayList<Staff> getStaffs() {
 		ArrayList<Staff> staffs = new ArrayList<>();
 		staffs.add(new Staff("Robert", Gender.Male, 1, "waiter"));
+		staffs.add(new Staff("Joeline", Gender.Female, 2, "waiter"));
+		staffs.add(new Staff("Timothy", Gender.Male, 3, "waiter"));
 
 		return staffs;
 	}
 
-	static FoodItem[] getFoodItems() {
-		FoodItem[] items = new FoodItem[1];
-		items[0] = new AlaCarte("name", 'M', "so nice", 300);
+	static ArrayList<FoodItem> getFoodItems() {
+		ArrayList<FoodItem> items = new ArrayList<>();
+		items.add(new AlaCarte("Chicken Rice", 'M', "spicy and tender", 400));
+		items.add(new AlaCarte("Ice Kachang", 'D', "cooling and sweet", 250));
+		items.add(new AlaCarte("Ice Milo", 'R', "Cold Chocolate", 100));
+		items.add(new AlaCarte("Fish Ball Noodles", 'M', "Noodles", 350));
+		items.add(new AlaCarte("Red Ruby", 'D', "Thai Coconut Dessert", 300));
+		items.add(new AlaCarte("Iced Tea", 'R', "Cold Milk Tea", 150));
 
 		return items;
 	}

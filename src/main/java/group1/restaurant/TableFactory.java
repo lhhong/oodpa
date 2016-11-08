@@ -1,10 +1,16 @@
 package group1.restaurant;
+import group1.reservation.AMPM;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import static group1.reservation.AMPM.AMSLOT;
+import static group1.reservation.AMPM.PMSLOT;
 
 /**
  * Created by low on 4/11/16 12:50 PM.
@@ -63,7 +69,13 @@ public class TableFactory {
     public static void printAvailableTables(){
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
-        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+        int index;
+        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
+            index = 0;
+        } else {
+            index = 1;
+        }
+        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();
@@ -84,6 +96,8 @@ public class TableFactory {
                     System.out.println("Table " + i + ", size = "+ t.getCapacity() + ", status = Available" );
                     emptyTables++;
                 }
+            }else{
+                System.out.println("Table " + i + ", size = "+ t.getCapacity() + ", status = Occupied" );
             }
             i++;
         }

@@ -16,6 +16,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 /**
  * Created by jorda on 4/11/2016.
  */
+
 public class ReservationFactory {
 
 

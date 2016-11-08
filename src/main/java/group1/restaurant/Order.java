@@ -27,7 +27,7 @@ public class Order implements Serializable {
      * Creates a new order with the staff details and table number
      * @param s Staff details
      */
-    Order(Staff s){
+    public Order(Staff s){
         setStaff(s);
     }
 

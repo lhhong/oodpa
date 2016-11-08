@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
+import group1.invoice.Invoice;
 import group1.menu.Menu;
 import group1.reservation.NotInMonthException;
 import group1.reservation.NotInOperationException;
@@ -232,7 +233,10 @@ public class RestaurantApp {
                 case 9:
                     print("Which table number would you like to print an invoice for?");
                     choice = userinput.nextInt();
-
+                    ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+                    Table table = tables.get(choice-1);
+                    Invoice invoice = new Invoice(table);
+                    print(invoice.toString());
                     break;
                 case 10:
                     //print sales revenue report

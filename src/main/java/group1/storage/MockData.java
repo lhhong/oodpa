@@ -62,11 +62,11 @@ public class MockData {
 		for (int i =31; i>0;i--){
 			//first value is total money for a particular food item, second is quantity
 			ArrayList<FoodReport> foodReports = new ArrayList<>();
-			for (int j=0;j<menu.size();j++) {
+			for (int j=1;j<menu.size();j++) {
 				int random = (int)(Math.random()*50);
 				FoodReport temp = new FoodReport(random*menu.returnItem(j).getPrice(), random);//to change
 				foodReports.add(temp);
-				dailyReportMap.put(menu.returnItem(i), temp);
+				dailyReportMap.put(menu.returnItem(j), temp);
 			}
 
 			//int value indicate total sales

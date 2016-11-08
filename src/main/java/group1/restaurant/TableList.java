@@ -11,11 +11,11 @@ import java.util.ArrayList;
  */
 
 public class TableList implements Serializable {
-	/**
+	/*
 	 * Creates an Array list of tables
 	 */
 	private ArrayList<Table> tables;
-	/**
+	/*
 	 * Number of Empty tables
 	 */
 	private int numEmptyTables;

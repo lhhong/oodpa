@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Created by low on 5/11/16 10:09 AM.
- * storage object to hold reservations for next 30 days
+ * Storage object to hold reservations for next 30 days
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class ReservationList implements Serializable{
 
 	private static final Logger logger = LoggerFactory.getLogger(ReservationList.class);

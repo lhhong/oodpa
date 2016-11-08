@@ -14,7 +14,10 @@ import static group1.reservation.AMPM.PMSLOT;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * Created by jorda on 4/11/2016.
+ * Description of Class
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 
 public class ReservationFactory {

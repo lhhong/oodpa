@@ -50,8 +50,4 @@ public class FoodReport implements Cloneable, Serializable{
 		this.sales = sales;
 		this.quantity = quantity;
 	}
-
-	public int getSales(){return sales; }
-
-	public int getQuantity() {return quantity; }
 }

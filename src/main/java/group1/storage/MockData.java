@@ -4,7 +4,7 @@ import group1.menu.AlaCarte;
 import group1.menu.FoodItem;
 import group1.menu.Menu;
 import group1.menu.PackageSet;
-import group1.reports.DailyReport;
+import group1.reports.CompiledReport;
 import group1.reports.FoodReport;
 import group1.restaurant.Gender;
 import group1.restaurant.Staff;
@@ -12,7 +12,6 @@ import group1.restaurant.Staff;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.lang.Math;
 
 /**
  * Created by low on 4/11/16 11:47 PM.
@@ -53,30 +52,26 @@ public class MockData {
 		return items;
 	}
 
-	static HashMap<LocalDate, DailyReport> getReportList(Cache cache) {
-		HashMap<LocalDate, DailyReport> reports = new HashMap<>();
+	static HashMap<LocalDate, CompiledReport> getReportList(Cache cache) {
+		HashMap<LocalDate, CompiledReport> reports = new HashMap<>();
 		Menu menu = cache.getMenu();
+
+
 
 		HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
 
-		for (int i =31; i>0;i--){
-			//first value is total money for a particular food item, second is quantity
-			ArrayList<FoodReport> foodReports = new ArrayList<>();
-			for (int j=1;j<menu.size();j++) {
-				int random = (int)(Math.random()*50);
-				FoodReport temp = new FoodReport(random*menu.returnItem(j).getPrice(), random);//to change
-				foodReports.add(temp);
-				dailyReportMap.put(menu.returnItem(j), temp);
-			}
+		//first value is total money for a particular food item, second is quantity
+		FoodReport foodReport = new FoodReport(4500, 30);
+		//TODO create getters in Menu class
+		// dailyReportMap.put(menu.getThisFood, foodReport);
 
-			//int value indicate total sales
-			int sum = 0;
-			for(FoodReport j: foodReports){
-				sum += j.getSales();
-			}
-			DailyReport dailyReport = new DailyReport(dailyReportMap, sum);
-			reports.put(LocalDate.now().minusDays(i), dailyReport);
-		}
+		// TODO add more menu food, ie more dailyReportMap.put
+
+		//int value indicate total sales
+		CompiledReport compiledReport = new CompiledReport(dailyReportMap, 70000);
+		reports.put(LocalDate.now().minusDays(31), compiledReport);
+
+		//TODO now do this whole shit again for more days
 
 		return reports;
 	}

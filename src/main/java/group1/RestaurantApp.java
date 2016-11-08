@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
+import group1.menu.FoodItem;
 import group1.menu.Menu;
 import group1.reservation.NotInMonthException;
 import group1.reservation.NotInOperationException;
@@ -15,7 +16,6 @@ import group1.restaurant.Staff;
 import group1.restaurant.Table;
 import group1.restaurant.TableFactory;
 import group1.restaurant.Order;
-import group1.restaurant.Staff;
 import group1.storage.CacheService;
 
 /**
@@ -39,7 +39,7 @@ public class RestaurantApp {
         System.out.print(obj);
     }
 
-    private static Menu menu = new Menu();
+    private static Menu menu = CacheService.getCache().getMenu();
 
     private static void changeMenu(){
         print("Please select one of the following options:");
@@ -171,13 +171,38 @@ public class RestaurantApp {
         assigned.newOrder(neworder);
     }
     private static void viewOrder(){
+        Order o = getOrder();
+        o.printOrder();
+    }
+    private static void editOrder(){
+        Order o = getOrder();
+        int choice;
+        do {
+            print("Would you like to add(1) or remove(2) item");
+            choice = userinput.nextInt();
+            switch(choice){
+                case 1:
+                    menu.printMenu();
+                    print("Which item to add?: ");
+                    choice = userinput.nextInt();
+                    FoodItem f = menu.returnItem(choice);
+                    o.addItem(f);
+                    break;
+                case 2:
+                    o.printOrder();
+                    break;
+                default:
+                    print("Order edited");
+            }
+        }while( choice < 3);
+    }
+    private static Order getOrder(){
         print("Please enter your table number: ");
         int tableno = userinput.nextInt();
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
-        t.getOrder().printOrder();
+        return t.getOrder();
     }
-
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());
@@ -187,10 +212,9 @@ public class RestaurantApp {
         print("Welcome to the OOP Restaurant");
         int choice;
         Scanner userinput = new Scanner(System.in);
-
+        menu.printMenu();
         do {
             print();
-            //menu.printMenu();
             print("\nPlease select one of the following options:");
             print("\n(1) Create/Update/Remove menu item");
             print("(2) Create/Update/Remove promotion");
@@ -216,10 +240,10 @@ public class RestaurantApp {
                     createOrder();
                     break;
                 case 4:
-                    //view order
+                    viewOrder();
                     break;
                 case 5:
-                    //edit order
+                    editOrder();
                     break;
                 case 6:
                     createReservation();

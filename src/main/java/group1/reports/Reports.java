@@ -5,10 +5,8 @@ import group1.menu.FoodItem;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -16,7 +14,7 @@ import java.util.Set;
  * Created by low on 8/11/16 5:37 PM.
  */
 public class Reports implements Serializable {
-	private HashMap<LocalDate, DailyReport> dailyReports;
+	private HashMap<LocalDate, CompiledReport> dailyReports;
 
 	public Reports() {
 	}
@@ -25,7 +23,7 @@ public class Reports implements Serializable {
 	 * Constructor solely for MockData generation
 	 * @param dailyReports
 	 */
-	public Reports(HashMap<LocalDate, DailyReport> dailyReports) {
+	public Reports(HashMap<LocalDate, CompiledReport> dailyReports) {
 		this.dailyReports = dailyReports;
 	}
 
@@ -38,14 +36,14 @@ public class Reports implements Serializable {
 				return;
 			}
 		}
-		DailyReport newReport = new DailyReport();
+		CompiledReport newReport = new CompiledReport();
 		newReport.addOrder(invoice.getOrder());
 		dailyReports.put(invoiceDate, newReport);
 	}
 
-	private DailyReport generateMonthlyReport(int year, int month) {
+	private CompiledReport generateMonthlyReport(int year, int month) {
 		YearMonth ym = YearMonth.of(year, month);
-		DailyReport report = new DailyReport();
+		CompiledReport report = new CompiledReport();
 		for (LocalDate date : dailyReports.keySet()) {
 			if (YearMonth.from(date).equals(ym)) {
 				report.collapse(dailyReports.get(date));
@@ -61,17 +59,17 @@ public class Reports implements Serializable {
 		return s;
 	}
 
-	private String reportPrintString(DailyReport dailyReport) {
+	private String reportPrintString(CompiledReport compiledReport) {
 		String s = "\n----------------------------------\n" +
 				"Food Items Sold\tUnitPrice\tQuantity\tTotal Price\n";
-		HashMap<FoodItem, FoodReport> itemQuantities = dailyReport.getItemQuantities();
+		HashMap<FoodItem, FoodReport> itemQuantities = compiledReport.getItemQuantities();
 		for (FoodItem i : itemQuantities.keySet()) {
 			s += i.getName() + "\t$";
 			s += i.getPrice() + "\t";
 			s += itemQuantities.get(i).getQuantity() + "\t$";
 			s += itemQuantities.get(i).getSales() + "\n";
 		}
-		s += "\nTotal Sale: $" + dailyReport.getTotalSales();
+		s += "\nTotal Sale: $" + compiledReport.getTotalSales();
 		return s;
 	}
 

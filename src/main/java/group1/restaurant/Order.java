@@ -3,6 +3,7 @@ package group1.restaurant;
 import group1.menu.FoodItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -22,13 +23,13 @@ public class Order implements Serializable {
      */
     private HashMap<FoodItem, Integer> food_order;
 
-
     /**
      * Creates a new order with the staff details and table number
      * @param s Staff details
      */
     public Order(Staff s){
         setStaff(s);
+        food_order = new HashMap<FoodItem, Integer>();
     }
 
     /**
@@ -67,9 +68,12 @@ public class Order implements Serializable {
      * Prints order
      */
     public void printOrder(){
+        int i = 1;
         for (FoodItem f:food_order.keySet()){
+            System.out.print("Item "+i+") ");
             f.printDetails();
             System.out.println("quantity = " + food_order.get(f));
+            i++;
         }
     }
 
@@ -91,7 +95,14 @@ public class Order implements Serializable {
      * @param choice choice of food item
      */
     public void removeItem(int choice){
-        //TODO recode this part
+        int i = 1;
+        for (FoodItem f : food_order.keySet()) {
+            if (i == choice) {
+                food_order.remove(f);
+                break;
+            }
+            i++;
+        }
     }
 
 

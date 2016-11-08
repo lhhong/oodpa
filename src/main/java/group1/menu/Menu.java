@@ -28,9 +28,9 @@ public class Menu implements Serializable{
     //constructor for a pre-saved menu loaded from file
     //database load
     //TODO change FoodItem[] to use arraylist instead cause savedMenu.length wouldn't work with arrays initialized to be longer than the content
-    public Menu(FoodItem[] savedMenu){
-        for (int i = 0; i<savedMenu.length; i++) {
-            createItem(savedMenu[i]);
+    public Menu(ArrayList<FoodItem> savedMenu){
+        for (int i = 0; i<savedMenu.size(); i++) {
+            createItem(savedMenu.get(i));
         }
     }
 

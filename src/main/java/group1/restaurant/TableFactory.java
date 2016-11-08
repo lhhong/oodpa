@@ -23,14 +23,7 @@ public class TableFactory {
 
 
 
-    public static void printTables(){
-        int i = 1;
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
-        for (Table t:tables){
-            System.out.println("Table " + i + ", size = "+ t.getCapacity());
-            i++;
-        }
-    }
+   
     public static Table assignTable(int pax){//1=walk in, 2= reserved
         // returns table assign, returns null if no available table
         int i = 1;
@@ -70,10 +63,11 @@ public class TableFactory {
         }
 
         //TODO deassign table ?
-        //TODO when someone with reservation comes just removereservation and assigntable consecutively
+
 
         return null;
     }
+
     public static void printAvailableTables(){
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;

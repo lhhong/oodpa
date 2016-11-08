@@ -4,10 +4,15 @@ import group1.menu.AlaCarte;
 import group1.menu.FoodItem;
 import group1.menu.Menu;
 import group1.menu.PackageSet;
+import group1.reports.DailyReport;
+import group1.reports.FoodReport;
 import group1.restaurant.Gender;
 import group1.restaurant.Staff;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.lang.Math;
 
 /**
  * Created by low on 4/11/16 11:47 PM.
@@ -46,5 +51,33 @@ public class MockData {
 		items.add(new PackageSet("Thai Food Set",set2, "With Red Ruby and Milk Tea", 1650));
 
 		return items;
+	}
+
+	static HashMap<LocalDate, DailyReport> getReportList(Cache cache) {
+		HashMap<LocalDate, DailyReport> reports = new HashMap<>();
+		Menu menu = cache.getMenu();
+
+		HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
+
+		for (int i =31; i>0;i--){
+			//first value is total money for a particular food item, second is quantity
+			ArrayList<FoodReport> foodReports = new ArrayList<>();
+			for (int j=0;j<menu.size();j++) {
+				int random = (int)(Math.random()*50);
+				FoodReport temp = new FoodReport(random*menu.returnItem(j).getPrice(), random);//to change
+				foodReports.add(temp);
+				dailyReportMap.put(menu.returnItem(i), temp);
+			}
+
+			//int value indicate total sales
+			int sum = 0;
+			for(FoodReport j: foodReports){
+				sum += j.getSales();
+			}
+			DailyReport dailyReport = new DailyReport(dailyReportMap, sum);
+			reports.put(LocalDate.now().minusDays(i), dailyReport);
+		}
+
+		return reports;
 	}
 }

@@ -14,33 +14,48 @@ import static group1.reservation.AMPM.PMSLOT;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * Created by jorda on 4/11/2016.
+ * Handles all functions related to Reservations
  */
 public class ReservationFactory {
 
-
+    /**
+     * Checks if the time slot is within 9am - 5pm and within a month, if not, throw their respective exceptions
+     * Returns AM/PM depending on the local time
+     * @param date
+     * @return
+     * @throws NotInOperationException
+     */
     public static AMPM getTimeSlot(LocalDateTime date) throws NotInOperationException {
+        /**
+         * Update reservation list and checks for any expired reservations
+         */
         ReservationFactory.updateReservation();
         LocalDate currentDate = CacheService.getCache().getCurrentDay();
 
 
         LocalDate specifiedDate = date.toLocalDate();
 
+        /**
+         * Finds the number of days between input date and current date
+         */
         int dayDifference = (int) DAYS.between(currentDate, specifiedDate);
 
 
 
         //check if reservation between 9.00 - 17.00
-        // CHANGED!!!
-
+        //TODO CHANGE TIME BACK TO 9-17!!
+/**
+ * ensures the time is within 9 am to 5 pm,if not, throw NotInOperationException
+ */
             if (date.toLocalTime().compareTo(LocalTime.of(23, 0)) == 1) {
                 throw new NotInOperationException();
             } else if (date.toLocalTime().compareTo(LocalTime.of(9, 0)) == -1) {
                 throw new NotInOperationException();
             }
 
-
-        //return AM or PM
+/**
+ * Return time in AM/PM
+ */
         if (date.toLocalTime().compareTo(LocalTime.NOON) == -1) {
             return AMSLOT;
         } else {
@@ -49,15 +64,27 @@ public class ReservationFactory {
 
     }
 
+    /**
+     * Gets the specific reservation array (at position index of reservation list) in the reservation list
+     * @param reservation
+     * @return index of the reservation in reservation list
+     */
     public static int getIndex(Reservation reservation) {
         ReservationFactory.updateReservation();
         LocalDate currentDate = CacheService.getCache().getCurrentDay();
         LocalDate reservationDate = reservation.getDate().toLocalDate();
+
+        /**
+         * Ensure reservation within 30 days
+         */
         int dayDifference = (int) DAYS.between(currentDate, reservationDate);
         if (dayDifference < 0 || dayDifference > 30) {
             return -1;
         }
 
+        /**
+         * Calculates the index based on the number of day difference and compensates for AM/PM
+         */
         switch (reservation.getTimeslot()) {
             case AMSLOT:
                 return dayDifference * 2;
@@ -67,7 +94,16 @@ public class ReservationFactory {
         return -1;
     }
 
+    /**
+     * Gets the specific reservation array (at position index of reservation list) in the reservation list
+     * @param date
+     * @return index of the reservation in reservation list
+     */
+
     public static int getIndex(LocalDateTime date) {
+        /**
+         * Update reservation list and checks for any expired reservations
+         */
         ReservationFactory.updateReservation();
         LocalDate currentDate = CacheService.getCache().getCurrentDay();
         LocalDate reservationDate = date.toLocalDate();
@@ -80,10 +116,25 @@ public class ReservationFactory {
 
     }
 
+    /**
+     * Assigns a table to the reservation
+     * @param index
+     * @param pax
+     * @return table number
+     */
     public static int getTable(int index, int pax) {
+        /**
+         * Update reservation list and checks for any expired reservations
+         */
         ReservationFactory.updateReservation();
+        /**
+         * Get the arraylist of tables
+         */
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
 
+        /**
+         * Get the arraylist of reservations
+         */
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
@@ -91,11 +142,20 @@ public class ReservationFactory {
         Iterator<Reservation> iter = indexReservation.iterator();
         while (iter.hasNext()) {
             Reservation current = iter.next();
+            /**
+             * Stores all the reserved tables in reservedTables
+             */
             reservedTables.add(current.getTableIndex());
         }
         int i = 1;
         for (Table t : tables) {
+            /**
+             * Checks if the table is of capacity pax to pax+3 and that it is unoccupied
+             */
             if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && !t.isOccupied()) {
+                /**
+                 * Checks if the unoccupied table is in the reserved list
+                 */
                 if (!(reservedTables.contains(i))) {
                     System.out.println("Reservation Success at table: " + i);
                     return i;
@@ -105,20 +165,36 @@ public class ReservationFactory {
             }
             i++;
         }
+        /**
+         * Return -1 if no free tables are present
+         */
         System.out.println("No free tables for pax: " + pax);
         return -1;
     }
 
-
+    /**
+     * Prints the reservation at a particular date where index is the position where the reservation was stored in the reservation list
+     * @param date
+     */
     public static void printIndexReservation(LocalDateTime date) {
+        /**
+         * Update reservation list and checks for any expired reservations
+         */
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservationAM, indexReservationPM;
         indexReservationAM = CacheService.getCache().getReservations().indexReservation(getIndex(date));
 
         Iterator<Reservation> iter = indexReservationAM.iterator();
         int count = 1;
+        /**
+         * Boolean to check if there are reservation existing
+         */
         boolean hasReservation = false;
         System.out.println("AM slot");
+
+        /**
+         * Prints out reservation detail for each reservation for AM slot
+         */
         while (iter.hasNext()) {
             Reservation current = iter.next();
 
@@ -134,12 +210,17 @@ public class ReservationFactory {
 
         }
 
+        /**
+         * Notify if there is no reservation found
+         */
         if (!hasReservation) {
             System.out.println("No Reservations found");
             System.out.println("");
         }
 
-
+/**
+ * Repeats for the PM slot
+ */
         indexReservationPM = CacheService.getCache().getReservations().indexReservation(getIndex(date) + 1);
 
         count = 1;
@@ -168,15 +249,24 @@ public class ReservationFactory {
         }
 
     }
-// removes a particular reservation at a date using their contact number and returns pax if reservation found and deleted, returns -1 if reservation not found;
+
+    /** removes a particular reservation at a date using their contact number and returns pax if reservation found and deleted, returns -1 if reservation not found;
+     *
+     * @param specificDate
+     * @param contact
+     * @return pax of reservation
+     */
     public static int removeIndexReservation(LocalDateTime specificDate, int contact) {
         ReservationFactory.updateReservation();
 
         int index = getIndex(specificDate);
         int i;
         int pax;
-        boolean removed = false;
 
+
+        /**
+         * For AM and PM (index and index +1), checks for the reservation with the corresponding contact number and deletes the reservation
+         */
         for (i = index; i <= index + 1; i++) {
             ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
             Iterator<Reservation> iter = indexReservation.iterator();
@@ -190,7 +280,7 @@ public class ReservationFactory {
 
                    indexReservation.remove(pos);
 
-                    removed = true;
+
                     System.out.println("Reservation with contact " + contact + " has been removed.");
                     return pax;
 
@@ -199,18 +289,29 @@ public class ReservationFactory {
             }
 
         }
-        if (removed == false) {
-            System.out.println("Could not find reservation");
-        }
 
+            System.out.println("Could not find reservation");
+
+
+        /**
+         * Returns -1 if no reservation found
+         */
         return -1;
 
     }
 
-
+    /**
+     * Update reservation list and checks for any expired reservations
+     */
     public static void updateReservation() {
+        /**
+         * expiryTime is the time where all reservations before this time is considered expired
+         */
         LocalDateTime expiryTime = LocalDateTime.now().minusMinutes(30);
 
+        /**
+         * For AM and PM (pos 0 and 1), remove any expired reservations
+         */
         for (int i = 1; i <= 2 + 1; i++) {
             ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
             Iterator<Reservation> iter = indexReservation.iterator();

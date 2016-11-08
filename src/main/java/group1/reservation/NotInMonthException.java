@@ -1,7 +1,7 @@
 package group1.reservation;
 
 /**
- * Created by jorda on 5/11/2016.
+ * Exception message when date is not within 1 month of current date
  */
 public class NotInMonthException extends Exception{
     public NotInMonthException(){

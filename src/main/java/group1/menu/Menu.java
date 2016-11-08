@@ -56,25 +56,25 @@ public class Menu implements Serializable{
         System.out.println("========================   MAINS   ========================");
         for(FoodItem item:mains){
             System.out.printf("("+count+") ");
-            item.getDetails();
+            item.printDetails();
             count ++;
         }
         System.out.println("\n========================   Drinks   ========================");
         for(FoodItem item:drinks){
             System.out.printf("("+count+") ");
-            item.getDetails();
+            item.printDetails();
             count ++;
         }
         System.out.println("\n========================   Desserts   ========================");
         for(FoodItem item:desserts){
             System.out.printf("("+count+") ");
-            item.getDetails();
+            item.printDetails();
             count ++;
         }
         System.out.println("\n========================   Packages   ========================");
         for(FoodItem item:packages){
             System.out.printf("("+count+") ");
-            item.getDetails();
+            item.printDetails();
             count ++;
         }
     }

@@ -30,21 +30,19 @@ public class AlaCarte extends FoodItem implements Serializable {
         this.type = type;
     }
 
-    @Override
-    public void getDetails() {
+    /**
+     * Prints the details of the Food item
+     */
+    public void printDetails() {
         // TODO Auto-generated method stub
         System.out.println(this.name +"\t"+ this.description +"\t"+ Money.toString(this.price));
     }
 
+    /**
+     * Gets the type of the AlaCarte item
+     */
     public char getType(){
         return type;
     }
 
-	/*public String getName(){
-		return name;
-	}
-
-	public String getDescription(){
-		return description;
-	}*/
 }

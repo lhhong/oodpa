@@ -73,7 +73,7 @@ public class Order implements Serializable {
      */
     public void printOrder(){
         for (FoodItem f:food_order.keySet()){
-            f.getDetails();
+            f.printDetails();
             System.out.println("quantity = " + food_order.get(f));
         }
     }

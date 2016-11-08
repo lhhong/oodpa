@@ -96,7 +96,7 @@ public class ReservationFactory {
         for (Table t : tables) {
             if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && !t.isOccupied()) {
                 if (!(reservedTables.contains(i))) {
-                    System.out.println("Reservation Success");
+                    System.out.println("Reservation Success at table: " + i);
                     return i;
                 }
 
@@ -167,12 +167,13 @@ public class ReservationFactory {
         }
 
     }
-
-    public static void removeIndexReservation(LocalDateTime specificDate, int contact) {
+// removes a particular reservation at a date using their contact number and returns pax if reservation found and deleted, returns -1 if reservation not found;
+    public static int removeIndexReservation(LocalDateTime specificDate, int contact) {
         ReservationFactory.updateReservation();
 
         int index = getIndex(specificDate);
         int i;
+        int pax;
         boolean removed = false;
 
         for (i = index; i <= index + 1; i++) {
@@ -184,12 +185,13 @@ public class ReservationFactory {
             while (iter.hasNext()) {
                 Reservation current = iter.next();
                 if (current.getContact() == contact) {
+                   pax = indexReservation.get(pos).getPax();
 
-                    CacheService.getCache().getReservations().indexReservation(i).remove(pos);
+                   indexReservation.remove(pos);
 
                     removed = true;
                     System.out.println("Reservation with contact " + contact + " has been removed.");
-                    break;
+                    return pax;
 
                 }
                 pos++;
@@ -200,6 +202,7 @@ public class ReservationFactory {
             System.out.println("Could not find reservation");
         }
 
+        return -1;
 
     }
 

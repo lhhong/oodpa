@@ -30,4 +30,12 @@ public class Invoice implements Serializable {
 		//TODO convert into string of full invoice
 		return "toString";
 	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
 }

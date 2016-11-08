@@ -6,11 +6,11 @@ package group1.restaurant;
 import group1.menu.FoodItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order implements Serializable {
     private Staff staff;
-    private ArrayList<FoodItem> food_order;
+    private HashMap<FoodItem, Integer> food_order;
     private int tablenumber;
 
     Order(Staff s, int t){
@@ -26,27 +26,34 @@ public class Order implements Serializable {
         this.staff = staff;
     }
 
-    public ArrayList<FoodItem> getFood_order() {
+    public HashMap<FoodItem, Integer> getFood_order() {
         return food_order;
     }
 
-    public void setFood_order(ArrayList<FoodItem> food_order) {
+    public void setFood_order(HashMap<FoodItem, Integer> food_order) {
         this.food_order = food_order;
     }
 
     public void printOrder(){
-        for (FoodItem f:food_order){
+        for (FoodItem f:food_order.keySet()){
             f.getDetails();
+            System.out.println("quantity = " + food_order.get(f));
         }
     }
 
     public void addItem(FoodItem f){
-        food_order.add(f);
+        if (food_order.keySet().contains(f)) {
+            food_order.put(f, food_order.get(f) +1);
+        }
+        else {
+            food_order.put(f, 1);
+        }
     }
 
     public void removeItem(int choice){
-        food_order.remove(choice);
+        //TODO recode this part
     }
+
 
 }
 

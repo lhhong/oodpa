@@ -3,6 +3,7 @@ package group1.storage;
 import group1.menu.AlaCarte;
 import group1.menu.FoodItem;
 import group1.menu.Menu;
+import group1.menu.PackageSet;
 import group1.restaurant.Gender;
 import group1.restaurant.Staff;
 
@@ -27,12 +28,22 @@ public class MockData {
 
 	static ArrayList<FoodItem> getFoodItems() {
 		ArrayList<FoodItem> items = new ArrayList<>();
-		items.add(new AlaCarte("Chicken Rice", 'M', "spicy and tender", 400));
-		items.add(new AlaCarte("Ice Kachang", 'D', "cooling and sweet", 250));
-		items.add(new AlaCarte("Ice Milo", 'R', "Cold Chocolate", 100));
-		items.add(new AlaCarte("Fish Ball Noodles", 'M', "Noodles", 350));
-		items.add(new AlaCarte("Red Ruby", 'D', "Thai Coconut Dessert", 300));
-		items.add(new AlaCarte("Iced Tea", 'R', "Cold Milk Tea", 150));
+		AlaCarte item1 = new AlaCarte("Chicken Rice", 'M', "spicy and tender", 400);
+		AlaCarte item2 = new AlaCarte("Ice Kachang", 'D', "cooling and sweet", 250);
+		AlaCarte item3 = new AlaCarte("Ice Milo", 'R', "Cold Chocolate", 100);
+		AlaCarte item4 = new AlaCarte("Fish Ball Noodles", 'M', "Noodles", 350);
+		AlaCarte item5 = new AlaCarte("Red Ruby", 'D', "Thai Coconut Dessert", 300);
+		AlaCarte item6 = new AlaCarte("Iced Tea", 'R', "Cold Milk Tea", 150);
+		AlaCarte[] set1 = {item1,item2,item3};
+		AlaCarte[] set2 = {item4,item5,item6};
+		items.add(item1);
+		items.add(item2);
+		items.add(item3);
+		items.add(item4);
+		items.add(item5);
+		items.add(item6);
+		items.add(new PackageSet("Chicken Rice Set",set1, "With Ice Milo and Ice Kachang", 1500));
+		items.add(new PackageSet("Thai Food Set",set2, "With Red Ruby and Milk Tea", 1650));
 
 		return items;
 	}

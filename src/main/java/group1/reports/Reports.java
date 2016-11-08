@@ -63,12 +63,22 @@ public class Reports implements Serializable {
 
 	}
 
+	/**
+	 * prints report by month
+	 * @param year year of report
+	 * @param month month of report
+	 */
 	public void printReport(int year, int month) {
 		String s = "Report for " + YearMonth.of(year, month).toString();
 		s += reportPrintString(generateMonthlyReport(year, month));
 		System.out.println(s);
 	}
 
+	/**
+	 * creates print string from compiled reports
+	 * @param compiledReport report to print
+	 * @return printString of report
+	 */
 	private String reportPrintString(CompiledReport compiledReport) {
 		String s = "\n----------------------------------\n" +
 				"Food Items Sold\tUnitPrice\tQuantity\tTotal Price\n";
@@ -83,6 +93,10 @@ public class Reports implements Serializable {
 		return s;
 	}
 
+	/**
+	 * prints report by day
+	 * @param date date of report
+	 */
 	public void printReport(LocalDate date) {
 		String s  = "Report for the day " + date.format(DateTimeFormatter.ISO_DATE);
 		for (LocalDate savedDate : dailyReports.keySet()) {

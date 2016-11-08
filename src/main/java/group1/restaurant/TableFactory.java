@@ -47,18 +47,13 @@ public class TableFactory {
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();
-        while(iter.hasNext())
-        {
+        while(iter.hasNext()) {
             Reservation current = iter.next();
             reservedTables.add(current.getTableIndex());
         }
 
-
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         for (Table t : tables) {
-            if (reservedTables.contains(i)) {
-                t.occupy();
-            }
             if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
                 t.occupy();
 

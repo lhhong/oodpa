@@ -19,7 +19,7 @@ public class PackageSet extends FoodItem implements Serializable {
     @Override
     public void getDetails() {
         // TODO Auto-generated method stub
-        System.out.println(this.name);
+        System.out.println(this.name + this.description);
         for(AlaCarte item:set){
             System.out.println(item.name +"\t"+ item.description);
         }

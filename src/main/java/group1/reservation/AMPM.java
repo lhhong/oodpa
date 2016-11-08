@@ -3,7 +3,9 @@ package group1.reservation;
 import java.io.Serializable;
 
 /**
- * enum to represent AM and PM
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public enum AMPM implements Serializable{
    AMSLOT,PMSLOT

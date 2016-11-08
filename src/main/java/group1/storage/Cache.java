@@ -44,11 +44,11 @@ public class Cache implements Serializable{
 		return reservations;
 	}
 
-	public ArrayList<Table> getTables() {
+/*	public ArrayList<Table> getTables() {
 		return tables;
 	}
 
 	public ArrayList<Staff> getStaffs() {
 		return staffs;
-	}
+	}*/
 }

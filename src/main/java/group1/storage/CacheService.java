@@ -22,6 +22,7 @@ public class CacheService {
 			//cache = Database.read();
 			if (cache == null) {
 				cache = new Cache();
+				cache.setMockReports();
 				logger.info("Cache initialized from Mock Data");
 			}
 			else {

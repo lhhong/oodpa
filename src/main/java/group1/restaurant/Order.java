@@ -21,19 +21,14 @@ public class Order implements Serializable {
      * Hashmap that contains the food items within an order
      */
     private HashMap<FoodItem, Integer> food_order;
-    /**
-     * Table number of the order
-     */
-    private int tablenumber;
+
 
     /**
      * Creates a new order with the staff details and table number
      * @param s Staff details
-     * @param t Table Number
      */
-    Order(Staff s, int t){
+    Order(Staff s){
         setStaff(s);
-        tablenumber = t;
     }
 
     /**
@@ -73,7 +68,7 @@ public class Order implements Serializable {
      */
     public void printOrder(){
         for (FoodItem f:food_order.keySet()){
-            f.getDetails();
+            f.printDetails();
             System.out.println("quantity = " + food_order.get(f));
         }
     }

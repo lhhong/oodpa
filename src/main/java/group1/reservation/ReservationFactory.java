@@ -31,9 +31,10 @@ public class ReservationFactory {
 
 
 
-//check if reservation between 9.00 - 17.00
+        //check if reservation between 9.00 - 17.00
+        // CHANGED!!!
 
-            if (date.toLocalTime().compareTo(LocalTime.of(17, 0)) == 1) {
+            if (date.toLocalTime().compareTo(LocalTime.of(23, 0)) == 1) {
                 throw new NotInOperationException();
             } else if (date.toLocalTime().compareTo(LocalTime.of(9, 0)) == -1) {
                 throw new NotInOperationException();

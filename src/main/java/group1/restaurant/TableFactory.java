@@ -23,21 +23,20 @@ public class TableFactory {
 
 
 
-    public static void printTables(){
-        int i = 1;
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
-        for (Table t:tables){
-            System.out.println("Table " + i + ", size = "+ t.getCapacity());
-            i++;
-        }
-    }
+   
     public static Table assignTable(int pax){//1=walk in, 2= reserved
         // returns table assign, returns null if no available table
         int i = 1;
 
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
-        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+        int index;
+        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
+            index = 0;
+        } else {
+            index = 1;
+        }
+        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();
@@ -64,10 +63,11 @@ public class TableFactory {
         }
 
         //TODO deassign table ?
-        //TODO when someone with reservation comes just removereservation and assigntable consecutively
+
 
         return null;
     }
+
     public static void printAvailableTables(){
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;

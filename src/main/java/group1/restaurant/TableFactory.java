@@ -27,7 +27,7 @@ public class TableFactory {
             i++;
         }
     }
-    public static Table assignTable(int pax, int type){//1=walk in, 2= reserved
+    public static Table assignTable(int pax){//1=walk in, 2= reserved
         // returns table assign, returns null if no available table
         int i = 1;
 
@@ -44,21 +44,19 @@ public class TableFactory {
         }
 
 
-
-        if(type == 1) {
-            ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
-            for (Table t : tables) {
-                if(reservedTables.contains(i)){
-                    t.occupy();
-                }
-                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
-                    t.occupy();
-
-                    System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
-                    return t;
-                }
-                i++;
+        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        for (Table t : tables) {
+            if (reservedTables.contains(i)) {
+                t.occupy();
             }
+            if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
+                t.occupy();
+
+                System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
+                return t;
+            }
+            i++;
+
         }
 
         //TODO deassign table ?

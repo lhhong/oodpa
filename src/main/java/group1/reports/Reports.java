@@ -1,5 +1,6 @@
 package group1.reports;
 
+import group1.commons.Money;
 import group1.invoice.Invoice;
 import group1.menu.FoodItem;
 
@@ -84,12 +85,12 @@ public class Reports implements Serializable {
 				"Food Items Sold\tUnitPrice\tQuantity\tTotal Price\n";
 		HashMap<FoodItem, FoodReport> itemQuantities = compiledReport.getItemQuantities();
 		for (FoodItem i : itemQuantities.keySet()) {
-			s += i.getName() + "\t$";
-			s += i.getPrice() + "\t";
-			s += itemQuantities.get(i).getQuantity() + "\t$";
-			s += itemQuantities.get(i).getSales() + "\n";
+			s += i.getName() + "\t";
+			s += Money.toString(i.getPrice()) + "\t";
+			s += itemQuantities.get(i).getQuantity() + "\t";
+			s += Money.toString(itemQuantities.get(i).getSales()) + "\n";
 		}
-		s += "\nTotal Sale: $" + compiledReport.getTotalSales();
+		s += "\nTotal Sale: " + Money.toString(compiledReport.getTotalSales());
 		return s;
 	}
 

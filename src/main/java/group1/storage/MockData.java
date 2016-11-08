@@ -59,7 +59,7 @@ public class MockData {
 		for (int j=31;j>0;j--) {
 			int subtotal =0;
 			HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
-			for (int i = 0; i < menu.size(); i++) {
+			for (int i = 1; i <= menu.size(); i++) {
 				int random = (int) (Math.random() * 50);
 				subtotal = menu.returnItem(i).getPrice()*random;
 				FoodReport foodReport = new FoodReport(subtotal, random);

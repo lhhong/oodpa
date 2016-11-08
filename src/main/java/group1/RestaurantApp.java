@@ -1,11 +1,13 @@
 package group1;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
+import group1.invoice.Invoice;
 import group1.menu.FoodItem;
 import group1.menu.Menu;
 import group1.reservation.NotInMonthException;
@@ -82,6 +84,73 @@ public class RestaurantApp {
         }
 
     }
+    private static void createOrder(){
+        int pax = 0;
+        print("Do you have a reservation? 1) Yes, 2)No :");
+        int choice = userinput.nextInt();
+        if (choice == 1){
+            print("Please enter your contact number: ");
+            int contact = userinput.nextInt();
+            LocalDateTime specificDate = LocalDateTime.now();
+            pax = ReservationFactory.removeIndexReservation(specificDate, contact);
+        }
+        else{
+            print("Please enter number of pax: ");
+            pax = userinput.nextInt();
+        }
+        //if pax=-1: break
+        Table assigned = TableFactory.assignTable(pax);
+        ArrayList<Staff> staffs = CacheService.getCache().getStaffs();
+        int j = 1;
+        for (Staff s : staffs){
+            print(j+") "+s.toString());
+            j++;
+        }
+        print("Enter staff number: ");
+        int staffno = userinput.nextInt();
+        Order neworder = new Order(staffs.get(staffno-1));
+        assigned.newOrder(neworder);
+    }
+    private static void viewOrder(){
+        Order o = getOrder();
+        o.printOrder();
+    }
+    private static void editOrder(){
+        Order o = getOrder();
+        int choice;
+        int item_choice;
+        do {
+            print("Would you like to add(1) or remove(2) item, view order(3), quit(4)");
+            choice = userinput.nextInt();
+            switch(choice){
+                case 1:
+                    menu.printMenu();
+                    print("Which item to add?: ");
+                    item_choice = userinput.nextInt();
+                    FoodItem f = menu.returnItem(item_choice);
+                    o.addItem(f);
+                    break;
+                case 2:
+                    o.printOrder();
+                    print("Which item to remove?: ");
+                    item_choice = userinput.nextInt();
+                    o.removeItem(item_choice);
+                    break;
+                case 3:
+                    o.printOrder();
+                    break;
+                default:
+                    print("Order edited");
+            }
+        } while( choice < 4 );
+    }
+    private static Order getOrder(){
+        print("Please enter your table number: ");
+        int tableno = userinput.nextInt();
+        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        Table t = tables.get(tableno-1);
+        return t.getOrder();
+    }
     private static void createReservation(){
         int year, month, day, hour, minute, contact, pax;
         print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
@@ -143,66 +212,34 @@ public class RestaurantApp {
                 print("Please input a valid choice");
         }
     }
-    private static void createOrder(){
-        int pax = 0;
-        print("Do you have a reservation? 1) Yes, 2)No :");
-        int choice = userinput.nextInt();
-        if (choice == 1){
-            print("Please enter your contact number: ");
-            int contact = userinput.nextInt();
-            LocalDateTime specificDate = LocalDateTime.now();
-            pax = ReservationFactory.removeIndexReservation(specificDate, contact);
-            }
-        else{
-            print("Please enter number of pax: ");
-            pax = userinput.nextInt();
-        }
-        //if pax=-1: break
-        Table assigned = TableFactory.assignTable(pax);
-        ArrayList<Staff> staffs = CacheService.getCache().getStaffs();
-        int j = 1;
-        for (Staff s : staffs){
-            print(j+") "+s.toString());
-            j++;
-        }
-        print("Enter staff number: ");
-        int staffno = userinput.nextInt();
-        Order neworder = new Order(staffs.get(staffno-1));
-        assigned.newOrder(neworder);
-    }
-    private static void viewOrder(){
-        Order o = getOrder();
-        o.printOrder();
-    }
-    private static void editOrder(){
-        Order o = getOrder();
-        int choice;
-        do {
-            print("Would you like to add(1) or remove(2) item");
-            choice = userinput.nextInt();
-            switch(choice){
-                case 1:
-                    menu.printMenu();
-                    print("Which item to add?: ");
-                    choice = userinput.nextInt();
-                    FoodItem f = menu.returnItem(choice);
-                    o.addItem(f);
-                    break;
-                case 2:
-                    o.printOrder();
-                    break;
-                default:
-                    print("Order edited");
-            }
-        }while( choice < 3);
-    }
-    private static Order getOrder(){
+
+
+    private static void printInvoice(){
         print("Please enter your table number: ");
         int tableno = userinput.nextInt();
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
-        return t.getOrder();
+        Invoice i = new Invoice(t);
+        print(i.toString());
+        CacheService.getCache().getReports().addInvoice(i);
+
     }
+    private static void printReport(){
+
+        print("Would you like a daily(1) or monthly(2) report?:");
+        int choice = userinput.nextInt();
+        if (choice==1){
+            CacheService.getCache().getReports().printReport(LocalDate.now());
+        }
+        else {
+            print("Input Year in YYYY format:");
+            int year = userinput.nextInt();
+            print("Input Month in mm format:");
+            int month =userinput.nextInt();
+            CacheService.getCache().getReports().printReport(year,month);
+        }
+    }
+
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());
@@ -255,7 +292,7 @@ public class RestaurantApp {
                     TableFactory.printAvailableTables();
                     break;
                 case 9:
-                    //print order invoice
+                    printInvoice();
                     break;
                 case 10:
                     //print sales revenue report

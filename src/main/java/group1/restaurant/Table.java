@@ -4,17 +4,17 @@ import java.io.Serializable;
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
-public class Table implements Serializable{
+public class Table implements Serializable {
     private boolean occupied;
     private Order order;
     private int capacity; // 0=empty, 1=occupied, 2= reserved
     private int tableNumber;
 
-    public Table(int c, int id){
+    public Table(int c, int id) {
         tableNumber = id;
-	    order = null;
+        order = null;
         setCapacity(c);
-	    occupied = false;
+        occupied = false;
     }
 
     public int getTableNumber() {
@@ -50,7 +50,8 @@ public class Table implements Serializable{
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void newOrder(Order order) {
         this.order = order;
     }
+
 }

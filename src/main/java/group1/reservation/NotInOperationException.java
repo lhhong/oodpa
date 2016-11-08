@@ -1,7 +1,7 @@
 package group1.reservation;
 
 /**
- * Created by jorda on 5/11/2016.
+ * Exception when restaurant is not in operation i.e. time not within 9am to 5 pm
  */
 public class NotInOperationException extends Exception{
     public NotInOperationException(){

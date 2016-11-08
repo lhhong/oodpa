@@ -8,6 +8,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Created by low on 4/11/16 12:55 PM.
  */
@@ -24,6 +27,12 @@ public class DatabaseTest {
 		}
 		float money = (float) 14.233;
 		Assert.assertEquals(Money.parseFloat(money), 1423);
+	}
+
+	@Ignore
+	@Test
+	public void time() {
+		System.out.println(LocalDate.now());
 	}
 
 	@Ignore

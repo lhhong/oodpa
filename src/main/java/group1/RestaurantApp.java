@@ -178,6 +178,7 @@ public class RestaurantApp {
         Table t = tables.get(tableno-1);
         t.getOrder().printOrder();
     }
+
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutDown());
@@ -190,7 +191,7 @@ public class RestaurantApp {
 
         do {
             print();
-            menu.printMenu();
+            //menu.printMenu();
             print("\nPlease select one of the following options:");
             print("\n(1) Create/Update/Remove menu item");
             print("(2) Create/Update/Remove promotion");

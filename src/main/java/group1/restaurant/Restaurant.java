@@ -48,7 +48,8 @@ public class Restaurant {
             i++;
         }
     }
-    public int assignTable(int pax, int type){//0=empty, 1=occupied, 2= reserved
+    public int assignTable(int pax, int type){
+        //0=empty, 1=occupied, 2= reserved
         // returns table number assign, returns 0 if no available table
         int i = 1;
 

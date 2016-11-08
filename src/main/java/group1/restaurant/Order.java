@@ -29,6 +29,7 @@ public class Order implements Serializable {
      */
     public Order(Staff s){
         setStaff(s);
+        food_order = new HashMap<FoodItem, Integer>();
     }
 
     /**
@@ -67,9 +68,12 @@ public class Order implements Serializable {
      * Prints order
      */
     public void printOrder(){
+        int i = 1;
         for (FoodItem f:food_order.keySet()){
+            System.out.print("Item "+i+") ");
             f.printDetails();
             System.out.println("quantity = " + food_order.get(f));
+            i++;
         }
     }
 

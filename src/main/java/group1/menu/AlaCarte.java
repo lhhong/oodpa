@@ -34,12 +34,12 @@ public class AlaCarte extends FoodItem implements Serializable {
      * Prints the details of the Food item
      */
     public void printDetails() {
-        // TODO Auto-generated method stub
         System.out.println(this.name +"\t"+ this.description +"\t"+ Money.toString(this.price));
     }
 
     /**
-     * Gets the type of the AlaCarte item
+     * returns the type
+     * @return type
      */
     public char getType(){
         return type;

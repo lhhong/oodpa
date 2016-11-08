@@ -216,7 +216,9 @@ public class RestaurantApp {
                     TableFactory.printAvailableTables();
                     break;
                 case 9:
-                    //print order invoice
+                    print("Which table number would you like to print an invoice for?");
+                    choice = userinput.nextInt();
+
                     break;
                 case 10:
                     //print sales revenue report

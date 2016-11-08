@@ -5,8 +5,8 @@ import group1.commons.Money;
 import java.io.Serializable;
 
 /**
- * An Ala Carte item that people will consume in their meal.
- * Ala Carte items are contained in Menu
+ * An Package is a set of 3 AlaCarte Food Items
+ * Package items are contained in Menu
  * @author OOP Group 1
  * @version 1.0
  * @since 2016-11-8

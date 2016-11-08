@@ -11,7 +11,7 @@ public class TableList implements Serializable {
 	private int numEmptyTables;
 
 	public void assignTable(/*some arguements*/) {
-		//tables.get(TableFactory.assignTable(tables, //other arguements needed));
+		//tables.get(TableFactory.assignTable(tables, //other arguements needed)).occupy;
 		//numEmptyTables++;
 	}
 }

@@ -23,9 +23,9 @@ public class MockData {
 
 	static ArrayList<Staff> getStaffs() {
 		ArrayList<Staff> staffs = new ArrayList<>();
-		staffs.add(new Staff("Robert", Gender.Male, 1, "waiter"));
-		staffs.add(new Staff("Joeline", Gender.Female, 2, "waiter"));
-		staffs.add(new Staff("Timothy", Gender.Male, 3, "waiter"));
+		staffs.add(new Staff("Robert", Gender.MALE, 1, "waiter"));
+		staffs.add(new Staff("Joeline", Gender.FEMALE, 2, "waiter"));
+		staffs.add(new Staff("Timothy", Gender.MALE, 3, "waiter"));
 
 		return staffs;
 	}

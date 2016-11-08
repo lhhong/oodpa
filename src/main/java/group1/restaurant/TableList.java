@@ -43,8 +43,5 @@ public class TableList implements Serializable {
 		return tables;
 	}
 
-	public void assignTable(/*some arguements*/) {
-		//tables.get(TableFactory.assignTable(tables, //other arguements needed)).occupy;
-		//numEmptyTables++;
-	}
+	
 }

@@ -14,6 +14,12 @@ import group1.restaurant.TableFactory;
 
 import group1.restaurant.TableFactory;
 
+/**
+ * Main class that incorporates all functions of the Restaurant RRPSS
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
+ */
 
 public class RestaurantApp {
     static Scanner userinput = new Scanner(System.in);

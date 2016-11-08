@@ -13,8 +13,12 @@ import static group1.reservation.AMPM.AMSLOT;
 import static group1.reservation.AMPM.PMSLOT;
 
 /**
- * Created by low on 4/11/16 12:50 PM.
+ *
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
+
 public class TableFactory {
 
 
@@ -33,7 +37,13 @@ public class TableFactory {
 
         ReservationFactory.updateReservation();
         ArrayList<Reservation> indexReservation;
-        indexReservation = CacheService.getCache().getReservations().indexReservation(0);
+        int index;
+        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
+            index = 0;
+        } else {
+            index = 1;
+        }
+        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();

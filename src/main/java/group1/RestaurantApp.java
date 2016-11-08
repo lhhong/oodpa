@@ -10,8 +10,6 @@ import group1.reservation.NotInMonthException;
 import group1.reservation.NotInOperationException;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
-import group1.restaurant.Restaurant;
-import group1.storage.CacheService;
 
 
 public class RestaurantApp {
@@ -88,10 +86,10 @@ public class RestaurantApp {
                     int inputPromo = userinput.nextInt();
                     switch (inputPromo) {
                         case 1:
-                            menu.addItem();
+                            menu.addPromotion();
                             break;
                         case 2:
-                            menu.updateItem();
+                            menu.updatePromotion();
                             break;
                         case 3:
                             menu.removeItem();

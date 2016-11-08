@@ -3,21 +3,20 @@ import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
-public class Restaurant {
+public class TableFactory {
     private static Table tables[];
     private int tableSizes[] = {2,4,8,10};
     private int tableDistribution[] = {10,10,5,5};
     private int numTables = 0;
     private int numEmptyTables;
 
-    Restaurant(){
+    TableFactory(){
         System.out.println("Creating Restaurant...");
         ReservationFactory.updateReservation();
         int tableNumber = 0;
@@ -128,7 +127,7 @@ public class Restaurant {
 
 
     public static void main(String[] args){
-        Restaurant r = new Restaurant();
+        TableFactory r = new TableFactory();
 
         r.assignTable(7,1);
         r.assignTable(8,1);

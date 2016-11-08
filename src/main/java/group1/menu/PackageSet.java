@@ -1,5 +1,7 @@
 package group1.menu;
 
+import group1.commons.Money;
+
 import java.io.Serializable;
 
 /**
@@ -21,7 +23,7 @@ public class PackageSet extends FoodItem implements Serializable {
         for(AlaCarte item:set){
             System.out.println(item.name +"\t"+ item.description);
         }
-        System.out.println("Price =" + this.price);
+        System.out.println("Price =" + Money.toString(this.price));
     }
 
 }

@@ -1,5 +1,7 @@
 package group1.menu;
 
+import group1.commons.Money;
+
 import java.io.Serializable;
 
 /**
@@ -17,7 +19,7 @@ public class AlaCarte extends FoodItem implements Serializable {
     @Override
     public void getDetails() {
         // TODO Auto-generated method stub
-        System.out.println(this.name +"\t"+ this.description +"\t"+ this.price);
+        System.out.println(this.name +"\t"+ this.description +"\t"+ Money.toString(this.price));
     }
 
     public char getType(){

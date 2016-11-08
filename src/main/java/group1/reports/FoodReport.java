@@ -3,11 +3,21 @@ package group1.reports;
 import java.io.Serializable;
 
 /**
- * Created by low on 8/11/16 6:46 PM.
+ * contains quantity and sales for a particular food item
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class FoodReport implements Cloneable, Serializable{
-	int sales;
-	int quantity;
+	/**
+	 * total sales revenue for a food item
+	 */
+	private int sales;
+
+	/**
+	 * quantity of the food item sold
+	 */
+	private int quantity;
 
 	@Override
 	public FoodReport clone() {
@@ -23,20 +33,36 @@ public class FoodReport implements Cloneable, Serializable{
 		quantity = 1;
 	}
 
+	/**
+	 * increase quantity by one, increments price at the same time
+	 * @param price price of a single food item
+	 */
 	public void increment(int price) {
 		this.sales += price;
 		quantity++;
 	}
 
+	/**
+	 * combines 2 FoodReport
+	 * @param foodReport foodreport to be combined
+	 */
 	void collapse(FoodReport foodReport) {
 		this.sales += foodReport.getSales();
 		this.quantity += foodReport.getQuantity();
 	}
 
+	/**
+	 * get the sales revenue
+	 * @return total sales revenue
+	 */
 	public int getSales() {
 		return sales;
 	}
 
+	/**
+	 * get the sales quantity
+	 * @return quantity of the food item sold
+	 */
 	public int getQuantity() {
 		return quantity;
 	}

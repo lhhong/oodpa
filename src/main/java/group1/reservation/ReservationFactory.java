@@ -276,7 +276,6 @@ public class ReservationFactory {
             Iterator<Reservation> iter = indexReservation.iterator();
             int pos = 0;
 
-
             while (iter.hasNext()) {
                 Reservation current = iter.next();
                 if (current.getContact() == contact) {

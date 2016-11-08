@@ -42,19 +42,7 @@ public class ReservationList implements Serializable{
 		}
 	}
 
-	/**
-	 * Removes a reservation from the list
-	 * @param reservation existing reservation to be removed, should be of the same instance retrieved from cache
-	 */
-	public void removeReservation(Reservation reservation) {
-		synchronized (reservationsChangeLock) {
-			int index = ReservationFactory.getIndex(reservation);
-			if (reservations.get(index).remove(reservation)) {
-				return;
-			}
-			logger.error("tried to remove a reservation that is not present or index calculated wrongly");
-		}
-	}
+
 
 	/**
 	 * dequeue reservation list of the day and add a new reservation for the 30th day

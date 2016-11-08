@@ -155,7 +155,7 @@ public class RestaurantApp {
         }
         //if pax=-1: break
         TableFactory.assignTable(pax);
-        //assigntable ->return a table, set table to occupied
+
         //Order neworder = new Order(fooditem array);
         //while something, neworder.additem()
         //table.newOrder(neworder);

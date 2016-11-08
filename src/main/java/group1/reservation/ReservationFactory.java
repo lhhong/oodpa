@@ -81,7 +81,7 @@ public class ReservationFactory {
 
     public static int getTable(int index, int pax) {
         ReservationFactory.updateReservation();
-        ArrayList<Table> tables = CacheService.getCache().getTables();
+        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
 
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);

@@ -11,6 +11,8 @@ import group1.reservation.NotInOperationException;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 
+import group1.restaurant.TableFactory;
+
 
 public class RestaurantApp {
     static Scanner userinput = new Scanner(System.in);
@@ -131,7 +133,21 @@ public class RestaurantApp {
         }
     }
     private static void createOrder(){
-        //get number of pax
+        int pax = 0;
+        print("Do you have a reservation? 1) Yes, 2)No :");
+        int choice = userinput.nextInt();
+        if (choice == 1){
+            print("Please enter your contact number: ");
+            int contact = userinput.nextInt();
+            LocalDateTime specificDate = LocalDateTime.now();
+            pax = ReservationFactory.removeIndexReservation(specificDate, contact);
+            }
+        else{
+            print("Please enter number of pax: ");
+            pax = userinput.nextInt();
+        }
+        //if pax=-1: break
+        TableFactory.assignTable(pax);
         //assigntable ->return a table, set table to occupied
         //Order neworder = new Order(fooditem array);
         //while something, neworder.additem()

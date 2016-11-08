@@ -16,6 +16,10 @@ public class Reports {
 	public Reports() {
 	}
 
+	/**
+	 * Constructor solely for MockData generation
+	 * @param dailyReports
+	 */
 	public Reports(HashMap<LocalDate, DailyReport> dailyReports) {
 		this.dailyReports = dailyReports;
 	}

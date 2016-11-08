@@ -22,8 +22,22 @@ public class DailyReport {
 		HashMap<FoodItem, Integer> orderItems = order.getFood_order();
 		for(FoodItem i : orderItems.keySet()) {
 			if (itemQuantities.containsKey(i)) {
-				itemQuantities.get(i).increment(10);
+				itemQuantities.get(i).increment(i.getPrice());
 			}
+			else {
+				itemQuantities.put(i, new FoodReport(i.getPrice()));
+			}
+			totalSales += i.getPrice();
 		}
+	}
+
+	/**
+	 * constructor solely for MockData generation
+	 * @param itemQuantities
+	 * @param totalSales
+	 */
+	public DailyReport(HashMap<FoodItem, FoodReport> itemQuantities, int totalSales) {
+		this.itemQuantities = itemQuantities;
+		this.totalSales = totalSales;
 	}
 }

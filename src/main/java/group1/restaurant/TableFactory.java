@@ -23,7 +23,7 @@ public class TableFactory {
 
 
 
-   
+
     public static Table assignTable(int pax){//1=walk in, 2= reserved
         // returns table assign, returns null if no available table
         int i = 1;

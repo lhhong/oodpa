@@ -2,20 +2,19 @@ package group1.reservation;
 
 import group1.storage.CacheService;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
-import static group1.reservation.ReservationFactory.getIndex;
-import static group1.reservation.ReservationFactory.getTimeSlot;
-import static group1.reservation.ReservationFactory.getTable;
+
 
 /**
  * Created by low on 4/11/16 12:35 PM.
  */
-public class Reservation {
+public class Reservation implements Serializable{
 
     LocalDateTime date;
     AMPM timeslot;
@@ -31,8 +30,8 @@ public class Reservation {
         this.contact = contact;
         this.pax = pax;
 
-        this.timeslot = getTimeSlot(date);
-        this.tableIndex = getTable(getIndex(this), pax);
+        this.timeslot = ReservationFactory.getTimeSlot(date);
+        this.tableIndex = ReservationFactory.getTable(ReservationFactory.getIndex(this), pax);
         CacheService.getCache().getReservations().addReservation(this);
 
     }

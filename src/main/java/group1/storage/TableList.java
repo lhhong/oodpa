@@ -20,18 +20,20 @@ public class TableList implements Serializable{
 
         tables = new ArrayList<>(30);
 
+		int id = 0;
         // create correct number of tables
         for (int i = 0; i < tableDistribution.length; i++){
             tablesize = tableSizes[i];
 
             for (int j = 0; j < tableDistribution[i]; j++){
-                tables.add(new Table(tablesize));
+                tables.add(new Table(tablesize, id++));
             }
         }
-        numEmptyTables = 0;
+        numEmptyTables = 30;
 	}
 
 	public ArrayList<Table> getTables() {
 		return tables;
 	}
+
 }

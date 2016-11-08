@@ -2,12 +2,9 @@ package group1.restaurant;
 import group1.reservation.Reservation;
 import group1.storage.CacheService;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 /**
  * Created by low on 4/11/16 12:50 PM.
  */
@@ -31,11 +28,12 @@ public class Restaurant {
         tables = new Table[numTables];
 
         // create correct number of tables
+	    int id = 0;
         for (int i = 0; i < tableDistribution.length; i++){
             tablesize = tableSizes[i];
 
             for (int j = 0; j < tableDistribution[i]; j++){
-                tables[tableNumber] = new Table(tablesize);
+                tables[tableNumber] = new Table(tablesize, id++);
                 tableNumber++;
             }
         }
@@ -54,21 +52,23 @@ public class Restaurant {
         ArrayList<Reservation> indexReservation;
         indexReservation = CacheService.getCache().getReservations().indexReservation(0);
 
-        ArrayList<Integer> ReservedTables = new ArrayList<>();
+        ArrayList<Integer> reservedTables = new ArrayList<>();
         Iterator<Reservation> iter = indexReservation.iterator();
         while(iter.hasNext())
         {
             Reservation current = iter.next();
-            ReservedTables.add(current.getTableIndex());
+            reservedTables.add(current.getTableIndex());
         }
 
+        //TODO make this work with only boolean isOccupied
+        /*
         if(type == 1 || type ==0) {
             for (Table t : tables) {
-                if(ReservedTables.contains(i)){
-                    t.setStatus(2);
+                if(reservedTables.contains(i)){
+                    t.setOccupied(2);
                 }
-                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getStatus() == 0) {
-                    t.setStatus(type);
+                if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.getOccupied() == 0) {
+                    t.setOccupied(type);
                     numEmptyTables--;
                     System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
                     return i;
@@ -79,6 +79,7 @@ public class Restaurant {
 
 
         }
+        */
 
 
         System.out.println("No suitable table is available. Sorry!");
@@ -87,7 +88,7 @@ public class Restaurant {
     public void printAvailableTables(){
         int i = 1;
         for (Table t:tables){
-            if (t.getStatus() == 0){
+            if (!t.isOccupied()){
                 System.out.println("Table " + i + ", size = "+ t.getCapacity());
             }
             i++;

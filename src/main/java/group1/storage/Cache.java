@@ -16,9 +16,10 @@ public class Cache implements Serializable{
 
 	Cache() {
 		currentDay = LocalDate.now();
+		staffs = new StaffList();
 		reservations = new ReservationList();
 		tables = new TableList();
-		menu = new Menu();
+		menu = new Menu(MockData.getFoodItems());
 	}
 
 	public LocalDate getCurrentDay() {
@@ -29,7 +30,6 @@ public class Cache implements Serializable{
 		this.currentDay = currentDay;
 	}
 
-	//TODO: remove uneccessary setters
 	public Menu getMenu() {
 		return menu;
 	}
@@ -40,5 +40,9 @@ public class Cache implements Serializable{
 
 	public TableList getTables() {
 		return tables;
+	}
+
+	public StaffList getStaffs() {
+		return staffs;
 	}
 }

@@ -6,11 +6,10 @@ import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
 import group1.menu.Menu;
 import group1.reservation.Reservation;
-import group1.restaurant.Order;
+import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
 
-import static group1.reservation.ReservationFactory.printIndexReservation;
-import static group1.reservation.ReservationFactory.removeIndexReservation;
+
 
 public class RestaurantApp {
 	static Scanner userinput = new Scanner(System.in);
@@ -24,7 +23,8 @@ public class RestaurantApp {
 	public static void main(String[] args){
 
 		Runtime.getRuntime().addShutdownHook(new ShutDown());
-		new Thread(new ReservationUpdateWorker()).start();
+		Thread t = new Thread(new ReservationUpdateWorker());
+		t.start();
 
 		print("Welcome to the OOP Restaurant");
 		int choice;
@@ -117,17 +117,14 @@ public class RestaurantApp {
 					break;
 				case 7:
 					print("Please select one of the following options:");
-					print("(1) Check a Reservation Booking for a date");
-					print("(2) Remove a Reservation Booking");
+					print("(1) Check a next reservation");
+					print("(2) Check a Reservation Booking for a date");
+					print("(3) Remove a Reservation Booking");
 					int reserveBook = userinput.nextInt();
 					switch(reserveBook) {
 						case 1:
-							print("Input Year Month Day e.g. 2016 11 19 ");
-							year = userinput.nextInt();
-							month = userinput.nextInt();
-							day = userinput.nextInt();
-							specificDate = LocalDateTime.of(year,month,day,0,0);
-							printIndexReservation(specificDate);
+							specificDate = LocalDateTime.now();
+							ReservationFactory.printIndexReservation(specificDate);
 							break;
 						case 2:
 							print("Input Year Month Day e.g. 2016 11 19 ");
@@ -135,9 +132,19 @@ public class RestaurantApp {
 							month = userinput.nextInt();
 							day = userinput.nextInt();
 							specificDate = LocalDateTime.of(year,month,day,0,0);
-							print("Input name");
-							name = userinput.next();
-							removeIndexReservation(specificDate,name);//NOT WORKING TTTTTTTTT
+							ReservationFactory.printIndexReservation(specificDate);
+							break;
+						case 3:
+							print("Input Year Month Day e.g. 2016 11 19 ");
+							year = userinput.nextInt();
+							month = userinput.nextInt();
+							day = userinput.nextInt();
+							specificDate = LocalDateTime.of(year,month,day,0,0);
+							print("Current reservation for: " + specificDate);
+							ReservationFactory.printIndexReservation(specificDate);
+							print("Input contact number");
+							contact = userinput.nextInt();
+							ReservationFactory.removeIndexReservation(specificDate,contact);
 							break;
 						default:
 							print("Please input a valid choice");
@@ -147,7 +154,7 @@ public class RestaurantApp {
 					//table availability
 					break;
 				case 9:
-					//print invoice
+					//print order invoice
 					break;
 				case 10:
 					//print sales revenue report
@@ -156,6 +163,7 @@ public class RestaurantApp {
 			}
 
 		} while (choice < 11);
+		t.interrupt();
 	}
 }
 

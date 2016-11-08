@@ -22,6 +22,9 @@ public class Cache implements Serializable{
 	private Menu menu;
 	private Reports reports;
 
+	/**
+	 * constructor to initialize Cache with MockData
+	 */
 	Cache() {
 		reports = new Reports(/*TODO MockData.getReportList()*/);
 		tables = new TableList();

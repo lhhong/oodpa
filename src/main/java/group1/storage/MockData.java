@@ -56,23 +56,19 @@ public class MockData {
 		HashMap<LocalDate, CompiledReport> reports = new HashMap<>();
 		Menu menu = cache.getMenu();
 
+		for (int j=31;j>0;j--) {
+			int subtotal =0;
+			HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
+			for (int i = 0; i < menu.size(); i++) {
+				int random = (int) (Math.random() * 50);
+				subtotal = menu.returnItem(i).getPrice()*random;
+				FoodReport foodReport = new FoodReport(subtotal, random);
+				dailyReportMap.put(menu.returnItem(i), foodReport);
+			}
 
-
-		HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
-
-		//first value is total money for a particular food item, second is quantity
-		FoodReport foodReport = new FoodReport(4500, 30);
-		//TODO create getters in Menu class
-		// dailyReportMap.put(menu.getThisFood, foodReport);
-
-		// TODO add more menu food, ie more dailyReportMap.put
-
-		//int value indicate total sales
-		CompiledReport compiledReport = new CompiledReport(dailyReportMap, 70000);
-		reports.put(LocalDate.now().minusDays(31), compiledReport);
-
-		//TODO now do this whole shit again for more days
-
+			CompiledReport compiledReport = new CompiledReport(dailyReportMap, subtotal);
+			reports.put(LocalDate.now().minusDays(j), compiledReport);
+		}
 		return reports;
 	}
 }

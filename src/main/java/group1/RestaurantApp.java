@@ -204,7 +204,6 @@ public class RestaurantApp {
             System.out.println(e.getMessage());
 	        return;
         }
-        CacheService.getCache().getReservations().addReservation(reservation);
     }
     private static void updateReservation(){
         print("Please select one of the following options:");

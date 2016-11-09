@@ -1,7 +1,5 @@
 package group1.storage;
 
-import group1.menu.Menu;
-
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -9,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by low on 4/11/16 12:34 PM.
  * Factory class to store / read restaurant data on startup / shutdown into txt file by serializing Cache class
  * external ftp server used to store the text file for easy code migration across different machines
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class Database {
 
@@ -21,6 +21,9 @@ public class Database {
 	private static final String suffix = ";type=i";
 	private static final String fileName = "restaurant-data.dat";
 
+	/**
+	 * flushes the cache into a serialized file on ftp server
+	 */
 	public static void flush() {
 		URL  url = null;
 		try {
@@ -38,6 +41,10 @@ public class Database {
 		}
 	}
 
+	/**
+	 * reads the serialized cache from ftp server
+	 * @return stored state of the restaurant app
+	 */
 	public static Cache read() {
 		URL url = null;
 		Object o = null;

@@ -3,7 +3,10 @@ package group1.storage;
 import java.io.Serializable;
 
 /**
- * Created by low on 5/11/16 5:14 PM.
+ * empty object for synchronization purpose in multithread
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class SynchroLock implements Serializable {
 }

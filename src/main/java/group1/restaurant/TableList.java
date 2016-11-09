@@ -11,15 +11,14 @@ import java.util.ArrayList;
  */
 
 public class TableList implements Serializable {
-	/*
-	 * Creates an Array list of tables
+	/**
+	 * Array list of tables
 	 */
 	private ArrayList<Table> tables;
-	/*
-	 * Number of Empty tables
-	 */
-	private int numEmptyTables;
 
+	/**
+	 * initialize restaurant layout of the tables
+	 */
 	public TableList() {
 		int tablesize = 0;
 		int tableSizes[] = {2,4,8,10};
@@ -36,7 +35,6 @@ public class TableList implements Serializable {
                 tables.add(new Table(tablesize, id++));
             }
         }
-        numEmptyTables = 30;
 	}
 
 	public ArrayList<Table> getTables() {

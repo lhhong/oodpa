@@ -18,6 +18,7 @@ import group1.restaurant.Staff;
 import group1.restaurant.Table;
 import group1.restaurant.TableFactory;
 import group1.restaurant.Order;
+import group1.storage.Cache;
 import group1.storage.CacheService;
 
 /**
@@ -242,12 +243,11 @@ public class RestaurantApp {
 
     public static void main(String[] args) {
 
+	    //initializes cache
+        CacheService.getCache();
         Runtime.getRuntime().addShutdownHook(new ShutDown());
         Thread t = new Thread(new ReservationUpdateWorker());
         t.start();
-
-        //Set Mock reports
-        CacheService.getCache().setMockReports();
 
         print("Welcome to the OOP Restaurant");
         int choice;

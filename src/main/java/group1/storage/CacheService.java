@@ -21,7 +21,7 @@ public class CacheService {
 	 * get singleton instance of cache
 	 * @return cache containing restaurant data
 	 */
-	public static Cache getCache() {
+	public static synchronized Cache getCache() {
 		if (cache == null) {
 			logger.info("initializing cache. This may take some time, please wait a moment...");
 			//cache = Database.read();

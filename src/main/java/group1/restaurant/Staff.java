@@ -36,10 +36,10 @@ public class Staff implements Serializable{
      * @param j The Job title of the staff
      */
     public Staff(String n, Gender g, int e, String j){
-        setName(n);
-        setGender(g);
-        setEmployeeID(e);
-        setJobTitle(j);
+	    gender = g;
+        employeeID = e;
+        jobTitle = j;
+        name = n;
     }
 
     /**
@@ -59,27 +59,11 @@ public class Staff implements Serializable{
     }
 
     /**
-     * Changes the name of a current staff
-     * @param name The new name of the staff
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets the gender of the current staff
      * @return The gender of the current staff
      */
     public Gender getGender() {
         return gender;
-    }
-
-    /**
-     * Changes the gender of the current staff
-     * @param gender The new gender of the staff
-     */
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     /**
@@ -91,27 +75,11 @@ public class Staff implements Serializable{
     }
 
     /**
-     * Changes the Employee ID of a current staff
-     * @param employeeID The new Employee ID of the staff
-     */
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
-    }
-
-    /**
      * Gets the job title of a current staff
      * @return The job title of a staff
      */
     public String getJobTitle() {
         return jobTitle;
-    }
-
-    /**
-     * Changes the job title of a current staff
-     * @param jobTitle The new job title of the staff
-     */
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
     }
 }
 

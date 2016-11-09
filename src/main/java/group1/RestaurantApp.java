@@ -2,6 +2,7 @@ package group1;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,10 +15,7 @@ import group1.reservation.NotInMonthException;
 import group1.reservation.NotInOperationException;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
-import group1.restaurant.Staff;
-import group1.restaurant.Table;
-import group1.restaurant.TableFactory;
-import group1.restaurant.Order;
+import group1.restaurant.*;
 import group1.storage.Cache;
 import group1.storage.CacheService;
 
@@ -32,13 +30,13 @@ public class RestaurantApp {
     static Scanner userinput = new Scanner(System.in);
 
     // Printing Functions
-    static void print() {
+    private static void print() {
         System.out.println();
     }
-    static void print(Object obj) {
+    private static void print(Object obj) {
         System.out.println(obj);
     }
-    static void printnb(Object obj) {
+    private static void printnb(Object obj) {
         System.out.print(obj);
     }
 
@@ -114,11 +112,21 @@ public class RestaurantApp {
         editOrder(assigned.getTableNumber());
     }
     private static void viewOrder(){
-        Order o = getOrder();
+        Order o = null;
+        try {
+            o = getOrder();
+        } catch (InvalidTableException e) {
+            return;
+        }
         o.printOrder();
     }
     private static void editOrder() {
-        Order o = getOrder();
+        Order o = null;
+        try {
+            o = getOrder();
+        } catch (InvalidTableException e) {
+            return;
+        }
         editOrder(o);
     }
     private static void editOrder(int tableNumber) {
@@ -158,9 +166,20 @@ public class RestaurantApp {
         Table t = tables.get(tableNumber-1);
         return t.getOrder();
     }
-    private static Order getOrder(){
+    private static Order getOrder() throws InvalidTableException {
         print("Please enter your table number: ");
         int tableno = userinput.nextInt();
+        Table t;
+        try {
+            t = CacheService.getCache().getTables().getTables().get(tableno);
+        } catch (IndexOutOfBoundsException e) {
+            print("No such table exist");
+            throw new InvalidTableException();
+        }
+        if (!t.isOccupied()) {
+            print("table is currently unoccupied");
+            throw new InvalidTableException();
+        }
 	    return getOrder(tableno);
     }
     private static void createReservation(){
@@ -178,15 +197,14 @@ public class RestaurantApp {
         print("Input Pax");
         pax = userinput.nextInt();
         LocalDateTime specificDate = LocalDateTime.of(year, month, day, hour, minute);
+	    Reservation reservation;
         try {
-            Reservation reservation = new Reservation(specificDate, name, contact, pax);
-        } catch (NotInMonthException e) {
+            reservation = new Reservation(specificDate, name, contact, pax);
+        } catch (NotInMonthException | NotInOperationException e) {
             System.out.println(e.getMessage());
-
-        } catch(NotInOperationException e){
-            System.out.println(e.getMessage());
-
+	        return;
         }
+        CacheService.getCache().getReservations().addReservation(reservation);
     }
     private static void updateReservation(){
         print("Please select one of the following options:");
@@ -241,7 +259,13 @@ public class RestaurantApp {
         print("Would you like a daily(1) or monthly(2) report?:");
         int choice = userinput.nextInt();
         if (choice==1){
-            CacheService.getCache().getReports().printReport(LocalDate.now());
+            print("Input date of report in yyyy-mm-dd");
+            String day = userinput.next();
+	        try {
+                CacheService.getCache().getReports().printReport(LocalDate.parse(day));
+            } catch (DateTimeParseException e) {
+                print("invalid date input");
+            }
         }
         else {
             print("Input Year in YYYY format:");

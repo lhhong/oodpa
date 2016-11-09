@@ -16,7 +16,7 @@ public class AlaCarte extends FoodItem implements Serializable {
     /**
      * The AlaCarte type
      */
-    protected char type;
+    private char type;
 
     /**
      * Creates an AlaCarte item and initializes its name, type, description and price
@@ -41,7 +41,7 @@ public class AlaCarte extends FoodItem implements Serializable {
      * returns the type
      * @return type
      */
-    public char getType(){
+    char getType(){
         return type;
     }
 

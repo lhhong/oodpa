@@ -21,14 +21,19 @@ public class FoodReport implements Cloneable, Serializable{
 
 	@Override
 	public FoodReport clone() {
-		return new FoodReport(sales, quantity);
+		try {
+			return (FoodReport) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
 	 * initialise FoodReport with single item
 	 * @param price price of food item in concern
 	 */
-	public FoodReport(int price) {
+	FoodReport(int price) {
 		sales = price;
 		quantity = 1;
 	}
@@ -37,7 +42,7 @@ public class FoodReport implements Cloneable, Serializable{
 	 * increase quantity by one, increments price at the same time
 	 * @param price price of a single food item
 	 */
-	public void increment(int price) {
+	void increment(int price) {
 		this.sales += price;
 		quantity++;
 	}
@@ -55,7 +60,7 @@ public class FoodReport implements Cloneable, Serializable{
 	 * get the sales revenue
 	 * @return total sales revenue
 	 */
-	public int getSales() {
+	int getSales() {
 		return sales;
 	}
 
@@ -63,14 +68,14 @@ public class FoodReport implements Cloneable, Serializable{
 	 * get the sales quantity
 	 * @return quantity of the food item sold
 	 */
-	public int getQuantity() {
+	int getQuantity() {
 		return quantity;
 	}
 
 	/**
 	 * Constructor solely for MockData generation
-	 * @param sales
-	 * @param quantity
+	 * @param sales sales revenue
+	 * @param quantity quantity sold
 	 */
 	public FoodReport(int sales, int quantity) {
 		this.sales = sales;

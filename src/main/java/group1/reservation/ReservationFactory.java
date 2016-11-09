@@ -261,42 +261,41 @@ public class ReservationFactory {
      * @return pax of reservation
      */
     public static int removeIndexReservation(LocalDateTime specificDate, int contact) {
-        ReservationFactory.updateReservation();
+        synchronized (CacheService.getCache().getReservations().getReservationsChangeLock()) {
+            ReservationFactory.updateReservation();
 
-        int index = getIndex(specificDate);
-        int i;
-        int pax;
+            int index = getIndex(specificDate);
+            int i;
+            int pax;
 
 
         /*
          * For AM and PM (index and index +1), checks for the reservation with the corresponding contact number and deletes the reservation
          */
-        for (i = index; i <= index + 1; i++) {
-            ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
-            Iterator<Reservation> iter = indexReservation.iterator();
-            int pos = 0;
+            for (i = index; i <= index + 1; i++) {
+                ArrayList<Reservation> indexReservation = CacheService.getCache().getReservations().indexReservation(i);
+                Iterator<Reservation> iter = indexReservation.iterator();
+                int pos = 0;
 
-            while (iter.hasNext()) {
-                Reservation current = iter.next();
-                if (current.getContact() == contact) {
-                   pax = indexReservation.get(pos).getPax();
+                while (iter.hasNext()) {
+                    Reservation current = iter.next();
+                    if (current.getContact() == contact) {
+                        pax = indexReservation.get(pos).getPax();
 
-                    synchronized (CacheService.getCache().getReservations().getReservationsChangeLock()) {
                         indexReservation.remove(pos);
+
+
+                        System.out.println("Reservation with contact " + contact + " has been removed.");
+                        return pax;
+
                     }
-
-
-                    System.out.println("Reservation with contact " + contact + " has been removed.");
-                    return pax;
-
+                    pos++;
                 }
-                pos++;
-            }
 
+            }
         }
 
             System.out.println("Could not find reservation");
-
 
         /*
          * Returns -1 if no reservation found

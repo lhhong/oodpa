@@ -23,10 +23,10 @@ public class Menu implements Serializable{
     /**
      * Creates the Food Item Array lists for different types
      */
-    protected ArrayList<FoodItem> mains = new ArrayList<>();;
-    protected ArrayList<FoodItem> drinks = new ArrayList<>();;
-    protected ArrayList<FoodItem> desserts = new ArrayList<>();;
-    protected ArrayList<FoodItem> packages = new ArrayList<>();;
+    private ArrayList<FoodItem> mains = new ArrayList<>();;
+    private ArrayList<FoodItem> drinks = new ArrayList<>();;
+    private ArrayList<FoodItem> desserts = new ArrayList<>();;
+    private ArrayList<FoodItem> packages = new ArrayList<>();;
 
     /**
      * Constructor for empty menu
@@ -101,6 +101,7 @@ public class Menu implements Serializable{
                 break;
             default:
                 System.out.println("Invalid Input");
+	            return;
         }
         sc.nextLine();//clear buffer
         System.out.println("What is the name of the new " + cases + "?");
@@ -150,9 +151,9 @@ public class Menu implements Serializable{
 
     /**
      * Creates food items
-     * @param i
+     * @param i item to be created
      */
-    public void createItem(FoodItem i){
+    private void createItem(FoodItem i){
         returnArray(i).add(i);
     }
 

@@ -16,7 +16,7 @@ public class PackageSet extends FoodItem implements Serializable {
     /**
      * Stores an array of AlaCarte objects
      */
-    protected AlaCarte[] set;
+    private AlaCarte[] set;
 
     /**
      * Creates an PackageSet item and initializes its name, set, description and price

@@ -7,7 +7,7 @@ package group1.reservation;
  * @since 2016-11-8
  */
 public class NotInMonthException extends Exception{
-    public NotInMonthException(){
+    NotInMonthException(){
         super("Reservation only up to 1 month in advance");
     }
 }

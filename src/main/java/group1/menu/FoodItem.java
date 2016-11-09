@@ -18,11 +18,12 @@ public abstract class FoodItem implements Serializable{
     /**
      * The description of the food item
      */
-    protected String description;
+    String description;
+
     /**
      * The price of the food item
      */
-    protected int price;
+    int price;
 
     /**
      * Creates a new Food Item with all possible attributes

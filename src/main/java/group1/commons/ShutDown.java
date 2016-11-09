@@ -1,6 +1,5 @@
 package group1.commons;
 
-import group1.storage.CacheService;
 import group1.storage.Database;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -7,6 +7,6 @@ import java.io.Serializable;
  * @version 1.0
  * @since 2016-11-8
  */
-public enum AMPM implements Serializable{
+enum AMPM implements Serializable{
    AMSLOT,PMSLOT
 }

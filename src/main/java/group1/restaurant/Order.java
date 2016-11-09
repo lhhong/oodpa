@@ -3,7 +3,6 @@ package group1.restaurant;
 import group1.menu.FoodItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -28,8 +27,8 @@ public class Order implements Serializable {
      * @param s Staff details
      */
     public Order(Staff s){
-        setStaff(s);
-        food_order = new HashMap<FoodItem, Integer>();
+        staff = s;
+        food_order = new HashMap<>();
     }
 
     /**
@@ -41,27 +40,11 @@ public class Order implements Serializable {
     }
 
     /**
-     * Changes the name of the Staff who processed the order
-     * @param staff Name of new staff who processed the order
-     */
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
-    /**
      * Get food order
      * @return food order
      */
     public HashMap<FoodItem, Integer> getFood_order() {
         return food_order;
-    }
-
-    /**
-     * Changes food order
-     * @param food_order New food order
-     */
-    public void setFood_order(HashMap<FoodItem, Integer> food_order) {
-        this.food_order = food_order;
     }
 
     /**

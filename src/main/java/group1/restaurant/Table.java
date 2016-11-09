@@ -32,10 +32,10 @@ public class Table implements Serializable {
      * @param c table capacity
      * @param id table number
      */
-    public Table(int c, int id) {
+    Table(int c, int id) {
         tableNumber = id;
         order = null;
-        setCapacity(c);
+        capacity = c;
         occupied = false;
     }
 
@@ -45,14 +45,6 @@ public class Table implements Serializable {
      */
     public int getTableNumber() {
         return tableNumber;
-    }
-
-    /**
-     * Changes the table number
-     * @param tableNumber New table number of table
-     */
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
     }
 
     /**
@@ -67,7 +59,7 @@ public class Table implements Serializable {
      * Occupies table
      * Sets boolean of table occupied to true
      */
-    public void occupy() {
+    void occupy() {
         this.occupied = true;
     }
 
@@ -89,14 +81,6 @@ public class Table implements Serializable {
     }
 
     /**
-     * Changes capacity of table
-     * @param capacity New capacity of table
-     */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    /**
      * Gets order of table
      * @return order of table
      */
@@ -106,7 +90,7 @@ public class Table implements Serializable {
 
     /**
      * Creates new order of table
-     * @param order
+     * @param order order to add
      */
     public void newOrder(Order order) {
         this.order = order;

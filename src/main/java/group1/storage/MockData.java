@@ -14,13 +14,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by low on 4/11/16 11:47 PM.
  * Class containing initialization of mock datas when app is ran for the first time
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class MockData {
 
-	//TODO: populate the mock datas
-
+	/**
+	 * populate datas for restaurant staffs
+	 * @return list of staffs
+	 */
 	static ArrayList<Staff> getStaffs() {
 		ArrayList<Staff> staffs = new ArrayList<>();
 		staffs.add(new Staff("Robert", Gender.MALE, 1, "waiter"));
@@ -30,6 +34,10 @@ public class MockData {
 		return staffs;
 	}
 
+	/**
+	 * populate restaurant menu
+	 * @return list of food items
+	 */
 	static ArrayList<FoodItem> getFoodItems() {
 		ArrayList<FoodItem> items = new ArrayList<>();
 		AlaCarte item1 = new AlaCarte("Chicken Rice", 'M', "spicy and tender", 400);
@@ -52,6 +60,11 @@ public class MockData {
 		return items;
 	}
 
+	/**
+	 * populate mock past reports for the restaurant
+	 * @param cache cache instance to get the menu from
+	 * @return map of reports according to days
+	 */
 	static HashMap<LocalDate, CompiledReport> getReportList(Cache cache) {
 		HashMap<LocalDate, CompiledReport> reports = new HashMap<>();
 		Menu menu = cache.getMenu();

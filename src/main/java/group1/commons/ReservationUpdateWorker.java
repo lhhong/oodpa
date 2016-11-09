@@ -10,12 +10,18 @@ import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * Created by low on 4/11/16 8:45 PM.
+ * Updates reservation list every midnight
+ * @author OOP Group 1
+ * @version 1.0
+ * @since 2016-11-8
  */
 public class ReservationUpdateWorker implements Runnable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReservationUpdateWorker.class);
 
+	/**
+	 * runs worker to update reservation list pass midnight
+	 */
 	@Override
 	public void run() {
 		Cache cache = CacheService.getCache();
@@ -36,7 +42,7 @@ public class ReservationUpdateWorker implements Runnable {
 				cache.setCurrentDay(currentDate);
 			}
 			try {
-				Thread.sleep(100000L);
+				Thread.sleep(80000L);
 			} catch (InterruptedException e) {
 				logger.info("service interrupted, ending it now");
 				break;

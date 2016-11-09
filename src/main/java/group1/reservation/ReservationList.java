@@ -18,7 +18,13 @@ import java.util.LinkedList;
 public class ReservationList implements Serializable{
 
 	private static final Logger logger = LoggerFactory.getLogger(ReservationList.class);
+	/**
+	 * list of reservations stored by sessions
+	 */
 	private LinkedList<ArrayList<Reservation>> reservations;
+	/**
+	 * synchronization object
+	 */
 	private final SynchroLock reservationsChangeLock = new SynchroLock();
 
 	/**
@@ -54,6 +60,10 @@ public class ReservationList implements Serializable{
 			reservations.addLast(new ArrayList<Reservation>());
 			reservations.addLast(new ArrayList<Reservation>());
 		}
+	}
+
+	public SynchroLock getReservationsChangeLock() {
+		return reservationsChangeLock;
 	}
 
 	public ArrayList<Reservation> indexReservation(int index){

@@ -1,5 +1,4 @@
 package group1.restaurant;
-import group1.reservation.AMPM;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 import group1.storage.CacheService;
@@ -9,11 +8,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static group1.reservation.AMPM.AMSLOT;
-import static group1.reservation.AMPM.PMSLOT;
-
 /**
- *
+ * factory class to manage functions to do with tables
  * @author OOP Group 1
  * @version 1.0
  * @since 2016-11-8
@@ -24,7 +20,7 @@ public class TableFactory {
 
     /**
      * Returns an empty, non reserved table according to pax size, returns null if no table available
-     * @param pax
+     * @param pax number of people a table
      * @return Table object
      */
     public static Table assignTable(int pax){

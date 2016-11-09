@@ -21,6 +21,13 @@ public class Money {
 	public static String toString(int price) {
 		return "$" + price/100 + "." + price%100;
 	}
+
+	/**
+	 * parses numerical string to money
+	 * @param price string in format xx.xx
+	 * @return money in cents. eg, $3.50 returns 300
+	 * @throws MoneyFormatException if string is in a wrong format
+	 */
 	public static int parseString(String price) throws MoneyFormatException {
 		int priceInt;
 		if (price.contains(".")) {
@@ -48,6 +55,12 @@ public class Money {
 		}
 		return priceInt;
 	}
+
+	/**
+	 * parses float price into money format
+	 * @param price actual price in dollar
+	 * @return price in cents
+	 */
 	public static int parseFloat(float price) {
 		return Math.round(price * 100);
 	}

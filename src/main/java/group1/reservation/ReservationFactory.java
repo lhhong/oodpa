@@ -25,9 +25,9 @@ public class ReservationFactory {
     /**
      * Checks if the time slot is within 9am - 5pm and within a month, if not, throw their respective exceptions
      * Returns AM/PM depending on the local time
-     * @param date
-     * @return
-     * @throws NotInOperationException
+     * @param date date and time of reservation
+     * @return session of reservation
+     * @throws NotInOperationException when time out of range
      */
     public static AMPM getTimeSlot(LocalDateTime date) throws NotInOperationException {
         /*
@@ -70,7 +70,7 @@ public class ReservationFactory {
 
     /**
      * Gets the specific reservation array (at position index of reservation list) in the reservation list
-     * @param reservation
+     * @param reservation reservation object to get index for
      * @return index of the reservation in reservation list
      */
     public static int getIndex(Reservation reservation) {
@@ -100,7 +100,7 @@ public class ReservationFactory {
 
     /**
      * Gets the specific reservation array (at position index of reservation list) in the reservation list
-     * @param date
+     * @param date date and time of reservation
      * @return index of the reservation in reservation list
      */
     public static int getIndex(LocalDateTime date) {
@@ -121,8 +121,8 @@ public class ReservationFactory {
 
     /**
      * Assigns a table to the reservation
-     * @param index
-     * @param pax
+     * @param index index of reservation
+     * @param pax number of people
      * @return table number
      */
     public static int getTable(int index, int pax) {
@@ -177,7 +177,7 @@ public class ReservationFactory {
 
     /**
      * Prints the reservation at a particular date where index is the position where the reservation was stored in the reservation list
-     * @param date
+     * @param date date and time of reservation
      */
     public static void printIndexReservation(LocalDateTime date) {
         /*
@@ -256,8 +256,8 @@ public class ReservationFactory {
     /**
      * removes a particular reservation at a date using their contact number
      * returns pax if reservation found and deleted, returns -1 if reservation not found;
-     * @param specificDate
-     * @param contact
+     * @param specificDate date of reservation to be removed
+     * @param contact contact number of the person
      * @return pax of reservation
      */
     public static int removeIndexReservation(LocalDateTime specificDate, int contact) {
@@ -281,7 +281,9 @@ public class ReservationFactory {
                 if (current.getContact() == contact) {
                    pax = indexReservation.get(pos).getPax();
 
-                   indexReservation.remove(pos);
+                    synchronized (CacheService.getCache().getReservations().getReservationsChangeLock()) {
+                        indexReservation.remove(pos);
+                    }
 
 
                     System.out.println("Reservation with contact " + contact + " has been removed.");

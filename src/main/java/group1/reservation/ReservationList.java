@@ -62,10 +62,19 @@ public class ReservationList implements Serializable{
 		}
 	}
 
-	public SynchroLock getReservationsChangeLock() {
+	/**
+	 * gets change lock instance
+	 * @return synchronization lock instance
+	 */
+	SynchroLock getReservationsChangeLock() {
 		return reservationsChangeLock;
 	}
 
+	/**
+	 * gets reservaion at an index
+	 * @param index index of reservation
+	 * @return reservation list of the session
+	 */
 	public ArrayList<Reservation> indexReservation(int index){
 
 		return reservations.get(index);

@@ -111,13 +111,21 @@ public class RestaurantApp {
         int staffno = userinput.nextInt();
         Order neworder = new Order(staffs.get(staffno-1));
         assigned.newOrder(neworder);
+        editOrder(assigned.getTableNumber());
     }
     private static void viewOrder(){
         Order o = getOrder();
         o.printOrder();
     }
-    private static void editOrder(){
+    private static void editOrder() {
         Order o = getOrder();
+        editOrder(o);
+    }
+    private static void editOrder(int tableNumber) {
+        Order o = getOrder(tableNumber);
+	    editOrder(o);
+    }
+    private static void editOrder(Order o){
         int choice;
         int item_choice;
         do {
@@ -145,12 +153,15 @@ public class RestaurantApp {
             }
         } while( choice < 4 );
     }
+    private static Order getOrder(int tableNumber) {
+        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        Table t = tables.get(tableNumber-1);
+        return t.getOrder();
+    }
     private static Order getOrder(){
         print("Please enter your table number: ");
         int tableno = userinput.nextInt();
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
-        Table t = tables.get(tableno-1);
-        return t.getOrder();
+	    return getOrder(tableno);
     }
     private static void createReservation(){
         int year, month, day, hour, minute, contact, pax;

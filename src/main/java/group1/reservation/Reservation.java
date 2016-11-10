@@ -111,7 +111,7 @@ public class Reservation implements Serializable{
      * Gets the table number of reservation
      * @return Table number
      */
-    public int getTableIndex() {
+    int getTableIndex() {
         return tableIndex;
     }
 }

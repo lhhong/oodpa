@@ -29,8 +29,8 @@ public class Invoice implements Serializable {
 		this.tableNumber = table.getTableNumber();
 		table.vacate();
 		dateTime = LocalDateTime.now();
-		for (FoodItem i:order.getFood_order().keySet()) {
-			subtotal = order.getFood_order().get(i) * i.getPrice();
+		for (FoodItem i:order.getFoodOrder().keySet()) {
+			subtotal = order.getFoodOrder().get(i) * i.getPrice();
 		}
 	}
 
@@ -57,9 +57,9 @@ public class Invoice implements Serializable {
 				"Table: " + tableNumber + "\n" +
 				"\n====================\n" +
 				"";
-		for (FoodItem i:order.getFood_order().keySet()) {
-			stringOutput += order.getFood_order().get(i) + " " + i.getName() +
-					"\t" + Money.toString(order.getFood_order().get(i)*i.getPrice()) + "\n";
+		for (FoodItem i:order.getFoodOrder().keySet()) {
+			stringOutput += order.getFoodOrder().get(i) + " " + i.getName() +
+					"\t" + Money.toString(order.getFoodOrder().get(i)*i.getPrice()) + "\n";
 		}
 		stringOutput += "\n Subtotal:" + Money.toString(subtotal)+ "\n" +
 				"GST: " + Money.toString(calcGst()) + "\n" +

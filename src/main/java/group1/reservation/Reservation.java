@@ -53,7 +53,7 @@ class Reservation implements Serializable{
         this.contact = contact;
         this.pax = pax;
 
-        this.timeslot = ReservationFactory.getTimeSlot(date, reservationList);
+        this.timeslot = ReservationFactory.getTimeSlot(date);
 
         int index = ReservationFactory.getIndex(this, reservationList);
 

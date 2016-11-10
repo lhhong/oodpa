@@ -20,7 +20,7 @@ public class Order implements Serializable {
     /**
      * HashMap that contains the food items within an order
      */
-    private HashMap<FoodItem, Integer> food_order;
+    private HashMap<FoodItem, Integer> foodOrder;
 
     /**
      * Creates a new order with the staff details and table number
@@ -28,7 +28,7 @@ public class Order implements Serializable {
      */
     public Order(Staff s){
         staff = s;
-        food_order = new HashMap<>();
+        foodOrder = new HashMap<>();
     }
 
     /**
@@ -43,8 +43,8 @@ public class Order implements Serializable {
      * Get food order
      * @return food order
      */
-    public HashMap<FoodItem, Integer> getFood_order() {
-        return food_order;
+    public HashMap<FoodItem, Integer> getFoodOrder() {
+        return foodOrder;
     }
 
     /**
@@ -52,10 +52,10 @@ public class Order implements Serializable {
      */
     public void printOrder(){
         int i = 1;
-        for (FoodItem f:food_order.keySet()){
+        for (FoodItem f: foodOrder.keySet()){
             System.out.print("Item "+i+") ");
             f.printDetails();
-            System.out.println("quantity = " + food_order.get(f));
+            System.out.println("quantity = " + foodOrder.get(f));
             i++;
         }
     }
@@ -65,11 +65,11 @@ public class Order implements Serializable {
      * @param f food item
      */
     public void addItem(FoodItem f){
-        if (food_order.keySet().contains(f)) {
-            food_order.put(f, food_order.get(f) +1);
+        if (foodOrder.keySet().contains(f)) {
+            foodOrder.put(f, foodOrder.get(f) +1);
         }
         else {
-            food_order.put(f, 1);
+            foodOrder.put(f, 1);
         }
     }
 
@@ -79,9 +79,9 @@ public class Order implements Serializable {
      */
     public void removeItem(int choice){
         int i = 1;
-        for (FoodItem f : food_order.keySet()) {
+        for (FoodItem f : foodOrder.keySet()) {
             if (i == choice) {
-                food_order.remove(f);
+                foodOrder.remove(f);
                 break;
             }
             i++;

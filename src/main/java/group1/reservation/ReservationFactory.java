@@ -29,12 +29,7 @@ class ReservationFactory {
      * @return session of reservation
      * @throws NotInOperationException when time out of range
      */
-    static AMPM getTimeSlot(LocalDateTime date, ReservationList reservationList) throws NotInOperationException {
-        /*
-         * Update reservation list and checks for any expired reservations
-         */
-        ReservationFactory.updateReservation(reservationList);
-
+    static AMPM getTimeSlot(LocalDateTime date) throws NotInOperationException {
 
 /*
  * ensures the time is within 11-3, 6-10 ,if not, throw NotInOperationException
@@ -53,6 +48,7 @@ class ReservationFactory {
     /**
      * Gets the specific reservation array (at position index of reservation list) in the reservation list
      * @param reservation reservation object to get index for
+     * @param reservationList ReservationList to get index from
      * @return index of the reservation in reservation list
      */
     static int getIndex(Reservation reservation, ReservationList reservationList) {
@@ -83,6 +79,7 @@ class ReservationFactory {
     /**
      * Gets the specific reservation array (at position index of reservation list) in the reservation list
      * @param date date and time of reservation
+     * @param reservationList reference ReservationList for the current date
      * @return index of the reservation in reservation list
      */
     private static int getIndex(LocalDateTime date, ReservationList reservationList) {
@@ -105,6 +102,7 @@ class ReservationFactory {
      * Assigns a table to the reservation
      * @param index index of reservation
      * @param pax number of people
+     * @param reservationList ReservationList to get table from
      * @return table number
      */
     static int getTable(int index, int pax, ReservationList reservationList) {
@@ -149,6 +147,7 @@ class ReservationFactory {
     /**
      * Prints the reservation at a particular date where index is the position where the reservation was stored in the reservation list
      * @param date date and time of reservation
+     * @param reservationList ReservationList to print from
      */
     static void printIndexReservation(LocalDateTime date, ReservationList reservationList) {
         /*
@@ -229,6 +228,7 @@ class ReservationFactory {
      * returns pax if reservation found and deleted, returns -1 if reservation not found;
      * @param specificDate date of reservation to be removed
      * @param contact contact number of the person
+     * @param reservationList instance of reservation list to remove from
      * @return pax of reservation
      */
     static int removeIndexReservation(LocalDateTime specificDate, int contact, ReservationList reservationList) {
@@ -268,7 +268,8 @@ class ReservationFactory {
 
 
     /**
-     * Update reservation list and checks for any expired reservations
+     * Update reservation list for the day (if a day has passed) and checks for any expired reservations
+     * @param reservationList instance of reservationList to update
      */
     static void updateReservation(ReservationList reservationList) {
         /*

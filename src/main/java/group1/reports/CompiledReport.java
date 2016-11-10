@@ -35,7 +35,7 @@ public class CompiledReport implements Serializable {
 	 * @param order order containing items to add
 	 */
 	void addOrder(Order order) {
-		HashMap<FoodItem, Integer> orderItems = order.getFood_order();
+		HashMap<FoodItem, Integer> orderItems = order.getFoodOrder();
 		for(FoodItem i : orderItems.keySet()) {
 			if (itemQuantities.containsKey(i)) {
 				itemQuantities.get(i).increment(i.getPrice());

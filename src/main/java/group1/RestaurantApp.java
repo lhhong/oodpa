@@ -233,7 +233,7 @@ public class RestaurantApp {
         int tableno = userInput.nextInt();
         Table t;
         try {
-            t = Restaurant1.getCache().getTables().getTables().get(tableno);
+            t = Restaurant1.getCache().getTables().getTables().get(tableno-1);
         } catch (IndexOutOfBoundsException e) {
             print("No such table exist");
             throw new InvalidTableException();

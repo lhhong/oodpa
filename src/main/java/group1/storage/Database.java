@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Factory class to store / read restaurant data on startup / shutdown into txt file by serializing Cache class
- * external ftp server used to store the text file for easy code migration across different machines
+ * external ftp SERVER used to store the text file for easy code migration across different machines
  * @author OOP Group 1
  * @version 1.0
  * @since 2016-11-8
@@ -17,17 +17,17 @@ public class Database {
 
 	private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
-	private static final String server = "ftp://b8_19113227:oodpcz2002@ftp.byethost8.com/htdocs/";
-	private static final String suffix = ";type=i";
-	private static final String fileName = "restaurant-data.dat";
+	private static final String SERVER = "ftp://b8_19113227:oodpcz2002@ftp.byethost8.com/htdocs/";
+	private static final String SUFFIX = ";type=i";
+	private static final String FILE_NAME = "restaurant-data.dat";
 
 	/**
-	 * flushes the cache into a serialized file on ftp server
+	 * flushes the cache into a serialized file on ftp SERVER
 	 */
 	public static void flush(Cache cache) {
 		URL  url;
 		try {
-			url = new URL(server + fileName + suffix);
+			url = new URL(SERVER + FILE_NAME + SUFFIX);
 			URLConnection urlc = url.openConnection();
 			OutputStream os = urlc.getOutputStream(); // To upload
 			OutputStream buffer = new BufferedOutputStream(os);
@@ -42,14 +42,14 @@ public class Database {
 	}
 
 	/**
-	 * reads the serialized cache from ftp server
+	 * reads the serialized cache from ftp SERVER
 	 * @return stored state of the restaurant app
 	 */
 	public static Cache read() {
 		URL url;
 		Object o;
 		try {
-			url = new URL(server + fileName + suffix);
+			url = new URL(SERVER + FILE_NAME + SUFFIX);
 			URLConnection urlC = url.openConnection();
 			InputStream is;
 			try {

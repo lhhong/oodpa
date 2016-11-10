@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @since 2016-11-8
  */
 
-public class Reservation implements Serializable{
+class Reservation implements Serializable{
 
     /**
      * The date of the reservation
@@ -46,7 +46,7 @@ public class Reservation implements Serializable{
      * @throws NotInMonthException when reservation more than 30 days in advance
      * @throws NotInOperationException when reservation made out of operating hours
      */
-    public Reservation(LocalDateTime date, String name, int contact,int pax, ReservationList reservationList) throws NotInMonthException, NotInOperationException {
+    Reservation(LocalDateTime date, String name, int contact,int pax, ReservationList reservationList) throws NotInMonthException, NotInOperationException {
         this.date = date;
 
         this.name = name;

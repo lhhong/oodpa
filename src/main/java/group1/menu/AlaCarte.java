@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public class AlaCarte extends FoodItem implements Serializable {
     /**
-     * The AlaCarte type
+     * The AlaCarte type, dessert, drinks or main course ('D', 'R' or 'M')
      */
     private char type;
 
@@ -31,7 +31,7 @@ public class AlaCarte extends FoodItem implements Serializable {
     }
 
     /**
-     * Prints the details of the Food item
+     * Prints the details of the ala carte item
      */
     public void printDetails() {
         System.out.println(this.name +"\t"+ this.description +"\t"+ Money.toString(this.price));

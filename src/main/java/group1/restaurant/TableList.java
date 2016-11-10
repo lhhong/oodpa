@@ -43,18 +43,34 @@ public class TableList implements Serializable {
         reservationList = new ReservationList();
 	}
 
+	/**
+	 * gets the reservation list for this set of tables
+	 * @return reservations for next 30 days
+	 */
 	public ReservationList getReservationList() {
 		return reservationList;
 	}
 
+	/**
+	 * gets the array of tables
+	 * @return list of table objects
+	 */
 	public ArrayList<Table> getTables() {
 		return tables;
 	}
 
+	/**
+	 * assigns tables for pax
+	 * @param pax number of persons
+	 * @return table assigned, null if no tables available
+	 */
 	public Table assignTable(int pax) {
 		return TableFactory.assignTable(pax, tables, reservationList);
 	}
 
+	/**
+	 * prints the availability of all tables and show their current status
+	 */
 	public void printAvailableTables() {
 		TableFactory.printAvailableTables(tables, reservationList);
 	}

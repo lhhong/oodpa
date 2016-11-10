@@ -244,6 +244,10 @@ public class RestaurantApp {
         }
 	    return getOrder(tableno);
     }
+
+    /**
+     * creates a reservation from user input
+     */
     private static void createReservation(){
         int year, month, day, hour, minute, contact, pax;
         print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
@@ -265,6 +269,10 @@ public class RestaurantApp {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * updates a reservation from user input
+     */
     private static void updateReservation(){
         ReservationList reservationList = Restaurant1.getCache().getTables().getReservationList();
         print("Please select one of the following options:");
@@ -304,6 +312,9 @@ public class RestaurantApp {
     }
 
 
+    /**
+     * prints an invoice from table number input by user
+     */
     private static void printInvoice(){
         print("Please enter your table number: ");
         int tableno = userInput.nextInt();
@@ -318,6 +329,10 @@ public class RestaurantApp {
         Restaurant1.getCache().getReports().addInvoice(i);
 
     }
+
+    /**
+     * prints revenue report from input by user
+     */
     private static void printReport(){
 
         print("Would you like a daily(1) or monthly(2) report?:");
@@ -340,12 +355,15 @@ public class RestaurantApp {
         }
     }
 
+    /**
+     * Main restaurant app
+     * @param args nill
+     */
     public static void main(String[] args) {
 
-        Menu menu = Restaurant1.getCache().getMenu();
-	    //initializes cache
-        print("Please wait we retrieve the state of OOP Restaurant");
+        print("Please wait we retrieve the state of OOP Restaurant...");
         Cache cache = Restaurant1.getCache();
+        Menu menu = cache.getMenu();
         Runtime.getRuntime().addShutdownHook(new ShutDown(cache));
 
         print("Welcome to the OOP Restaurant");

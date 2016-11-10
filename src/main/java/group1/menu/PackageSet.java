@@ -31,7 +31,7 @@ public class PackageSet extends FoodItem implements Serializable {
     }
 
     /**
-     * Prints the details of the Food item
+     * Prints the details of the package item
      */
     public void printDetails() {
         System.out.println(this.name + "\t-\t" + this.description);

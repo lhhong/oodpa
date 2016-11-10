@@ -22,7 +22,7 @@ public class Database {
 	private static final String FILE_NAME = "restaurant-data.dat";
 
 	/**
-	 * flushes the cache into a serialized file on ftp SERVER
+	 * flushes the cache into a serialized file on ftp server
 	 */
 	public static void flush(Cache cache) {
 		URL  url;
@@ -42,10 +42,10 @@ public class Database {
 	}
 
 	/**
-	 * reads the serialized cache from ftp SERVER
+	 * reads the serialized cache file from ftp server
 	 * @return stored state of the restaurant app
 	 */
-	public static Cache read() {
+	static Cache read() {
 		URL url;
 		Object o;
 		try {

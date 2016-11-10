@@ -64,7 +64,7 @@ public class CompiledReport implements Serializable {
 	}
 
 	/**
-	 * combines 2 reports together
+	 * combines 2 compiled reports together
 	 * @param compiledReport report to be combined
 	 */
 	void collapse(CompiledReport compiledReport) {

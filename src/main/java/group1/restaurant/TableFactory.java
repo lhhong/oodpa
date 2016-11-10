@@ -16,7 +16,7 @@ class TableFactory {
     /**
      * Returns an empty, non reserved table according to pax size, returns null if no table available
      * @param pax number of people a table
-     * @return Table object
+     * @return Table assigned, null if no table available
      */
     static Table assignTable(int pax, ArrayList<Table> tables, ReservationList reservationList){
         // returns table assign, returns null if no available table

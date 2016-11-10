@@ -47,7 +47,7 @@ public class Reports implements Serializable {
 	}
 
 	/**
-	 * generates monthly report
+	 * generates monthly report for the selected month
 	 * @param year year of report
 	 * @param month month of report
 	 * @return monthly report

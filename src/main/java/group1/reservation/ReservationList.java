@@ -35,6 +35,15 @@ public class ReservationList implements Serializable{
 		}
 	}
 
+	/**
+	 * adds a new reservation to the list
+	 * @param date date time of reservation
+	 * @param name name of person
+	 * @param contact contact number of person
+	 * @param pax number to reserve
+	 * @throws NotInMonthException if date is more than 30 days
+	 * @throws NotInOperationException if time is not within working hours
+	 */
 	public void addReservation(LocalDateTime date, String name, int contact,int pax) throws NotInMonthException, NotInOperationException {
 		Reservation reservation = new Reservation(date, name, contact, pax, this);
 		addReservation(reservation);
@@ -69,6 +78,10 @@ public class ReservationList implements Serializable{
 		return reservations.get(index);
 	}
 
+	/**
+	 * gets the list of reserved tables in the current session
+	 * @return list of table numbers, empty list if not in operation
+	 */
 	public ArrayList<Integer> getReservedTablesInThisSession() {
 		ReservationFactory.updateReservation(this);
 		ArrayList<Reservation> indexReservation;
@@ -96,10 +109,20 @@ public class ReservationList implements Serializable{
 		return reservedTables;
 	}
 
+	/**
+	 * prints the reservations of the session in the selected date time
+	 * @param date date time of the session to check for
+	 */
 	public void printIndexReservation(LocalDateTime date) {
 		ReservationFactory.printIndexReservation(date, this);
 	}
 
+	/**
+	 * removes a reservation of the session in the selected date time
+	 * @param specificDate date time of reservation
+	 * @param contact contact number of reservation to be removed
+	 * @return pax of reservation
+	 */
 	public int removeIndexReservation(LocalDateTime specificDate, int contact) {
 			return ReservationFactory.removeIndexReservation(specificDate, contact, this);
 	}

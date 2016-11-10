@@ -70,16 +70,18 @@ class MockData {
 		Menu menu = cache.getMenu();
 
 		for (int j=31;j>0;j--) {
-			int subtotal =0;
+			int total = 0;
 			HashMap<FoodItem, FoodReport> dailyReportMap = new HashMap<>();
 			for (int i = 1; i <= menu.size(); i++) {
+				int subtotal =0;
 				int random = (int) (Math.random() * 50);
-				subtotal = menu.returnItem(i).getPrice()*random;
+				subtotal += menu.returnItem(i).getPrice()*random;
+				total += menu.returnItem(i).getPrice()*random;
 				FoodReport foodReport = new FoodReport(subtotal, random);
 				dailyReportMap.put(menu.returnItem(i), foodReport);
 			}
 
-			CompiledReport compiledReport = new CompiledReport(dailyReportMap, subtotal);
+			CompiledReport compiledReport = new CompiledReport(dailyReportMap, total);
 			reports.put(LocalDate.now().minusDays(j), compiledReport);
 		}
 		return reports;

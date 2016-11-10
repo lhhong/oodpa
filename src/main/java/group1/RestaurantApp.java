@@ -11,11 +11,9 @@ import group1.commons.ShutDown;
 import group1.invoice.Invoice;
 import group1.menu.FoodItem;
 import group1.menu.Menu;
-import group1.reservation.NotInMonthException;
-import group1.reservation.NotInOperationException;
-import group1.reservation.Reservation;
-import group1.reservation.ReservationFactory;
+import group1.reservation.*;
 import group1.restaurant.*;
+import group1.storage.Cache;
 import group1.storage.CacheService;
 
 /**
@@ -26,6 +24,7 @@ import group1.storage.CacheService;
  */
 
 public class RestaurantApp {
+
     private static Scanner userInput = new Scanner(System.in);
 
     // Printing Functions
@@ -83,6 +82,7 @@ public class RestaurantApp {
 
     }
     private static void createOrder(){
+        TableList tables = CacheService.getCache().getTables();
         int pax;
         print("Do you have a reservation? 1) Yes, 2)No :");
         int choice = userInput.nextInt();
@@ -97,7 +97,7 @@ public class RestaurantApp {
             pax = userInput.nextInt();
         }
         //if pax=-1: break
-        Table assigned = TableFactory.assignTable(pax);
+        Table assigned = tables.assignTable(pax);
 	    if (assigned == null) {
             print("No tables available right now");
 		    return;
@@ -207,6 +207,7 @@ public class RestaurantApp {
         }
     }
     private static void updateReservation(){
+        ReservationList reservationList = CacheService.getCache().getTables().getReservationList();
         print("Please select one of the following options:");
         print("(1) Check a next reservation");
         print("(2) Check a Reservation Booking for a date");
@@ -215,7 +216,7 @@ public class RestaurantApp {
         switch (reserveBook) {
             case 1:
                 LocalDateTime specificDate = LocalDateTime.now();
-                ReservationFactory.printIndexReservation(specificDate);
+                reservationList.printIndexReservation(specificDate);
                 break;
             case 2:
                 print("Input Year Month Day e.g. 2016 11 19 ");
@@ -223,7 +224,7 @@ public class RestaurantApp {
                 int month = userInput.nextInt();
                 int day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
-                ReservationFactory.printIndexReservation(specificDate);
+                CacheService.getCache().getTables().getReservationList().printIndexReservation(specificDate);
                 break;
 
             case 3:
@@ -233,7 +234,7 @@ public class RestaurantApp {
                 day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
                 print("Current reservation for: " + specificDate);
-                ReservationFactory.printIndexReservation(specificDate);
+                CacheService.getCache().getTables().getReservationList().printIndexReservation(specificDate);
                 print("Input contact number to remove reservation");
                 int contact = userInput.nextInt();
                 ReservationFactory.removeIndexReservation(specificDate, contact);
@@ -280,7 +281,7 @@ public class RestaurantApp {
 
 	    //initializes cache
         print("Please wait we retrieve the state of OOP Restaurant");
-        CacheService.getCache();
+        Cache cache = CacheService.getCache();
         Runtime.getRuntime().addShutdownHook(new ShutDown());
         Thread t = new Thread(new ReservationUpdateWorker());
         t.start();
@@ -328,7 +329,7 @@ public class RestaurantApp {
                     updateReservation();
                     break;
                 case 8:
-                    TableFactory.printAvailableTables();
+                    cache.getTables().printAvailableTables();
                     break;
                 case 9:
                     printInvoice();

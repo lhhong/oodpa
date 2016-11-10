@@ -19,7 +19,18 @@ public class Money {
 	 * @return String of price in format $xx.xx
 	 */
 	public static String toString(int price) {
-		return "$" + price/100 + "." + price%100;
+		int centsInt = price %100;
+		String cents;
+		if (centsInt == 0) {
+			cents = "00";
+		}
+		else if (centsInt < 10) {
+			cents = "0" + Integer.toString(centsInt);
+		}
+		else {
+			cents = Integer.toString(centsInt);
+		}
+		return "$" + price/100 + "." + cents;
 	}
 
 	/**

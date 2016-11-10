@@ -32,13 +32,13 @@ public class ReservationUpdateWorker implements Runnable {
 			logger.debug("Day difference: " + Long.toString(dayDiff));
 			if (dayDiff == 1) {
 				logger.info("one day have passed, updating reservations list");
-				cache.getReservations().oneDayPassed();
+				cache.getTables().getReservationList().oneDayPassed();
 				cache.setCurrentDay(currentDate);
 			}
 			else if (dayDiff !=0) {
 				logger.warn("more than 1 day have passed");
 				for (int i = 0; i < dayDiff; i++) {
-					cache.getReservations().oneDayPassed();
+					cache.getTables().getReservationList().oneDayPassed();
 				}
 				cache.setCurrentDay(currentDate);
 			}

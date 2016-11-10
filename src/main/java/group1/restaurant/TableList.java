@@ -1,5 +1,7 @@
 package group1.restaurant;
 
+import group1.reservation.ReservationList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,11 +17,13 @@ public class TableList implements Serializable {
 	 * Array list of tables
 	 */
 	private ArrayList<Table> tables;
+	private ReservationList reservationList;
 
 	/**
 	 * initialize restaurant layout of the tables
 	 */
 	public TableList() {
+
 		int tableSize;
 		int tableSizes[] = {2,4,8,10};
 		int tableDistribution[] = {10,10,5,5};
@@ -35,11 +39,24 @@ public class TableList implements Serializable {
                 tables.add(new Table(tableSize, id++));
             }
         }
+
+        reservationList = new ReservationList();
+	}
+
+	public ReservationList getReservationList() {
+		return reservationList;
 	}
 
 	public ArrayList<Table> getTables() {
 		return tables;
 	}
 
+	public Table assignTable(int pax) {
+		return TableFactory.assignTable(pax, tables, reservationList);
+	}
+
+	public void printAvailableTables() {
+		TableFactory.printAvailableTables(tables, reservationList);
+	}
 
 }

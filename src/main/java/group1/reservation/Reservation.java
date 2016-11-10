@@ -63,7 +63,7 @@ public class Reservation implements Serializable{
             throw new NotInMonthException();
         }
         this.tableIndex = ReservationFactory.getTable(index, pax);
-        CacheService.getCache().getReservations().addReservation(this);
+        CacheService.getCache().getTables().getReservationList().addReservation(this);
 
     }
 

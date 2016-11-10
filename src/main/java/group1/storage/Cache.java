@@ -31,10 +31,6 @@ public class Cache implements Serializable{
 	 */
 	private ArrayList<Staff> staffs;
 	/**
-	 * stores the reservations
-	 */
-	private ReservationList reservations;
-	/**
 	 * stores the menu
 	 */
 	private Menu menu;
@@ -50,7 +46,6 @@ public class Cache implements Serializable{
 		tables = new TableList();
 		currentDay = LocalDate.now();
 		staffs = MockData.getStaffs();
-		reservations = new ReservationList();
 		menu = new Menu(MockData.getFoodItems());
 	}
 
@@ -83,14 +78,6 @@ public class Cache implements Serializable{
 	 */
 	public Menu getMenu() {
 		return menu;
-	}
-
-	/**
-	 * gets the reservation storage element
-	 * @return reservations
-	 */
-	public ReservationList getReservations() {
-		return reservations;
 	}
 
 	/**

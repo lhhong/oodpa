@@ -1,12 +1,7 @@
 package group1.restaurant;
-import group1.reservation.Reservation;
-import group1.reservation.ReservationFactory;
-import group1.storage.CacheService;
+import group1.reservation.ReservationList;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * factory class to manage functions to do with tables
@@ -15,7 +10,7 @@ import java.util.Iterator;
  * @since 2016-11-8
  */
 
-public class TableFactory {
+class TableFactory {
 
 
     /**
@@ -23,35 +18,11 @@ public class TableFactory {
      * @param pax number of people a table
      * @return Table object
      */
-    public static Table assignTable(int pax){
+    static Table assignTable(int pax, ArrayList<Table> tables, ReservationList reservationList){
         // returns table assign, returns null if no available table
         int i = 1;
 
-        ReservationFactory.updateReservation();
-        ArrayList<Reservation> indexReservation;
-        int index;
-        /*
-         * Determine if it is AM or PM and set index to 0 or 1 respectively
-         */
-        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
-            index = 0;
-        } else {
-            index = 1;
-        }
-        /*
-         * Obtains the AM/PM reservation for the day
-         */
-        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
-
-        ArrayList<Integer> reservedTables = new ArrayList<>();
-        for (Reservation current : indexReservation) {
-            reservedTables.add(current.getTableIndex());
-        }
-
-/*
- * Gets the list of tables
- */
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        ArrayList<Integer> reservedTables = reservationList.getReservedTablesInThisSession();
 
         /*
          * Checks through each table, assigns table if the capacity is within pax and pax+3, is unoccupied and is not reserved
@@ -66,43 +37,19 @@ public class TableFactory {
             i++;
 
         }
-
-
-/*
- * Returns null if no table is available
- */
-
+        //Returns null if no table is available
         return null;
     }
 
     /**
      * Prints all the tables and shows their current status
      */
-    public static void printAvailableTables(){
-        ReservationFactory.updateReservation();
-        ArrayList<Reservation> indexReservation;
-        int index;
-        /*
-         * Checks if the time is AM or PM and looks in the AM or PM reservation respectively
-         */
-        if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
-            index = 0;
-        } else {
-            index = 1;
-        }
-        indexReservation = CacheService.getCache().getReservations().indexReservation(index);
+    static void printAvailableTables(ArrayList<Table> tables, ReservationList reservationList){
 
-        /*
-         * Gets a list of reserved tables called reservedTables
-         */
-        ArrayList<Integer> reservedTables = new ArrayList<>();
-        for (Reservation current : indexReservation) {
-            reservedTables.add(current.getTableIndex());
-        }
+        ArrayList<Integer> reservedTables = reservationList.getReservedTablesInThisSession();
 
         int i = 1;
         int emptyTables = 0;
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         for (Table t:tables){
             if (!t.isOccupied()){
                 if(reservedTables.contains(i)){
@@ -117,10 +64,5 @@ public class TableFactory {
             i++;
         }
         System.out.println("Number of available tables = " + emptyTables);
-
-
-
     }
-
-
 }

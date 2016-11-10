@@ -3,8 +3,6 @@ package group1.storage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Factory class to store / read restaurant data on startup / shutdown into txt file by serializing Cache class

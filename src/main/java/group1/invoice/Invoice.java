@@ -30,7 +30,7 @@ public class Invoice implements Serializable {
 		table.vacate();
 		dateTime = LocalDateTime.now();
 		for (FoodItem i:order.getFoodOrder().keySet()) {
-			subtotal = order.getFoodOrder().get(i) * i.getPrice();
+			subtotal += order.getFoodOrder().get(i) * i.getPrice();
 		}
 	}
 
@@ -39,7 +39,7 @@ public class Invoice implements Serializable {
 	 * @return cost of gst
 	 */
 	private int calcGst() {
-		return Money.parseFloat((subtotal*1.07f)/100);
+		return Money.parseFloat((subtotal*0.07f)/100);
 	}
 
 	/**

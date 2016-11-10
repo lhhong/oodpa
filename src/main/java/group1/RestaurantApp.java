@@ -37,9 +37,9 @@ public class RestaurantApp {
         System.out.print(obj);
     }
 
-    private static Menu menu = Restaurant1.getCache().getMenu();
 
     private static void changeMenu(){
+        Menu menu = Restaurant1.getCache().getMenu();
         print("Please select one of the following options:");
         print("(1) Create Menu item");
         print("(2) Update Menu item");
@@ -60,6 +60,7 @@ public class RestaurantApp {
         }
     }
     private static void changePromotion(){
+        Menu menu = Restaurant1.getCache().getMenu();
         print("Please select one of the following options:");
         print("(1) Create a promotion");
         print("(2) Update a promotion");
@@ -136,6 +137,7 @@ public class RestaurantApp {
 	    editOrder(o);
     }
     private static void editOrder(Order o){
+        Menu menu = Restaurant1.getCache().getMenu();
         int choice;
         int item_choice;
         do {
@@ -249,6 +251,10 @@ public class RestaurantApp {
         int tableno = userInput.nextInt();
         ArrayList<Table> tables = Restaurant1.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
+        if (!t.isOccupied()) {
+            print("This table is currently not occupied");
+            return;
+        }
         Invoice i = new Invoice(t);
         print(i.toString());
         Restaurant1.getCache().getReports().addInvoice(i);
@@ -278,6 +284,7 @@ public class RestaurantApp {
 
     public static void main(String[] args) {
 
+        Menu menu = Restaurant1.getCache().getMenu();
 	    //initializes cache
         print("Please wait we retrieve the state of OOP Restaurant");
         Cache cache = Restaurant1.getCache();

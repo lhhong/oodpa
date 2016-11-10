@@ -82,7 +82,7 @@ public class Reports implements Serializable {
 	 */
 	private String reportPrintString(CompiledReport compiledReport) {
 		String s = "\n----------------------------------\n" +
-				"Food Items Sold\tUnitPrice\tQuantity\tTotal Price\n";
+				"Food Items Sold\tUnitPrice\tQuantity\tTotal Revenue\n";
 		HashMap<FoodItem, FoodReport> itemQuantities = compiledReport.getItemQuantities();
 		for (FoodItem i : itemQuantities.keySet()) {
 			s += i.getName() + "\t";
@@ -104,6 +104,7 @@ public class Reports implements Serializable {
 			if (savedDate.isEqual(date)) {
 				s += reportPrintString(dailyReports.get(savedDate));
 				System.out.println(s);
+				return;
 			}
 		}
 		System.out.println("No report available on this day");

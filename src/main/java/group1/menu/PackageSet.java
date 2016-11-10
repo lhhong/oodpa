@@ -34,10 +34,9 @@ public class PackageSet extends FoodItem implements Serializable {
      * Prints the details of the Food item
      */
     public void printDetails() {
-        // TODO Auto-generated method stub
         System.out.println(this.name + this.description);
         for(AlaCarte item:set){
-            System.out.println(item.name +"\t"+ item.description);
+            System.out.println(item.name +"\t-\t"+ item.description);
         }
         System.out.println("Price =" + Money.toString(this.price));
     }

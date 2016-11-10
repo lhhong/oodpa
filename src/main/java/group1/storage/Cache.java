@@ -57,7 +57,7 @@ public class Cache implements Serializable{
 	/**
 	 * seperate method to initialize reports due to need for menu to be set up first
 	 */
-	public void setMockReports() {
+	void setMockReports() {
 		reports = new Reports(MockData.getReportList(this));
 	}
 

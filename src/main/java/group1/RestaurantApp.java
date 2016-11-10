@@ -16,7 +16,6 @@ import group1.reservation.NotInOperationException;
 import group1.reservation.Reservation;
 import group1.reservation.ReservationFactory;
 import group1.restaurant.*;
-import group1.storage.Cache;
 import group1.storage.CacheService;
 
 /**
@@ -27,7 +26,7 @@ import group1.storage.CacheService;
  */
 
 public class RestaurantApp {
-    static Scanner userinput = new Scanner(System.in);
+    private static Scanner userInput = new Scanner(System.in);
 
     // Printing Functions
     private static void print() {
@@ -47,7 +46,7 @@ public class RestaurantApp {
         print("(1) Create Menu item");
         print("(2) Update Menu item");
         print("(3) Remove Menu item");
-        int inputItem = userinput.nextInt();
+        int inputItem = userInput.nextInt();
         switch (inputItem) {
             case 1:
                 menu.addItem();
@@ -67,7 +66,7 @@ public class RestaurantApp {
         print("(1) Create a promotion");
         print("(2) Update a promotion");
         print("(3) Remove a promotion");
-        int inputPromo = userinput.nextInt();
+        int inputPromo = userInput.nextInt();
         switch (inputPromo) {
             case 1:
                 menu.addPromotion();
@@ -84,21 +83,25 @@ public class RestaurantApp {
 
     }
     private static void createOrder(){
-        int pax = 0;
+        int pax;
         print("Do you have a reservation? 1) Yes, 2)No :");
-        int choice = userinput.nextInt();
+        int choice = userInput.nextInt();
         if (choice == 1){
             print("Please enter your contact number: ");
-            int contact = userinput.nextInt();
+            int contact = userInput.nextInt();
             LocalDateTime specificDate = LocalDateTime.now();
             pax = ReservationFactory.removeIndexReservation(specificDate, contact);
         }
         else{
             print("Please enter number of pax: ");
-            pax = userinput.nextInt();
+            pax = userInput.nextInt();
         }
         //if pax=-1: break
         Table assigned = TableFactory.assignTable(pax);
+	    if (assigned == null) {
+            print("No tables available right now");
+		    return;
+        }
         ArrayList<Staff> staffs = CacheService.getCache().getStaffs();
         int j = 1;
         for (Staff s : staffs){
@@ -106,13 +109,13 @@ public class RestaurantApp {
             j++;
         }
         print("Enter staff number: ");
-        int staffno = userinput.nextInt();
+        int staffno = userInput.nextInt();
         Order neworder = new Order(staffs.get(staffno-1));
         assigned.newOrder(neworder);
         editOrder(assigned.getTableNumber());
     }
     private static void viewOrder(){
-        Order o = null;
+        Order o;
         try {
             o = getOrder();
         } catch (InvalidTableException e) {
@@ -121,7 +124,7 @@ public class RestaurantApp {
         o.printOrder();
     }
     private static void editOrder() {
-        Order o = null;
+        Order o;
         try {
             o = getOrder();
         } catch (InvalidTableException e) {
@@ -138,19 +141,19 @@ public class RestaurantApp {
         int item_choice;
         do {
             print("Would you like to add(1) or remove(2) item, view order(3), quit(4)");
-            choice = userinput.nextInt();
+            choice = userInput.nextInt();
             switch(choice){
                 case 1:
                     menu.printMenu();
                     print("Which item to add?: ");
-                    item_choice = userinput.nextInt();
+                    item_choice = userInput.nextInt();
                     FoodItem f = menu.returnItem(item_choice);
                     o.addItem(f);
                     break;
                 case 2:
                     o.printOrder();
                     print("Which item to remove?: ");
-                    item_choice = userinput.nextInt();
+                    item_choice = userInput.nextInt();
                     o.removeItem(item_choice);
                     break;
                 case 3:
@@ -168,7 +171,7 @@ public class RestaurantApp {
     }
     private static Order getOrder() throws InvalidTableException {
         print("Please enter your table number: ");
-        int tableno = userinput.nextInt();
+        int tableno = userInput.nextInt();
         Table t;
         try {
             t = CacheService.getCache().getTables().getTables().get(tableno);
@@ -185,24 +188,22 @@ public class RestaurantApp {
     private static void createReservation(){
         int year, month, day, hour, minute, contact, pax;
         print("Input Year Month Day Hour(0-24) Minute e.g. 2016 11 19 13 30");
-        year = userinput.nextInt();
-        month = userinput.nextInt();
-        day = userinput.nextInt();
-        hour = userinput.nextInt();
-        minute = userinput.nextInt();
+        year = userInput.nextInt();
+        month = userInput.nextInt();
+        day = userInput.nextInt();
+        hour = userInput.nextInt();
+        minute = userInput.nextInt();
         print("Input Name");
-        String name = userinput.next();
+        String name = userInput.next();
         print("Input Contact number");
-        contact = userinput.nextInt();
+        contact = userInput.nextInt();
         print("Input Pax");
-        pax = userinput.nextInt();
+        pax = userInput.nextInt();
         LocalDateTime specificDate = LocalDateTime.of(year, month, day, hour, minute);
-	    Reservation reservation;
         try {
-            reservation = new Reservation(specificDate, name, contact, pax);
+            new Reservation(specificDate, name, contact, pax);
         } catch (NotInMonthException | NotInOperationException e) {
             System.out.println(e.getMessage());
-	        return;
         }
     }
     private static void updateReservation(){
@@ -210,7 +211,7 @@ public class RestaurantApp {
         print("(1) Check a next reservation");
         print("(2) Check a Reservation Booking for a date");
         print("(3) Remove a Reservation Booking");
-        int reserveBook = userinput.nextInt();
+        int reserveBook = userInput.nextInt();
         switch (reserveBook) {
             case 1:
                 LocalDateTime specificDate = LocalDateTime.now();
@@ -218,23 +219,23 @@ public class RestaurantApp {
                 break;
             case 2:
                 print("Input Year Month Day e.g. 2016 11 19 ");
-                int year = userinput.nextInt();
-                int month = userinput.nextInt();
-                int day = userinput.nextInt();
+                int year = userInput.nextInt();
+                int month = userInput.nextInt();
+                int day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
                 ReservationFactory.printIndexReservation(specificDate);
                 break;
 
             case 3:
                 print("Input Year Month Day e.g. 2016 11 19 ");
-                year = userinput.nextInt();
-                month = userinput.nextInt();
-                day = userinput.nextInt();
+                year = userInput.nextInt();
+                month = userInput.nextInt();
+                day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
                 print("Current reservation for: " + specificDate);
                 ReservationFactory.printIndexReservation(specificDate);
                 print("Input contact number to remove reservation");
-                int contact = userinput.nextInt();
+                int contact = userInput.nextInt();
                 ReservationFactory.removeIndexReservation(specificDate, contact);
                 break;
             default:
@@ -245,7 +246,7 @@ public class RestaurantApp {
 
     private static void printInvoice(){
         print("Please enter your table number: ");
-        int tableno = userinput.nextInt();
+        int tableno = userInput.nextInt();
         ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
         Invoice i = new Invoice(t);
@@ -256,10 +257,10 @@ public class RestaurantApp {
     private static void printReport(){
 
         print("Would you like a daily(1) or monthly(2) report?:");
-        int choice = userinput.nextInt();
+        int choice = userInput.nextInt();
         if (choice==1){
             print("Input date of report in yyyy-mm-dd");
-            String day = userinput.next();
+            String day = userInput.next();
 	        try {
                 CacheService.getCache().getReports().printReport(LocalDate.parse(day));
             } catch (DateTimeParseException e) {
@@ -268,9 +269,9 @@ public class RestaurantApp {
         }
         else {
             print("Input Year in YYYY format:");
-            int year = userinput.nextInt();
+            int year = userInput.nextInt();
             print("Input Month in mm format:");
-            int month =userinput.nextInt();
+            int month = userInput.nextInt();
             CacheService.getCache().getReports().printReport(year,month);
         }
     }

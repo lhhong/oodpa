@@ -25,7 +25,7 @@ public class CompiledReport implements Serializable {
 	/**
 	 * initialize the compilation
 	 */
-	public CompiledReport() {
+	CompiledReport() {
 		totalSales = 0;
 		itemQuantities = new HashMap<>();
 	}
@@ -34,7 +34,7 @@ public class CompiledReport implements Serializable {
 	 * adds and order to the collection, incrementing quantity if the FoodItem exist
 	 * @param order order containing items to add
 	 */
-	public void addOrder(Order order) {
+	void addOrder(Order order) {
 		HashMap<FoodItem, Integer> orderItems = order.getFood_order();
 		for(FoodItem i : orderItems.keySet()) {
 			if (itemQuantities.containsKey(i)) {
@@ -51,7 +51,7 @@ public class CompiledReport implements Serializable {
 	 * get Map of item quantities
 	 * @return food - quantity map
 	 */
-	public HashMap<FoodItem, FoodReport> getItemQuantities() {
+	HashMap<FoodItem, FoodReport> getItemQuantities() {
 		return itemQuantities;
 	}
 

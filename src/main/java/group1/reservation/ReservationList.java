@@ -1,8 +1,6 @@
 package group1.reservation;
 
 import group1.storage.SynchroLock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import java.util.LinkedList;
 
 public class ReservationList implements Serializable{
 
-	private static final Logger logger = LoggerFactory.getLogger(ReservationList.class);
 	/**
 	 * list of reservations stored by sessions
 	 */
@@ -41,14 +38,12 @@ public class ReservationList implements Serializable{
 	 * Adds a reservation to the list
 	 * @param reservation new reservation object to be added
 	 */
-	public void addReservation(Reservation reservation) {
+	void addReservation(Reservation reservation) {
 		int index = ReservationFactory.getIndex(reservation);
 		synchronized (reservationsChangeLock) {
 			reservations.get(index).add(reservation);
 		}
 	}
-
-
 
 	/**
 	 * dequeue reservation list of the day and add a new reservation for the 30th day
@@ -57,8 +52,8 @@ public class ReservationList implements Serializable{
 		synchronized (reservationsChangeLock) {
 			reservations.removeFirst();
 			reservations.removeFirst();
-			reservations.addLast(new ArrayList<Reservation>());
-			reservations.addLast(new ArrayList<Reservation>());
+			reservations.addLast(new ArrayList<>());
+			reservations.addLast(new ArrayList<>());
 		}
 	}
 

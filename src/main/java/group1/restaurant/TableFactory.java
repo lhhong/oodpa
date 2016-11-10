@@ -44,9 +44,7 @@ public class TableFactory {
         indexReservation = CacheService.getCache().getReservations().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
-        Iterator<Reservation> iter = indexReservation.iterator();
-        while(iter.hasNext()) {
-            Reservation current = iter.next();
+        for (Reservation current : indexReservation) {
             reservedTables.add(current.getTableIndex());
         }
 
@@ -59,7 +57,7 @@ public class TableFactory {
          * Checks through each table, assigns table if the capacity is within pax and pax+3, is unoccupied and is not reserved
          */
         for (Table t : tables) {
-            if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && t.isOccupied() == false && !reservedTables.contains(t.getTableNumber())) {
+            if (t.getCapacity() >= pax && t.getCapacity() <= pax + 3 && !t.isOccupied() && !reservedTables.contains(t.getTableNumber())) {
                 t.occupy();
 
                 System.out.println("Table " + i + " was assigned, size = " + t.getCapacity());
@@ -98,10 +96,7 @@ public class TableFactory {
          * Gets a list of reserved tables called reservedTables
          */
         ArrayList<Integer> reservedTables = new ArrayList<>();
-        Iterator<Reservation> iter = indexReservation.iterator();
-        while(iter.hasNext())
-        {
-            Reservation current = iter.next();
+        for (Reservation current : indexReservation) {
             reservedTables.add(current.getTableIndex());
         }
 

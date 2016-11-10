@@ -20,7 +20,7 @@ public class TableList implements Serializable {
 	 * initialize restaurant layout of the tables
 	 */
 	public TableList() {
-		int tablesize = 0;
+		int tableSize;
 		int tableSizes[] = {2,4,8,10};
 		int tableDistribution[] = {10,10,5,5};
 
@@ -29,10 +29,10 @@ public class TableList implements Serializable {
 		int id = 1;
         // create correct number of tables
         for (int i = 0; i < tableDistribution.length; i++){
-            tablesize = tableSizes[i];
+            tableSize = tableSizes[i];
 
             for (int j = 0; j < tableDistribution[i]; j++){
-                tables.add(new Table(tablesize, id++));
+                tables.add(new Table(tableSize, id++));
             }
         }
 	}

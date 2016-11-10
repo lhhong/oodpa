@@ -25,7 +25,7 @@ public class Database {
 	 * flushes the cache into a serialized file on ftp server
 	 */
 	public static void flush() {
-		URL  url = null;
+		URL  url;
 		try {
 			url = new URL(server + fileName + suffix);
 			URLConnection urlc = url.openConnection();
@@ -46,14 +46,14 @@ public class Database {
 	 * @return stored state of the restaurant app
 	 */
 	public static Cache read() {
-		URL url = null;
-		Object o = null;
+		URL url;
+		Object o;
 		try {
 			url = new URL(server + fileName + suffix);
-			URLConnection urlc = url.openConnection();
+			URLConnection urlC = url.openConnection();
 			InputStream is;
 			try {
-				is = urlc.getInputStream();
+				is = urlC.getInputStream();
 			} catch (FileNotFoundException e) {
 				logger.info("file not found in ftp");
 				return null;

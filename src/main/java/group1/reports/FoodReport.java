@@ -49,7 +49,7 @@ public class FoodReport implements Cloneable, Serializable{
 
 	/**
 	 * combines 2 FoodReport
-	 * @param foodReport foodreport to be combined
+	 * @param foodReport foodReport to be combined
 	 */
 	void collapse(FoodReport foodReport) {
 		this.sales += foodReport.getSales();

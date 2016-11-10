@@ -19,7 +19,7 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2016-11-8
  */
-public class MockData {
+class MockData {
 
 	/**
 	 * populate datas for restaurant staffs

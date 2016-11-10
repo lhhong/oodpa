@@ -18,7 +18,7 @@ public class Order implements Serializable {
      */
     private Staff staff;
     /**
-     * Hashmap that contains the food items within an order
+     * HashMap that contains the food items within an order
      */
     private HashMap<FoodItem, Integer> food_order;
 

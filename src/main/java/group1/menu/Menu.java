@@ -2,8 +2,6 @@ package group1.menu;
 
 import group1.commons.Money;
 import group1.commons.MoneyFormatException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,31 +16,21 @@ import java.util.Scanner;
 
 public class Menu implements Serializable{
 
-    private static final Logger logger = LoggerFactory.getLogger(Menu.class);
-
     /**
      * Creates the Food Item Array lists for different types
      */
-    private ArrayList<FoodItem> mains = new ArrayList<>();;
-    private ArrayList<FoodItem> drinks = new ArrayList<>();;
-    private ArrayList<FoodItem> desserts = new ArrayList<>();;
-    private ArrayList<FoodItem> packages = new ArrayList<>();;
+    private ArrayList<FoodItem> mains = new ArrayList<>();
+    private ArrayList<FoodItem> drinks = new ArrayList<>();
+    private ArrayList<FoodItem> desserts = new ArrayList<>();
+    private ArrayList<FoodItem> packages = new ArrayList<>();
 
     /**
-     * Constructor for empty menu
-     */
-    public Menu (){
-    }
-
-    /**
-     * Construtor for pre-saved menu loaded from file
+     * Constructor for pre-saved menu loaded from file
      * loaded from database
      * @param savedMenu loaded from file
      */
     public Menu(ArrayList<FoodItem> savedMenu){
-        for (int i = 0; i<savedMenu.size(); i++) {
-            createItem(savedMenu.get(i));
-        }
+        savedMenu.forEach(this::createItem);
     }
 
     /**
@@ -82,9 +70,9 @@ public class Menu implements Serializable{
     public void addItem(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Would you like to add a \n(1) Main\n(2) Dessert\n(3) Drink");
-        int input = sc.nextInt(); //userinput
-        char type= '\u0000';
-        String cases = null;
+        int input = sc.nextInt(); //user input
+        char type;
+        String cases;
 
         switch(input){
             case 1:
@@ -154,7 +142,12 @@ public class Menu implements Serializable{
      * @param i item to be created
      */
     private void createItem(FoodItem i){
-        returnArray(i).add(i);
+        ArrayList<FoodItem> currentMenu = returnArray(i);
+        if (currentMenu == null) {
+            System.out.println("An error have occurred");
+            return;
+        }
+        currentMenu.add(i);
     }
 
     /**
@@ -166,7 +159,12 @@ public class Menu implements Serializable{
         Scanner sc = new Scanner(System.in);
         int i = sc.nextInt();
         FoodItem temp =returnItem(i);
-        returnArray(temp).remove(temp);
+        ArrayList<FoodItem> currentMenu = returnArray(temp);
+        if (currentMenu == null) {
+            System.out.println("An error have occurred");
+            return;
+        }
+        currentMenu.remove(temp);
     }
 
     /**
@@ -178,7 +176,12 @@ public class Menu implements Serializable{
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         AlaCarte temp = (AlaCarte)returnItem(input);
-        returnArray(temp).remove(temp);
+	    ArrayList<FoodItem> currentMenu = returnArray(temp);
+        if (currentMenu == null) {
+            System.out.println("An error have occurred");
+            return;
+        }
+        currentMenu.remove(temp);
 
         char type = temp.getType();
         sc.nextLine();//clear buffer
@@ -205,7 +208,12 @@ public class Menu implements Serializable{
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         FoodItem temp = returnItem(input);
-        returnArray(temp).remove(temp);
+        ArrayList<FoodItem> currentMenu = returnArray(temp);
+        if (currentMenu == null) {
+            System.out.println("An error have occurred");
+            return;
+        }
+        currentMenu.remove(temp);
 
         AlaCarte[] temps = new AlaCarte[3];
         for (int i=1;i<4;i++){

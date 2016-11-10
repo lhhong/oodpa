@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * @since 2016-11-8
  */
-public class CacheService {
+public class Restaurant1 {
 
 	/**
 	 * singleton object of cache
 	 */
 	private static Cache cache;
-	private static final Logger logger = LoggerFactory.getLogger(CacheService.class);
+	private static final Logger logger = LoggerFactory.getLogger(Restaurant1.class);
 
 	/**
 	 * get singleton instance of cache

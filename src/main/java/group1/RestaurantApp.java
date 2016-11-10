@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import group1.commons.ReservationUpdateWorker;
 import group1.commons.ShutDown;
 import group1.invoice.Invoice;
 import group1.menu.FoodItem;
@@ -14,7 +13,7 @@ import group1.menu.Menu;
 import group1.reservation.*;
 import group1.restaurant.*;
 import group1.storage.Cache;
-import group1.storage.CacheService;
+import group1.storage.Restaurant1;
 
 /**
  * Main class that incorporates all functions of the Restaurant RRPSS
@@ -38,7 +37,7 @@ public class RestaurantApp {
         System.out.print(obj);
     }
 
-    private static Menu menu = CacheService.getCache().getMenu();
+    private static Menu menu = Restaurant1.getCache().getMenu();
 
     private static void changeMenu(){
         print("Please select one of the following options:");
@@ -82,7 +81,7 @@ public class RestaurantApp {
 
     }
     private static void createOrder(){
-        TableList tables = CacheService.getCache().getTables();
+        TableList tables = Restaurant1.getCache().getTables();
         int pax;
         print("Do you have a reservation? 1) Yes, 2)No :");
         int choice = userInput.nextInt();
@@ -102,7 +101,7 @@ public class RestaurantApp {
             print("No tables available right now");
 		    return;
         }
-        ArrayList<Staff> staffs = CacheService.getCache().getStaffs();
+        ArrayList<Staff> staffs = Restaurant1.getCache().getStaffs();
         int j = 1;
         for (Staff s : staffs){
             print(j+") "+s.toString());
@@ -165,7 +164,7 @@ public class RestaurantApp {
         } while( choice < 4 );
     }
     private static Order getOrder(int tableNumber) {
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        ArrayList<Table> tables = Restaurant1.getCache().getTables().getTables();
         Table t = tables.get(tableNumber-1);
         return t.getOrder();
     }
@@ -174,7 +173,7 @@ public class RestaurantApp {
         int tableno = userInput.nextInt();
         Table t;
         try {
-            t = CacheService.getCache().getTables().getTables().get(tableno);
+            t = Restaurant1.getCache().getTables().getTables().get(tableno);
         } catch (IndexOutOfBoundsException e) {
             print("No such table exist");
             throw new InvalidTableException();
@@ -201,13 +200,13 @@ public class RestaurantApp {
         pax = userInput.nextInt();
         LocalDateTime specificDate = LocalDateTime.of(year, month, day, hour, minute);
         try {
-            new Reservation(specificDate, name, contact, pax);
+            Restaurant1.getCache().getTables().getReservationList().addReservation(specificDate, name, contact, pax);
         } catch (NotInMonthException | NotInOperationException e) {
             System.out.println(e.getMessage());
         }
     }
     private static void updateReservation(){
-        ReservationList reservationList = CacheService.getCache().getTables().getReservationList();
+        ReservationList reservationList = Restaurant1.getCache().getTables().getReservationList();
         print("Please select one of the following options:");
         print("(1) Check a next reservation");
         print("(2) Check a Reservation Booking for a date");
@@ -224,7 +223,7 @@ public class RestaurantApp {
                 int month = userInput.nextInt();
                 int day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
-                CacheService.getCache().getTables().getReservationList().printIndexReservation(specificDate);
+                Restaurant1.getCache().getTables().getReservationList().printIndexReservation(specificDate);
                 break;
 
             case 3:
@@ -234,7 +233,7 @@ public class RestaurantApp {
                 day = userInput.nextInt();
                 specificDate = LocalDateTime.of(year, month, day, 0, 0);
                 print("Current reservation for: " + specificDate);
-                CacheService.getCache().getTables().getReservationList().printIndexReservation(specificDate);
+                Restaurant1.getCache().getTables().getReservationList().printIndexReservation(specificDate);
                 print("Input contact number to remove reservation");
                 int contact = userInput.nextInt();
                 reservationList.removeIndexReservation(specificDate, contact);
@@ -248,11 +247,11 @@ public class RestaurantApp {
     private static void printInvoice(){
         print("Please enter your table number: ");
         int tableno = userInput.nextInt();
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        ArrayList<Table> tables = Restaurant1.getCache().getTables().getTables();
         Table t = tables.get(tableno-1);
         Invoice i = new Invoice(t);
         print(i.toString());
-        CacheService.getCache().getReports().addInvoice(i);
+        Restaurant1.getCache().getReports().addInvoice(i);
 
     }
     private static void printReport(){
@@ -263,7 +262,7 @@ public class RestaurantApp {
             print("Input date of report in yyyy-mm-dd");
             String day = userInput.next();
 	        try {
-                CacheService.getCache().getReports().printReport(LocalDate.parse(day));
+                Restaurant1.getCache().getReports().printReport(LocalDate.parse(day));
             } catch (DateTimeParseException e) {
                 print("invalid date input");
             }
@@ -273,7 +272,7 @@ public class RestaurantApp {
             int year = userInput.nextInt();
             print("Input Month in mm format:");
             int month = userInput.nextInt();
-            CacheService.getCache().getReports().printReport(year,month);
+            Restaurant1.getCache().getReports().printReport(year,month);
         }
     }
 
@@ -281,10 +280,8 @@ public class RestaurantApp {
 
 	    //initializes cache
         print("Please wait we retrieve the state of OOP Restaurant");
-        Cache cache = CacheService.getCache();
-        Runtime.getRuntime().addShutdownHook(new ShutDown());
-        Thread t = new Thread(new ReservationUpdateWorker());
-        t.start();
+        Cache cache = Restaurant1.getCache();
+        Runtime.getRuntime().addShutdownHook(new ShutDown(cache));
 
         print("Welcome to the OOP Restaurant");
         int choice;
@@ -342,7 +339,6 @@ public class RestaurantApp {
             }
 
         } while (choice < 11);
-        t.interrupt();
     }
 
 }

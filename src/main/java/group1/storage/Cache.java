@@ -18,10 +18,7 @@ import java.util.ArrayList;
  */
 public class Cache implements Serializable{
 
-	/**
-	 * stores the date today
-	 */
-	private LocalDate currentDay;
+
 	/**
 	 * stores state of tables
 	 */
@@ -44,7 +41,6 @@ public class Cache implements Serializable{
 	 */
 	Cache() {
 		tables = new TableList();
-		currentDay = LocalDate.now();
 		staffs = MockData.getStaffs();
 		menu = new Menu(MockData.getFoodItems());
 	}
@@ -56,21 +52,7 @@ public class Cache implements Serializable{
 		reports = new Reports(MockData.getReportList(this));
 	}
 
-	/**
-	 * gets the current date
-	 * @return today's date
-	 */
-	public LocalDate getCurrentDay() {
-		return currentDay;
-	}
 
-	/**
-	 * change today's date
-	 * @param currentDay date to change to
-	 */
-	public void setCurrentDay(LocalDate currentDay) {
-		this.currentDay = currentDay;
-	}
 
 	/**
 	 * gets the menu storage element

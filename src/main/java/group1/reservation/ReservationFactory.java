@@ -24,7 +24,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 class ReservationFactory {
 
     /**
-     * Checks if the time slot is within 9am - 5pm and within a month, if not, throw their respective exceptions
+     * Checks if the time slot is within 11am-3pm or 6pm to 10 pm and within a month, if not, throw their respective exceptions
      * Returns AM/PM depending on the local time
      * @param date date and time of reservation
      * @return session of reservation
@@ -36,19 +36,19 @@ class ReservationFactory {
          */
         ReservationFactory.updateReservation();
 
-        //check if reservation between 9.00 - 17.00
+
 /*
- * ensures the time is within 9 am to 5 pm,if not, throw NotInOperationException
+ * ensures the time is within 11-3, 6-10 ,if not, throw NotInOperationException
  */
-        if (date.toLocalTime().compareTo(LocalTime.of(23, 0)) == 1) {
+        if (date.toLocalTime().compareTo(LocalTime.of(22, 0)) == 1 && date.toLocalTime().compareTo(LocalTime.of(18, 0)) == -1) {
             throw new NotInOperationException();
-        } else if (date.toLocalTime().compareTo(LocalTime.of(9, 0)) == -1) {
+        } else if (date.toLocalTime().compareTo(LocalTime.of(15, 0)) == 1 && date.toLocalTime().compareTo(LocalTime.of(11, 0)) == -1) {
             throw new NotInOperationException();
         }
 /*
  * Return time in AM/PM
  */
-        if (date.toLocalTime().compareTo(LocalTime.NOON) == -1) {
+        if (date.toLocalTime().compareTo(LocalTime.of(16, 0)) == -1) {
             return AMSLOT;
         } else {
             return PMSLOT;

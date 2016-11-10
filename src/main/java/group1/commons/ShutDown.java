@@ -2,8 +2,6 @@ package group1.commons;
 
 import group1.storage.Cache;
 import group1.storage.Database;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class ShutDown extends Thread{
 
-	private static final Logger logger = LoggerFactory.getLogger(ShutDown.class);
 	private Cache cache;
 
 	public ShutDown(Cache cache) {
@@ -25,7 +22,6 @@ public class ShutDown extends Thread{
 	 */
 	@Override
 	public void run() {
-		logger.info("flushing cache to server database");
 
 		Database.flush(cache);
 		System.out.println("Data saved!");

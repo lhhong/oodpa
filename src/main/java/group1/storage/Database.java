@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Database {
 
-	private static final Logger logger = LoggerFactory.getLogger(Database.class);
-
 	private static final String SERVER = "ftp://b8_19113227:oodpcz2002@ftp.byethost8.com/htdocs/";
 	private static final String SUFFIX = ";type=i";
 	private static final String FILE_NAME = "restaurant-data.dat";
@@ -55,7 +53,6 @@ public class Database {
 			try {
 				is = urlC.getInputStream();
 			} catch (FileNotFoundException e) {
-				logger.info("file not found in ftp");
 				return null;
 			}
 			InputStream buffer = new BufferedInputStream(is);

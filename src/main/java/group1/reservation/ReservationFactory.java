@@ -39,18 +39,13 @@ class ReservationFactory {
 /*
  * ensures the time is within 11-3, 6-10 ,if not, throw NotInOperationException
  */
-        if (!(date.toLocalTime().compareTo(LocalTime.of(22, 0)) == -1 && date.toLocalTime().compareTo(LocalTime.of(18, 0)) == 1)) {
-            throw new NotInOperationException();
-        } else if (!(date.toLocalTime().compareTo(LocalTime.of(15, 0)) == -1 && date.toLocalTime().compareTo(LocalTime.of(11, 0)) == 1)) {
-            throw new NotInOperationException();
-        }
-/*
- * Return time in AM/PM
- */
-        if (date.toLocalTime().compareTo(LocalTime.of(16, 0)) == -1) {
-            return AMSLOT;
-        } else {
+
+        if (date.toLocalTime().isAfter(LocalTime.of(18, 0)) && date.toLocalTime().isBefore(LocalTime.of(22, 0))) {
             return PMSLOT;
+        } else if (date.toLocalTime().isAfter(LocalTime.of(11, 0)) && date.toLocalTime().isBefore(LocalTime.of(15, 0))) {
+            return AMSLOT;
+        }else{
+            throw new NotInOperationException();
         }
 
     }

@@ -39,7 +39,7 @@ public class DatabaseTest {
 	@Test
 	public void upload() {
 		Cache item = null;
-		Database.flush();
+		Database.flush(item);
 	}
 
 	@Ignore

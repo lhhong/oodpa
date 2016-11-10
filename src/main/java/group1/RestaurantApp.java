@@ -90,7 +90,7 @@ public class RestaurantApp {
             print("Please enter your contact number: ");
             int contact = userInput.nextInt();
             LocalDateTime specificDate = LocalDateTime.now();
-            pax = ReservationFactory.removeIndexReservation(specificDate, contact);
+            pax = tables.getReservationList().removeIndexReservation(specificDate, contact);
         }
         else{
             print("Please enter number of pax: ");
@@ -237,7 +237,7 @@ public class RestaurantApp {
                 CacheService.getCache().getTables().getReservationList().printIndexReservation(specificDate);
                 print("Input contact number to remove reservation");
                 int contact = userInput.nextInt();
-                ReservationFactory.removeIndexReservation(specificDate, contact);
+                reservationList.removeIndexReservation(specificDate, contact);
                 break;
             default:
                 print("Please input a valid choice");

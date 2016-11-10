@@ -1,8 +1,5 @@
 package group1.reservation;
 
-import group1.storage.CacheService;
-import group1.storage.SynchroLock;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,11 +20,6 @@ public class ReservationList implements Serializable{
 	 */
 	private LinkedList<ArrayList<Reservation>> reservations;
 	/**
-	 * synchronization object
-	 */
-	private final SynchroLock reservationsChangeLock = new SynchroLock();
-
-	/**
 	 * Creates a new reservation list
 	 */
 	public ReservationList() {
@@ -43,29 +35,17 @@ public class ReservationList implements Serializable{
 	 */
 	void addReservation(Reservation reservation) {
 		int index = ReservationFactory.getIndex(reservation);
-		synchronized (reservationsChangeLock) {
-			reservations.get(index).add(reservation);
-		}
+		reservations.get(index).add(reservation);
 	}
 
 	/**
 	 * dequeue reservation list of the day and add a new reservation for the 30th day
 	 */
 	public void oneDayPassed() {
-		synchronized (reservationsChangeLock) {
-			reservations.removeFirst();
-			reservations.removeFirst();
-			reservations.addLast(new ArrayList<>());
-			reservations.addLast(new ArrayList<>());
-		}
-	}
-
-	/**
-	 * gets change lock instance
-	 * @return synchronization lock instance
-	 */
-	SynchroLock getReservationsChangeLock() {
-		return reservationsChangeLock;
+		reservations.removeFirst();
+		reservations.removeFirst();
+		reservations.addLast(new ArrayList<>());
+		reservations.addLast(new ArrayList<>());
 	}
 
 	/**
@@ -104,6 +84,10 @@ public class ReservationList implements Serializable{
 
 	public void printIndexReservation(LocalDateTime date) {
 		ReservationFactory.printIndexReservation(date, this);
+	}
+
+	public int removeIndexReservation(LocalDateTime specificDate, int contact) {
+			return ReservationFactory.removeIndexReservation(specificDate, contact, this);
 	}
 
 

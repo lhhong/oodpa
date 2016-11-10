@@ -279,6 +279,7 @@ public class RestaurantApp {
     public static void main(String[] args) {
 
 	    //initializes cache
+        print("Please wait we retrieve the state of OOP Restaurant");
         CacheService.getCache();
         Runtime.getRuntime().addShutdownHook(new ShutDown());
         Thread t = new Thread(new ReservationUpdateWorker());
@@ -336,7 +337,7 @@ public class RestaurantApp {
                     printReport();
                     break;
                 default:
-                    print("Program exited.");
+                    print("Program exiting... Please wait while we save the state of OOP Restaurant");
             }
 
         } while (choice < 11);

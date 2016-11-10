@@ -23,5 +23,6 @@ public class ShutDown extends Thread{
 		logger.info("flushing cache to server database");
 
 		Database.flush();
+		System.out.println("Data saved!");
 	}
 }

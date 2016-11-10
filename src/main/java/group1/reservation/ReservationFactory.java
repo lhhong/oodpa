@@ -1,8 +1,7 @@
 package group1.reservation;
 
 import group1.restaurant.Table;
-import group1.storage.Cache;
-import group1.storage.CacheService;
+import group1.storage.Restaurant1;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,11 +29,11 @@ class ReservationFactory {
      * @return session of reservation
      * @throws NotInOperationException when time out of range
      */
-    static AMPM getTimeSlot(LocalDateTime date) throws NotInOperationException {
+    static AMPM getTimeSlot(LocalDateTime date, ReservationList reservationList) throws NotInOperationException {
         /*
          * Update reservation list and checks for any expired reservations
          */
-        ReservationFactory.updateReservation();
+        ReservationFactory.updateReservation(reservationList);
 
 
 /*
@@ -61,9 +60,9 @@ class ReservationFactory {
      * @param reservation reservation object to get index for
      * @return index of the reservation in reservation list
      */
-    static int getIndex(Reservation reservation) {
-        ReservationFactory.updateReservation();
-        LocalDate currentDate = CacheService.getCache().getCurrentDay();
+    static int getIndex(Reservation reservation, ReservationList reservationList) {
+        ReservationFactory.updateReservation(reservationList);
+        LocalDate currentDate = reservationList.getCurrentDay();
         LocalDate reservationDate = reservation.getDate().toLocalDate();
 
         /*
@@ -91,12 +90,12 @@ class ReservationFactory {
      * @param date date and time of reservation
      * @return index of the reservation in reservation list
      */
-    private static int getIndex(LocalDateTime date) {
+    private static int getIndex(LocalDateTime date, ReservationList reservationList) {
         /*
          * Update reservation list and checks for any expired reservations
          */
-        ReservationFactory.updateReservation();
-        LocalDate currentDate = CacheService.getCache().getCurrentDay();
+        ReservationFactory.updateReservation(reservationList);
+        LocalDate currentDate = reservationList.getCurrentDay();
         LocalDate reservationDate = date.toLocalDate();
         int dayDifference = (int) DAYS.between(currentDate, reservationDate);
         if (dayDifference < 0 || dayDifference > 30) {
@@ -113,21 +112,21 @@ class ReservationFactory {
      * @param pax number of people
      * @return table number
      */
-    static int getTable(int index, int pax) {
+    static int getTable(int index, int pax, ReservationList reservationList) {
         /*
          * Update reservation list and checks for any expired reservations
          */
-        ReservationFactory.updateReservation();
+        ReservationFactory.updateReservation(reservationList);
         /*
          * Get the arraylist of tables
          */
-        ArrayList<Table> tables = CacheService.getCache().getTables().getTables();
+        ArrayList<Table> tables = Restaurant1.getCache().getTables().getTables();
 
         /*
          * Get the arraylist of reservations
          */
         ArrayList<Reservation> indexReservation;
-        indexReservation = CacheService.getCache().getTables().getReservationList().indexReservation(index);
+        indexReservation = Restaurant1.getCache().getTables().getReservationList().indexReservation(index);
 
         ArrayList<Integer> reservedTables = new ArrayList<>();
         for (Reservation current : indexReservation) {
@@ -160,9 +159,9 @@ class ReservationFactory {
         /*
          * Update reservation list and checks for any expired reservations
          */
-        ReservationFactory.updateReservation();
+        ReservationFactory.updateReservation(reservationList);
         ArrayList<Reservation> indexReservationAM, indexReservationPM;
-        indexReservationAM = reservationList.indexReservation(getIndex(date));
+        indexReservationAM = reservationList.indexReservation(getIndex(date, reservationList));
 
         Iterator<Reservation> iter = indexReservationAM.iterator();
         int count = 1;
@@ -201,7 +200,7 @@ class ReservationFactory {
 /*
  * Repeats for the PM slot
  */
-        indexReservationPM = reservationList.indexReservation(getIndex(date) + 1);
+        indexReservationPM = reservationList.indexReservation(getIndex(date, reservationList) + 1);
 
         count = 1;
         hasReservation = false;
@@ -238,9 +237,9 @@ class ReservationFactory {
      * @return pax of reservation
      */
     static int removeIndexReservation(LocalDateTime specificDate, int contact, ReservationList reservationList) {
-        ReservationFactory.updateReservation();
+        ReservationFactory.updateReservation(reservationList);
 
-        int index = getIndex(specificDate);
+        int index = getIndex(specificDate, reservationList);
         int i;
         int pax;
 
@@ -276,22 +275,21 @@ class ReservationFactory {
     /**
      * Update reservation list and checks for any expired reservations
      */
-    static void updateReservation() {
+    static void updateReservation(ReservationList reservationList) {
         /*
          * expiryTime is the time where all reservations before this time is considered expired
          */
-        Cache cache = CacheService.getCache();
         LocalDate currentDate = LocalDate.now();
-        long dayDiff = DAYS.between(cache.getCurrentDay(), currentDate);
+        long dayDiff = DAYS.between(reservationList.getCurrentDay(), currentDate);
         if (dayDiff == 1) {
-            cache.getTables().getReservationList().oneDayPassed();
-            cache.setCurrentDay(currentDate);
+            reservationList.oneDayPassed();
+            reservationList.setCurrentDay(currentDate);
         }
         else if (dayDiff !=0) {
             for (int i = 0; i < dayDiff; i++) {
-                cache.getTables().getReservationList().oneDayPassed();
+                reservationList.oneDayPassed();
             }
-            cache.setCurrentDay(currentDate);
+            reservationList.setCurrentDay(currentDate);
         }
 
         LocalDateTime expiryTime = LocalDateTime.now().minusMinutes(30);
@@ -299,7 +297,7 @@ class ReservationFactory {
          * For AM and PM (pos 0 and 1), remove any expired reservations
          */
         for (int i = 0; i <= 1 ; i++) {
-            ArrayList<Reservation> indexReservation = cache.getTables().getReservationList().indexReservation(i);
+            ArrayList<Reservation> indexReservation = reservationList.indexReservation(i);
 	        for (int j = 0; j < indexReservation.size(); j++) {
                 Reservation current;
                 try {

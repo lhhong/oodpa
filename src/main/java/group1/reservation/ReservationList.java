@@ -1,6 +1,7 @@
 package group1.reservation;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -20,28 +21,38 @@ public class ReservationList implements Serializable{
 	 */
 	private LinkedList<ArrayList<Reservation>> reservations;
 	/**
+	 * stores the date today
+	 */
+	private LocalDate currentDay;
+	/**
 	 * Creates a new reservation list
 	 */
 	public ReservationList() {
+		currentDay = LocalDate.now();
 		reservations = new LinkedList<>();
 		for (int i=0; i<31; i++) {
 			reservations.add(new ArrayList<>());
 		}
 	}
 
+	public void addReservation(LocalDateTime date, String name, int contact,int pax) throws NotInMonthException, NotInOperationException {
+		Reservation reservation = new Reservation(date, name, contact, pax, this);
+		addReservation(reservation);
+	}
+
 	/**
 	 * Adds a reservation to the list
 	 * @param reservation new reservation object to be added
 	 */
-	void addReservation(Reservation reservation) {
-		int index = ReservationFactory.getIndex(reservation);
+	private void addReservation(Reservation reservation) {
+		int index = ReservationFactory.getIndex(reservation, this);
 		reservations.get(index).add(reservation);
 	}
 
 	/**
 	 * dequeue reservation list of the day and add a new reservation for the 30th day
 	 */
-	public void oneDayPassed() {
+	void oneDayPassed() {
 		reservations.removeFirst();
 		reservations.removeFirst();
 		reservations.addLast(new ArrayList<>());
@@ -59,7 +70,7 @@ public class ReservationList implements Serializable{
 	}
 
 	public ArrayList<Integer> getReservedTablesInThisSession() {
-		ReservationFactory.updateReservation();
+		ReservationFactory.updateReservation(this);
 		ArrayList<Reservation> indexReservation;
 		int index;
         /*
@@ -90,6 +101,20 @@ public class ReservationList implements Serializable{
 			return ReservationFactory.removeIndexReservation(specificDate, contact, this);
 	}
 
+	/**
+	 * gets the current date
+	 * @return today's date
+	 */
+	LocalDate getCurrentDay() {
+		return currentDay;
+	}
 
+	/**
+	 * change today's date
+	 * @param currentDay date to change to
+	 */
+	void setCurrentDay(LocalDate currentDay) {
+		this.currentDay = currentDay;
+	}
 
 }

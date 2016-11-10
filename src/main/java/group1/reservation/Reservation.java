@@ -1,7 +1,5 @@
 package group1.reservation;
 
-import group1.storage.CacheService;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -12,7 +10,7 @@ import java.time.LocalDateTime;
  * @since 2016-11-8
  */
 
-public class Reservation implements Serializable{
+class Reservation implements Serializable{
 
     /**
      * The date of the reservation
@@ -48,22 +46,21 @@ public class Reservation implements Serializable{
      * @throws NotInMonthException when reservation more than 30 days in advance
      * @throws NotInOperationException when reservation made out of operating hours
      */
-    public Reservation(LocalDateTime date, String name, int contact,int pax) throws NotInMonthException, NotInOperationException {
+    Reservation(LocalDateTime date, String name, int contact,int pax, ReservationList reservationList) throws NotInMonthException, NotInOperationException {
         this.date = date;
 
         this.name = name;
         this.contact = contact;
         this.pax = pax;
 
-        this.timeslot = ReservationFactory.getTimeSlot(date);
+        this.timeslot = ReservationFactory.getTimeSlot(date, reservationList);
 
-        int index = ReservationFactory.getIndex(this);
+        int index = ReservationFactory.getIndex(this, reservationList);
 
         if(index == -1){
             throw new NotInMonthException();
         }
-        this.tableIndex = ReservationFactory.getTable(index, pax);
-        CacheService.getCache().getTables().getReservationList().addReservation(this);
+        this.tableIndex = ReservationFactory.getTable(index, pax, reservationList);
 
     }
 

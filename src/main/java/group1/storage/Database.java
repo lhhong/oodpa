@@ -24,7 +24,7 @@ public class Database {
 	/**
 	 * flushes the cache into a serialized file on ftp server
 	 */
-	public static void flush() {
+	public static void flush(Cache cache) {
 		URL  url;
 		try {
 			url = new URL(server + fileName + suffix);
@@ -32,7 +32,7 @@ public class Database {
 			OutputStream os = urlc.getOutputStream(); // To upload
 			OutputStream buffer = new BufferedOutputStream(os);
 			ObjectOutput output = new ObjectOutputStream(buffer);
-			output.writeObject(CacheService.getCache());
+			output.writeObject(cache);
 			buffer.close();
 			os.close();
 			output.close();

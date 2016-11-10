@@ -21,10 +21,10 @@ public class Restaurant1 {
 	 * get singleton instance of cache
 	 * @return cache containing restaurant data
 	 */
-	public static synchronized Cache getCache() {
+	public static Cache getCache() {
 		if (cache == null) {
 			logger.info("initializing cache. This may take some time, please wait a moment...");
-			//cache = Database.read();
+			cache = Database.read();
 			if (cache == null) {
 				cache = new Cache();
 				cache.setMockReports();

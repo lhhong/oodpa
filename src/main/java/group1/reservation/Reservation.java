@@ -38,10 +38,6 @@ public class Reservation implements Serializable{
      * The table number of the reservation
      */
     private int tableIndex;
-    /**
-     * reservation expired
-     */
-    private boolean isExpired;
 
     /**
      * Creates a reservation along with all possible attributes
@@ -58,7 +54,6 @@ public class Reservation implements Serializable{
         this.name = name;
         this.contact = contact;
         this.pax = pax;
-        this.isExpired = false;
 
         this.timeslot = ReservationFactory.getTimeSlot(date);
 
@@ -72,13 +67,6 @@ public class Reservation implements Serializable{
 
     }
 
-    boolean isExpired() {
-        return isExpired;
-    }
-
-    void expired() {
-        isExpired = true;
-    }
     /**
      * Gets the date of reservation
      * @return date of reservation

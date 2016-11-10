@@ -76,10 +76,13 @@ public class ReservationList implements Serializable{
         /*
          * Determine if it is AM or PM and set index to 0 or 1 respectively
          */
-		if (LocalDateTime.now().toLocalTime().compareTo(LocalTime.NOON) == -1) {
+		LocalTime currentTime = LocalTime.now();
+		if (currentTime.isAfter(LocalTime.of(18, 0)) && currentTime.isBefore(LocalTime.of(22, 0))) {
+			index = 1;
+		} else if (currentTime.isAfter(LocalTime.of(11, 0)) && currentTime.isBefore(LocalTime.of(15, 0))) {
 			index = 0;
 		} else {
-			index = 1;
+			return new ArrayList<>();
 		}
         /*
          * Obtains the AM/PM reservation for the day

@@ -24,20 +24,38 @@ import group1.storage.Restaurant1;
 
 public class RestaurantApp {
 
+    /**
+     * scanner object for console input
+     */
     private static Scanner userInput = new Scanner(System.in);
 
-    // Printing Functions
+    /**
+     * newline print short cut
+     */
     private static void print() {
         System.out.println();
     }
+
+    /**
+     * println shortcut
+     * @param obj object to print
+     */
     private static void print(Object obj) {
         System.out.println(obj);
     }
+
+    /**
+     * print shortcut
+     * @param obj object to print
+     */
     private static void printnb(Object obj) {
         System.out.print(obj);
     }
 
 
+    /**
+     * changes the menu
+     */
     private static void changeMenu(){
         Menu menu = Restaurant1.getCache().getMenu();
         print("Please select one of the following options:");
@@ -59,6 +77,10 @@ public class RestaurantApp {
                 print("Please input a valid choice");
         }
     }
+
+    /**
+     * changes promotion
+     */
     private static void changePromotion(){
         Menu menu = Restaurant1.getCache().getMenu();
         print("Please select one of the following options:");
@@ -81,6 +103,10 @@ public class RestaurantApp {
         }
 
     }
+
+    /**
+     * assigns a table and creates a new order
+     */
     private static void createOrder(){
         TableList tables = Restaurant1.getCache().getTables();
         int pax;
@@ -96,7 +122,9 @@ public class RestaurantApp {
             print("Please enter number of pax: ");
             pax = userInput.nextInt();
         }
-        //if pax=-1: break
+        if (pax == -1) {
+            return;
+        }
         Table assigned = tables.assignTable(pax);
 	    if (assigned == null) {
             print("No tables available right now");
@@ -114,6 +142,10 @@ public class RestaurantApp {
         assigned.newOrder(neworder);
         editOrder(assigned.getTableNumber());
     }
+
+    /**
+     * view an order from user input
+     */
     private static void viewOrder(){
         Order o;
         try {
@@ -123,6 +155,10 @@ public class RestaurantApp {
         }
         o.printOrder();
     }
+
+    /**
+     * edits an order from user input
+     */
     private static void editOrder() {
         Order o;
         try {
@@ -132,10 +168,20 @@ public class RestaurantApp {
         }
         editOrder(o);
     }
+
+    /**
+     * edits an order by table number
+     * @param tableNumber table to edit order
+     */
     private static void editOrder(int tableNumber) {
         Order o = getOrder(tableNumber);
 	    editOrder(o);
     }
+
+    /**
+     * edits an order object
+     * @param o order to be edited
+     */
     private static void editOrder(Order o){
         Menu menu = Restaurant1.getCache().getMenu();
         int choice;
@@ -165,11 +211,23 @@ public class RestaurantApp {
             }
         } while( choice < 4 );
     }
+
+    /**
+     * gets the order object from table number
+     * @param tableNumber table number of order
+     * @return the order of tableNumber
+     */
     private static Order getOrder(int tableNumber) {
         ArrayList<Table> tables = Restaurant1.getCache().getTables().getTables();
         Table t = tables.get(tableNumber-1);
         return t.getOrder();
     }
+
+    /**
+     * gets the order from user input
+     * @return order object
+     * @throws InvalidTableException when table is not occupied or not in restaurant
+     */
     private static Order getOrder() throws InvalidTableException {
         print("Please enter your table number: ");
         int tableno = userInput.nextInt();

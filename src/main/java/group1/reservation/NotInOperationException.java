@@ -8,7 +8,7 @@ package group1.reservation;
  */
 public class NotInOperationException extends Exception{
     NotInOperationException(){
-        super("Only open from 11am-3pm or 6pm to 10 pm");
+        super("Only open from 11am to 3pm or 6pm to 10 pm");
     }
 
 }

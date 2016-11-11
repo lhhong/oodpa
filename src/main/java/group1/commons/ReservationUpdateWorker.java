@@ -28,7 +28,8 @@ public class ReservationUpdateWorker implements Runnable {
 
 		while (true) {
 			LocalDate currentDate = LocalDate.now();
-			long dayDiff = DAYS.between(currentDate, cache.getCurrentDay());
+			long dayDiff = DAYS.between(cache.getCurrentDay(), currentDate);
+			logger.debug("Day difference: " + Long.toString(dayDiff));
 			if (dayDiff == 1) {
 				logger.info("one day have passed, updating reservations list");
 				cache.getReservations().oneDayPassed();
@@ -42,7 +43,7 @@ public class ReservationUpdateWorker implements Runnable {
 				cache.setCurrentDay(currentDate);
 			}
 			try {
-				Thread.sleep(80000L);
+				Thread.sleep(60000L);
 			} catch (InterruptedException e) {
 				logger.info("service interrupted, ending it now");
 				break;
